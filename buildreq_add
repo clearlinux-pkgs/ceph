@@ -1,0 +1,20 @@
+# This file contains additional build requirements that did not get
+# picked up automatically. One name per line, no whitespace.
+# Found by autospec
+util-linux-dev
+systemd-dev
+expat-dev
+curl-dev
+valgrind
+# not found by autospec
+snappy-dev
+libedit-dev
+leveldb-dev
+keyutils-dev
+gperftools-dev
+fcgi-dev
+libatomic_ops-dev
+rocksdb-dev
+libaio-dev
+xfsprogs-dev
+boost-dev

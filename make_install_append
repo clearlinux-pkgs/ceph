@@ -1,0 +1,2 @@
+install -d -m 750 %{buildroot}/usr/share/defaults/sudo/sudoers.d
+install -p -D -m 440 ceph.sudoers %{buildroot}/usr/share/defaults/sudo/sudoers.d/ceph

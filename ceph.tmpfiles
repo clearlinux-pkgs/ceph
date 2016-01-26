@@ -1,0 +1,2 @@
+d /var/lib/ceph - ceph ceph - -
+d /run/ceph - ceph ceph - -
