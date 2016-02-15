@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 9.2.0
-Release  : 3
+Release  : 4
 URL      : http://ceph.com/download/ceph-9.2.0.tar.gz
 Source0  : http://ceph.com/download/ceph-9.2.0.tar.gz
 Source1  : ceph.tmpfiles
