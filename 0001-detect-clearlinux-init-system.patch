@@ -1,0 +1,60 @@
+From 5639f0c091e5d60e211357d78098bab9c6e2ed1b Mon Sep 17 00:00:00 2001
+From: Alberto Murillo <alberto.murillo.silva@intel.com>
+Date: Thu, 18 Feb 2016 17:15:58 -0600
+Subject: [PATCH] detect clearlinux init system
+
+---
+ src/ceph-detect-init/ceph_detect_init/__init__.py            |  4 ++++
+ src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py | 11 +++++++++++
+ 2 files changed, 15 insertions(+)
+ create mode 100644 src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py
+
+diff --git a/src/ceph-detect-init/ceph_detect_init/__init__.py b/src/ceph-detect-init/ceph_detect_init/__init__.py
+index cc9b2c0..6c79ce7 100644
+--- a/src/ceph-detect-init/ceph_detect_init/__init__.py
++++ b/src/ceph-detect-init/ceph_detect_init/__init__.py
+@@ -16,6 +16,7 @@
+ # GNU Library Public License for more details.
+ #
+ from ceph_detect_init import centos
++from ceph_detect_init import clearlinux
+ from ceph_detect_init import debian
+ from ceph_detect_init import exc
+ from ceph_detect_init import fedora
+@@ -59,6 +60,7 @@ def _get_distro(distro, use_rhceph=False):
+         'redhat': centos,
+         'fedora': fedora,
+         'suse': suse,
++        'clearlinux': clearlinux,
+     }
+ 
+     if distro == 'redhat' and use_rhceph:
+@@ -77,6 +79,8 @@ def _normalized_distro_name(distro):
+         return 'suse'
+     elif distro.startswith('centos'):
+         return 'centos'
++    elif distro.startswith('clear linux'):
++        return 'clearlinux'
+     return distro
+ 
+ 
+diff --git a/src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py b/src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py
+new file mode 100644
+index 0000000..425ce50
+--- /dev/null
++++ b/src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py
+@@ -0,0 +1,11 @@
++distro = None
++release = None
++codename = None
++
++
++def choose_init():
++    """Select a init system
++
++    Returns the name of a init system (upstart, sysvinit ...).
++    """
++    return 'systemd'
+-- 
+2.5.0
+

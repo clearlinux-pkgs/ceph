@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 9.2.0
-Release  : 4
+Release  : 5
 URL      : http://ceph.com/download/ceph-9.2.0.tar.gz
 Source0  : http://ceph.com/download/ceph-9.2.0.tar.gz
 Source1  : ceph.tmpfiles
@@ -50,6 +50,7 @@ BuildRequires : valgrind
 BuildRequires : xfsprogs-dev
 Patch1: 0001-Ceph-sudoers-entry.patch
 Patch2: 0002-Do-not-parse-lsb_release.patch
+Patch3: 0001-detect-clearlinux-init-system.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -123,6 +124,7 @@ python components for the ceph package.
 %setup -q -n ceph-9.2.0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %reconfigure --disable-static --with-nss \
