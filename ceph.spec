@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 9.2.0
-Release  : 5
+Release  : 6
 URL      : http://ceph.com/download/ceph-9.2.0.tar.gz
 Source0  : http://ceph.com/download/ceph-9.2.0.tar.gz
 Source1  : ceph.tmpfiles
@@ -139,6 +139,9 @@ install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/ceph.conf
 ## make_install_append content
 install -d -m 750 %{buildroot}/usr/share/defaults/sudo/sudoers.d
 install -p -D -m 440 ceph.sudoers %{buildroot}/usr/share/defaults/sudo/sudoers.d/ceph
+install -d -m 755 %{buildroot}/usr/lib/udev/rules.d
+install -p -D -m 644 udev/50-rbd.rules %{buildroot}/usr/lib/udev/rules.d
+install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 ## make_install_append end
 
 %files
@@ -201,6 +204,8 @@ install -p -D -m 440 ceph.sudoers %{buildroot}/usr/share/defaults/sudo/sudoers.d
 /usr/lib/systemd/system/ceph-radosgw@.service
 /usr/lib/systemd/system/ceph.target
 /usr/lib/tmpfiles.d/ceph.conf
+/usr/lib/udev/rules.d/50-rbd.rules
+/usr/lib/udev/rules.d/95-ceph-osd.rules
 
 %files data
 %defattr(-,root,root,-)
