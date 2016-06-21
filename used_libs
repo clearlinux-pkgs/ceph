@@ -22,7 +22,7 @@ libplc4.so
 libplds4.so
 libpthread.so.0
 libresolv.so.2
-librocksdb.so.4.1
+librocksdb.so.4.6
 librt.so.1
 libsmime3.so
 libssl3.so
