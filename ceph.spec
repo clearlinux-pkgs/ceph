@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 9.2.1
-Release  : 12
+Release  : 13
 URL      : http://ceph.com/download/ceph-9.2.1.tar.gz
 Source0  : http://ceph.com/download/ceph-9.2.1.tar.gz
 Source1  : ceph.tmpfiles
@@ -24,6 +24,7 @@ BuildRequires : curl-dev
 BuildRequires : expat-dev
 BuildRequires : fcgi-dev
 BuildRequires : gettext-bin
+BuildRequires : googletest-dev
 BuildRequires : gperftools-dev
 BuildRequires : keyutils-dev
 BuildRequires : leveldb-dev
@@ -48,6 +49,7 @@ BuildRequires : systemd-dev
 BuildRequires : util-linux-dev
 BuildRequires : valgrind
 BuildRequires : xfsprogs-dev
+BuildRequires : yasm
 Patch1: 0001-Ceph-sudoers-entry.patch
 Patch2: 0002-Do-not-parse-lsb_release.patch
 Patch3: 0001-detect-clearlinux-init-system.patch

@@ -18,3 +18,5 @@ rocksdb-dev
 libaio-dev
 xfsprogs-dev
 boost-dev
+yasm
+googletest-dev
