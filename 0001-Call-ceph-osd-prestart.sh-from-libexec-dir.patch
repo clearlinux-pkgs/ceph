@@ -1,0 +1,25 @@
+From 529ae44e287e6b293680ff4a98bb70ac29d34e2b Mon Sep 17 00:00:00 2001
+From: Alberto Murillo <alberto.murillo.silva@intel.com>
+Date: Tue, 28 Jun 2016 12:35:10 -0500
+Subject: [PATCH] Call ceph-osd-prestart.sh from libexec dir
+
+---
+ systemd/ceph-osd@.service | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/systemd/ceph-osd@.service b/systemd/ceph-osd@.service
+index 592b324..45d5ea1 100644
+--- a/systemd/ceph-osd@.service
++++ b/systemd/ceph-osd@.service
+@@ -10,7 +10,7 @@ LimitNPROC=1048576
+ EnvironmentFile=-/etc/sysconfig/ceph
+ Environment=CLUSTER=ceph
+ ExecStart=/usr/bin/ceph-osd -f --cluster ${CLUSTER} --id %i --setuser ceph --setgroup ceph
+-ExecStartPre=/usr/lib/ceph/ceph-osd-prestart.sh --cluster ${CLUSTER} --id %i
++ExecStartPre=/usr/libexec/ceph/ceph-osd-prestart.sh --cluster ${CLUSTER} --id %i
+ ExecReload=/bin/kill -HUP $MAINPID
+ ProtectHome=true
+ ProtectSystem=full
+-- 
+2.7.4
+

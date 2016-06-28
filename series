@@ -1,3 +1,5 @@
 0001-Ceph-sudoers-entry.patch
 0002-Do-not-parse-lsb_release.patch
 0001-detect-clearlinux-init-system.patch
+0001-use-uname-instead-of-arch.patch
+0001-Call-ceph-osd-prestart.sh-from-libexec-dir.patch

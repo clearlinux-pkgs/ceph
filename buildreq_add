@@ -1,22 +1,25 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-# Found by autospec
+Sphinx-python
+snappy-dev
+leveldb-dev
 util-linux-dev
 systemd-dev
 expat-dev
-curl-dev
-valgrind
-# not found by autospec
-snappy-dev
-libedit-dev
-leveldb-dev
+yasm
 keyutils-dev
-gperftools-dev
 fcgi-dev
+gperftools-dev
 libatomic_ops-dev
-rocksdb-dev
+curl-dev
+lz4-dev
+bzip2-dev
 libaio-dev
 xfsprogs-dev
 boost-dev
-yasm
-googletest-dev
+zlib-dev
+tox-python
+tox
+valgrind
+virtualenv
+openssl-dev

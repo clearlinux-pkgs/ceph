@@ -1,2 +1,5 @@
 --with-nss
---with-librocksdb
+--without-cryptopp
+--without-librocksdb
+--without-cython
+--without-openldap
