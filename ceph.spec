@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 10.2.2
-Release  : 16
+Release  : 17
 URL      : http://ceph.com/download/ceph-10.2.2.tar.gz
 Source0  : http://ceph.com/download/ceph-10.2.2.tar.gz
 Source1  : ceph.tmpfiles
@@ -27,7 +27,10 @@ BuildRequires : curl-dev
 BuildRequires : expat-dev
 BuildRequires : fcgi-dev
 BuildRequires : gettext-bin
+BuildRequires : googletest-dev
 BuildRequires : gperftools-dev
+BuildRequires : imagesize
+BuildRequires : isa-l-dev
 BuildRequires : keyutils-dev
 BuildRequires : leveldb-dev
 BuildRequires : libaio-dev
@@ -52,6 +55,7 @@ BuildRequires : tox
 BuildRequires : tox-python
 BuildRequires : util-linux-dev
 BuildRequires : valgrind
+BuildRequires : valgrind-dev
 BuildRequires : virtualenv
 BuildRequires : xfsprogs-dev
 BuildRequires : yasm
@@ -139,6 +143,7 @@ python components for the ceph package.
 %patch5 -p1
 
 %build
+export LANG=C
 %reconfigure --disable-static --with-nss \
 --without-cryptopp \
 --without-librocksdb \

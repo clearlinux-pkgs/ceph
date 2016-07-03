@@ -21,5 +21,9 @@ zlib-dev
 tox-python
 tox
 valgrind
+valgrind-dev
 virtualenv
 openssl-dev
+isa-l-dev
+googletest-dev
+imagesize
