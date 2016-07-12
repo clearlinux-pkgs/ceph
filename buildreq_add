@@ -27,3 +27,4 @@ openssl-dev
 isa-l-dev
 googletest-dev
 imagesize
+Cython

@@ -1,0 +1,25 @@
+From 1db869edf165d2ed043c2140100c8f53d65cdcaf Mon Sep 17 00:00:00 2001
+From: Victor Rodriguez <victor.rodriguez.bahena@intel.com>
+Date: Wed, 13 Jul 2016 00:12:48 +0000
+Subject: [PATCH] enable fPIC in python cflags
+
+Signed-off-by: Victor Rodriguez <victor.rodriguez.bahena@intel.com>
+---
+ configure | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/configure b/configure
+index 8083cc5..a1b9099 100755
+--- a/configure
++++ b/configure
+@@ -17688,6 +17688,7 @@ as_fn_error $? "python-config not found
+ See \`config.log' for more details" "$LINENO" 5; }
+     fi
+     PYTHON_CFLAGS=`python-config --cflags`
++    PYTHON_CFLAGS="$PYTHON_CFLAGS -fPIC"
+ 
+     PYTHON_LDFLAGS=`python-config --ldflags`
+ 
+-- 
+2.9.0
+

@@ -3,3 +3,4 @@
 0001-detect-clearlinux-init-system.patch
 0001-use-uname-instead-of-arch.patch
 0001-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
+0001-enable-fPIC-in-python-cflags.patch
