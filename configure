@@ -2,3 +2,7 @@
 --without-cryptopp
 --without-librocksdb
 --without-openldap
+--with-rados
+--with-rbd
+--with-cython
+--with-cephfs
