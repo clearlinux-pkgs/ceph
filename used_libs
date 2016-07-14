@@ -25,6 +25,7 @@ libnssutil3.so
 libplc4.so
 libplds4.so
 libpthread.so.0
+libpython2.7.so.1.0
 libresolv.so.2
 librt.so.1
 libsmime3.so

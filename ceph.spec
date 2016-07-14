@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 10.2.2
-Release  : 18
+Release  : 19
 URL      : http://ceph.com/download/ceph-10.2.2.tar.gz
 Source0  : http://ceph.com/download/ceph-10.2.2.tar.gz
 Source1  : ceph.tmpfiles
@@ -17,6 +17,7 @@ Requires: ceph-config
 Requires: ceph-lib
 Requires: ceph-data
 Requires: ceph-doc
+BuildRequires : Cython
 BuildRequires : Sphinx-python
 BuildRequires : automake
 BuildRequires : automake-dev
@@ -65,6 +66,7 @@ Patch2: 0002-Do-not-parse-lsb_release.patch
 Patch3: 0001-detect-clearlinux-init-system.patch
 Patch4: 0001-use-uname-instead-of-arch.patch
 Patch5: 0001-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
+Patch6: 0001-enable-fPIC-in-python-cflags.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -141,13 +143,13 @@ python components for the ceph package.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 export LANG=C
 %reconfigure --disable-static --with-nss \
 --without-cryptopp \
 --without-librocksdb \
---without-cython \
 --without-openldap
 make V=1  %{?_smp_mflags}
 
