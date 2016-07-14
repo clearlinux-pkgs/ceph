@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 10.2.2
-Release  : 20
+Release  : 21
 URL      : http://ceph.com/download/ceph-10.2.2.tar.gz
 Source0  : http://ceph.com/download/ceph-10.2.2.tar.gz
 Source1  : ceph.tmpfiles
@@ -150,7 +150,11 @@ export LANG=C
 %reconfigure --disable-static --with-nss \
 --without-cryptopp \
 --without-librocksdb \
---without-openldap
+--without-openldap \
+--with-rados \
+--with-rbd \
+--with-cython \
+--with-cephfs
 make V=1  %{?_smp_mflags}
 
 %install
