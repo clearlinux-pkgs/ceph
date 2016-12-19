@@ -1,2 +1,4 @@
 d /var/lib/ceph - ceph ceph - -
+d /var/lib/ceph/tmp - ceph ceph - -
+d /var/lib/ceph/osd - ceph ceph - -
 d /run/ceph - ceph ceph - -
