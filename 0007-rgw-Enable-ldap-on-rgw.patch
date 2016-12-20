@@ -1,0 +1,25 @@
+From cba97bba09c36e7201c97ac311e32181b6750703 Mon Sep 17 00:00:00 2001
+From: Alberto Murillo <alberto.murillo.silva@intel.com>
+Date: Mon, 19 Dec 2016 20:22:50 -0600
+Subject: [PATCH 7/7] rgw: Enable ldap on rgw
+
+Signed-off-by: Alberto Murillo <alberto.murillo.silva@intel.com>
+---
+ src/rgw/Makefile.am | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/rgw/Makefile.am b/src/rgw/Makefile.am
+index b083dd1..d4c4940 100644
+--- a/src/rgw/Makefile.am
++++ b/src/rgw/Makefile.am
+@@ -114,6 +114,7 @@ LIBRGW_DEPS += \
+ 	-lexpat \
+ 	-lm \
+ 	-lfcgi \
++	-lldap \
+ 	-ldl
+ 
+ librgw_la_LIBADD = $(LIBRGW_DEPS) \
+-- 
+2.7.4
+

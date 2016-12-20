@@ -1,7 +1,7 @@
-From 5639f0c091e5d60e211357d78098bab9c6e2ed1b Mon Sep 17 00:00:00 2001
+From 2aed9b887021966e4b0c0950faf0b83e670e4d24 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Thu, 18 Feb 2016 17:15:58 -0600
-Subject: [PATCH] detect clearlinux init system
+Subject: [PATCH 3/7] detect clearlinux init system
 
 ---
  src/ceph-detect-init/ceph_detect_init/__init__.py            |  4 ++++
@@ -10,10 +10,10 @@ Subject: [PATCH] detect clearlinux init system
  create mode 100644 src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py
 
 diff --git a/src/ceph-detect-init/ceph_detect_init/__init__.py b/src/ceph-detect-init/ceph_detect_init/__init__.py
-index cc9b2c0..6c79ce7 100644
+index a2bcc7c..0d2a675 100644
 --- a/src/ceph-detect-init/ceph_detect_init/__init__.py
 +++ b/src/ceph-detect-init/ceph_detect_init/__init__.py
-@@ -16,6 +16,7 @@
+@@ -14,6 +14,7 @@
  # GNU Library Public License for more details.
  #
  from ceph_detect_init import centos
@@ -21,7 +21,7 @@ index cc9b2c0..6c79ce7 100644
  from ceph_detect_init import debian
  from ceph_detect_init import exc
  from ceph_detect_init import fedora
-@@ -59,6 +60,7 @@ def _get_distro(distro, use_rhceph=False):
+@@ -57,6 +58,7 @@ def _get_distro(distro, use_rhceph=False):
          'redhat': centos,
          'fedora': fedora,
          'suse': suse,
@@ -29,7 +29,7 @@ index cc9b2c0..6c79ce7 100644
      }
  
      if distro == 'redhat' and use_rhceph:
-@@ -77,6 +79,8 @@ def _normalized_distro_name(distro):
+@@ -75,6 +77,8 @@ def _normalized_distro_name(distro):
          return 'suse'
      elif distro.startswith('centos'):
          return 'centos'
@@ -56,5 +56,5 @@ index 0000000..425ce50
 +    """
 +    return 'systemd'
 -- 
-2.5.0
+2.7.4
 

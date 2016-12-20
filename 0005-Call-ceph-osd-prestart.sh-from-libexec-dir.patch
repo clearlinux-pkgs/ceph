@@ -1,7 +1,7 @@
-From 529ae44e287e6b293680ff4a98bb70ac29d34e2b Mon Sep 17 00:00:00 2001
+From fe94866624ce6b58bd404f50496971c84c891ce5 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Tue, 28 Jun 2016 12:35:10 -0500
-Subject: [PATCH] Call ceph-osd-prestart.sh from libexec dir
+Subject: [PATCH 5/7] Call ceph-osd-prestart.sh from libexec dir
 
 ---
  systemd/ceph-osd@.service | 2 +-
