@@ -1,10 +1,8 @@
 --with-nss
 --without-cryptopp
+--without-librocksdb
+--without-openldap
 --with-rados
 --with-rbd
 --with-cython
 --with-cephfs
---without-selinux
---without-debug
---without-profiler
---without-babeltrace

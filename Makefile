@@ -1,5 +1,5 @@
 PKG_NAME := ceph
-URL := http://download.ceph.com/tarballs/ceph_10.2.5.orig.tar.gz
-
+URL := http://ceph.com/download/ceph-10.2.2.tar.gz
+ARCHIVES :=
 
 include ../common/Makefile.common

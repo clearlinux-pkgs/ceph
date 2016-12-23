@@ -1,20 +1,20 @@
-From 8945448bfdbfb65090118840af73a37207338026 Mon Sep 17 00:00:00 2001
+From a34df6a797f588dfd26b658913a9789510481f5d Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Tue, 26 Jan 2016 10:21:49 -0600
-Subject: [PATCH 2/7] Do not parse lsb_release
+Subject: [PATCH 2/2] Do not parse lsb_release
 
 ---
- src/Makefile.in                  | 30 +++++-------------------------
- src/ceph-detect-init/Makefile.am |  6 +-----
- src/common/util.cc               |  2 +-
- 3 files changed, 7 insertions(+), 31 deletions(-)
+ src/Makefile.in                  | 6 +-----
+ src/ceph-detect-init/Makefile.am | 6 +-----
+ src/common/util.cc               | 2 +-
+ 3 files changed, 3 insertions(+), 11 deletions(-)
 
 diff --git a/src/Makefile.in b/src/Makefile.in
-index 055214b..81e55fb 100644
+index 15b44e7..a04bdac 100644
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
-@@ -32721,11 +32721,7 @@ ceph-detect-init-clean:
- ceph-detect-init-install-data:
+@@ -25919,11 +25919,7 @@ clean-local::
+ install-data-local::
  	cd $(srcdir)/ceph-detect-init ; \
  	if test "$(DESTDIR)" ; then \
 -		if lsb_release -si | grep --quiet 'Ubuntu\|Debian\|Devuan' ; then \
@@ -26,64 +26,12 @@ index 055214b..81e55fb 100644
  		root="--root=$(DESTDIR)" ; \
  	fi ; \
  	python setup.py install $$root $$options
-@@ -32743,11 +32739,7 @@ ceph-disk-clean:
- ceph-disk-install-data:
- 	cd $(srcdir)/ceph-disk ; \
- 	if test "$(DESTDIR)" ; then \
--		if lsb_release -si | grep --quiet 'Ubuntu\|Debian\|Devuan' ; then \
--			options=--install-layout=deb ; \
--		else \
--			options=--prefix=/usr ; \
--		fi ; \
-+		options=--prefix=/usr ; \
- 		root="--root=$(DESTDIR) --install-script=/usr/sbin" ; \
- 	fi ; \
- 	python setup.py install $$root $$options
-@@ -32835,11 +32827,7 @@ unittests:: $(check_PROGRAMS)
- 
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@rados-pybind-install-exec: ${srcdir}/ceph_ver.h
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@	if test "$(DESTDIR)" ; then \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		if lsb_release -si | grep --quiet 'Ubuntu\|Debian\|Devuan' ; then \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@			options=--install-layout=deb ; \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		else \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@			options=--prefix=/usr ; \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		fi ; \
-+@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		options=--prefix=/usr ; \
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		root="--root=$(DESTDIR)" ; \
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@	else \
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		options=--prefix=$(prefix) ; \
-@@ -32864,11 +32852,7 @@ unittests:: $(check_PROGRAMS)
- 
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@rbd-pybind-install-exec: ${srcdir}/ceph_ver.h
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@	if test "$(DESTDIR)" ; then \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@		if lsb_release -si | grep --quiet 'Ubuntu\|Debian\|Devuan' ; then \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@			options=--install-layout=deb ; \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@		else \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@			options=--prefix=/usr ; \
--@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@		fi ; \
-+@ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@		options=--prefix=/usr ; \
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@		root="--root=$(DESTDIR)" ; \
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@	else \
- @ENABLE_CLIENT_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@@WITH_RBD_TRUE@		options=--prefix=$(prefix) ; \
-@@ -32893,11 +32877,7 @@ unittests:: $(check_PROGRAMS)
- 
- @ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@cephfs-pybind-install-exec: ${srcdir}/ceph_ver.h
- @ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@	if test "$(DESTDIR)" ; then \
--@ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		if lsb_release -si | grep --quiet 'Ubuntu\|Debian\|Devuan' ; then \
--@ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@			options=--install-layout=deb ; \
--@ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		else \
--@ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@			options=--prefix=/usr ; \
--@ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		fi ; \
-+@ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		options=--prefix=/usr ; \
- @ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		root="--root=$(DESTDIR)" ; \
- @ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@	else \
- @ENABLE_CLIENT_TRUE@@WITH_CEPHFS_TRUE@@WITH_CYTHON_TRUE@@WITH_RADOS_TRUE@		options=--prefix=$(prefix) ; \
 diff --git a/src/ceph-detect-init/Makefile.am b/src/ceph-detect-init/Makefile.am
-index 3926ac4..851aab5 100644
+index a2c885a..8c111c7 100644
 --- a/src/ceph-detect-init/Makefile.am
 +++ b/src/ceph-detect-init/Makefile.am
-@@ -67,11 +67,7 @@ ceph-detect-init-clean:
- ceph-detect-init-install-data:
+@@ -62,11 +62,7 @@ clean-local::
+ install-data-local::
  	cd $(srcdir)/ceph-detect-init ; \
  	if test "$(DESTDIR)" ; then \
 -		if lsb_release -si | grep --quiet 'Ubuntu\|Debian\|Devuan' ; then \
@@ -96,10 +44,10 @@ index 3926ac4..851aab5 100644
  	fi ; \
  	python setup.py install $$root $$options
 diff --git a/src/common/util.cc b/src/common/util.cc
-index 2c60cb2..7579bc6 100644
+index f9262f3..ce0e27f 100644
 --- a/src/common/util.cc
 +++ b/src/common/util.cc
-@@ -218,7 +218,7 @@ void collect_sys_info(map<string, string> *m, CephContext *cct)
+@@ -238,7 +238,7 @@ void collect_sys_info(map<string, string> *m, CephContext *cct)
    }
  
    // distro info
@@ -109,5 +57,5 @@ index 2c60cb2..7579bc6 100644
  
  void dump_services(Formatter* f, const map<string, list<int> >& services, const char* type)
 -- 
-2.7.4
+2.5.0
 
