@@ -4,9 +4,9 @@
 #
 Name     : ceph
 Version  : 10.2.2
-Release  : 24
-URL      : http://ceph.com/download/ceph-10.2.2.tar.gz
-Source0  : http://ceph.com/download/ceph-10.2.2.tar.gz
+Release  : 25
+URL      : http://download.ceph.com/tarballs/ceph_10.2.2.orig.tar.gz
+Source0  : http://download.ceph.com/tarballs/ceph_10.2.2.orig.tar.gz
 Source1  : ceph.tmpfiles
 Summary  : Ceph Base Package
 Group    : Development/Tools
@@ -42,6 +42,7 @@ BuildRequires : lz4-dev
 BuildRequires : m4
 BuildRequires : openssl-dev
 BuildRequires : pbr
+BuildRequires : pecan
 BuildRequires : pip
 BuildRequires : pkg-config-dev
 BuildRequires : pkgconfig(fuse)
@@ -49,6 +50,7 @@ BuildRequires : pkgconfig(nss)
 BuildRequires : pkgconfig(pciaccess)
 BuildRequires : python-dev
 BuildRequires : python3-dev
+BuildRequires : requests
 BuildRequires : setuptools
 BuildRequires : snappy-dev
 BuildRequires : systemd-dev
@@ -271,7 +273,11 @@ install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 /usr/include/rbd/features.h
 /usr/include/rbd/librbd.h
 /usr/include/rbd/librbd.hpp
-/usr/lib64/*.so
+/usr/lib64/libcephfs.so
+/usr/lib64/librados.so
+/usr/lib64/libradosstriper.so
+/usr/lib64/librbd.so
+/usr/lib64/librgw.so
 
 %files doc
 %defattr(-,root,root,-)
@@ -279,7 +285,6 @@ install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/*.so.*
 /usr/lib64/ceph/compressor/libceph_example.so
 /usr/lib64/ceph/compressor/libceph_example.so.0
 /usr/lib64/ceph/compressor/libceph_example.so.0.0.0
@@ -299,6 +304,16 @@ install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 /usr/lib64/ceph/erasure-code/libec_shec_generic.so
 /usr/lib64/ceph/erasure-code/libec_shec_sse3.so
 /usr/lib64/ceph/erasure-code/libec_shec_sse4.so
+/usr/lib64/libcephfs.so.1
+/usr/lib64/libcephfs.so.1.0.0
+/usr/lib64/librados.so.2
+/usr/lib64/librados.so.2.0.0
+/usr/lib64/libradosstriper.so.1
+/usr/lib64/libradosstriper.so.1.0.0
+/usr/lib64/librbd.so.1
+/usr/lib64/librbd.so.1.0.0
+/usr/lib64/librgw.so.2
+/usr/lib64/librgw.so.2.0.0
 /usr/lib64/rados-classes/libcls_cephfs.so
 /usr/lib64/rados-classes/libcls_hello.so
 /usr/lib64/rados-classes/libcls_journal.so
