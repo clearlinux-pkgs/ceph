@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 10.2.2
-Release  : 31
+Release  : 32
 URL      : http://download.ceph.com/tarballs/ceph_10.2.2.orig.tar.gz
 Source0  : http://download.ceph.com/tarballs/ceph_10.2.2.orig.tar.gz
 Source1  : ceph.tmpfiles
