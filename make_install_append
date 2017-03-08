@@ -3,4 +3,5 @@ install -p -D -m 440 ceph.sudoers %{buildroot}/usr/share/defaults/sudo/sudoers.d
 
 install -d -m 755 %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/50-rbd.rules %{buildroot}/usr/lib/udev/rules.d
+install -p -D -m 644 udev/60-ceph-by-parttypeuuid.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
