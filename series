@@ -1,3 +1,6 @@
 0001-Ceph-sudoers-entry.patch
 0001-detect-clearlinux-init-system.patch
 0001-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
+0001-systemd.patch
+0001-bash-completion.patch
+0001-os-release.patch

@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 11.2.0
-Release  : 33
+Release  : 34
 URL      : http://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source0  : http://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -12,8 +12,8 @@ Summary  : Ceph Base Package
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 CC-BY-SA-1.0 GPL-2.0 GPL-2.0-with-autoconf-exception LGPL-2.0 LGPL-2.1 MIT MTLL
 Requires: ceph-bin
-Requires: ceph-config
 Requires: ceph-python
+Requires: ceph-config
 Requires: ceph-lib
 Requires: ceph-data
 Requires: ceph-doc
@@ -63,6 +63,9 @@ BuildRequires : zlib-dev
 Patch1: 0001-Ceph-sudoers-entry.patch
 Patch2: 0001-detect-clearlinux-init-system.patch
 Patch3: 0001-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
+Patch4: 0001-systemd.patch
+Patch5: 0001-bash-completion.patch
+Patch6: 0001-os-release.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -137,18 +140,21 @@ python components for the ceph package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1489015275
+export SOURCE_DATE_EPOCH=1489117577
 mkdir clr-build
 pushd clr-build
-cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=no -DWITH_FUSE=no
+cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON
 make VERBOSE=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1489015275
+export SOURCE_DATE_EPOCH=1489117577
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -162,100 +168,12 @@ install -d -m 755 %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/50-rbd.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/60-ceph-by-parttypeuuid.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
+rm -rf %{buildroot}/usr/etc
 ## make_install_append end
 
 %files
 %defattr(-,root,root,-)
 /usr/lib64/ceph/ceph-monstore-update-crush.sh
-/usr/lib64/ceph/mgr/.gitignore
-/usr/lib64/ceph/mgr/fsstatus/__init__.py
-/usr/lib64/ceph/mgr/fsstatus/__init__.pyc
-/usr/lib64/ceph/mgr/fsstatus/__init__.pyo
-/usr/lib64/ceph/mgr/fsstatus/module.py
-/usr/lib64/ceph/mgr/fsstatus/module.pyc
-/usr/lib64/ceph/mgr/fsstatus/module.pyo
-/usr/lib64/ceph/mgr/mgr_module.py
-/usr/lib64/ceph/mgr/mgr_module.pyc
-/usr/lib64/ceph/mgr/mgr_module.pyo
-/usr/lib64/ceph/mgr/rest/__init__.py
-/usr/lib64/ceph/mgr/rest/__init__.pyc
-/usr/lib64/ceph/mgr/rest/__init__.pyo
-/usr/lib64/ceph/mgr/rest/app/__init__.py
-/usr/lib64/ceph/mgr/rest/app/__init__.pyc
-/usr/lib64/ceph/mgr/rest/app/__init__.pyo
-/usr/lib64/ceph/mgr/rest/app/fixtures/ceph_fake.json
-/usr/lib64/ceph/mgr/rest/app/management/__init__.py
-/usr/lib64/ceph/mgr/rest/app/management/__init__.pyc
-/usr/lib64/ceph/mgr/rest/app/management/__init__.pyo
-/usr/lib64/ceph/mgr/rest/app/management/commands/__init__.py
-/usr/lib64/ceph/mgr/rest/app/management/commands/__init__.pyc
-/usr/lib64/ceph/mgr/rest/app/management/commands/__init__.pyo
-/usr/lib64/ceph/mgr/rest/app/management/commands/api_docs.py
-/usr/lib64/ceph/mgr/rest/app/management/commands/api_docs.pyc
-/usr/lib64/ceph/mgr/rest/app/management/commands/api_docs.pyo
-/usr/lib64/ceph/mgr/rest/app/manager/__init__.py
-/usr/lib64/ceph/mgr/rest/app/manager/__init__.pyc
-/usr/lib64/ceph/mgr/rest/app/manager/__init__.pyo
-/usr/lib64/ceph/mgr/rest/app/manager/osd_request_factory.py
-/usr/lib64/ceph/mgr/rest/app/manager/osd_request_factory.pyc
-/usr/lib64/ceph/mgr/rest/app/manager/osd_request_factory.pyo
-/usr/lib64/ceph/mgr/rest/app/manager/pool_request_factory.py
-/usr/lib64/ceph/mgr/rest/app/manager/pool_request_factory.pyc
-/usr/lib64/ceph/mgr/rest/app/manager/pool_request_factory.pyo
-/usr/lib64/ceph/mgr/rest/app/manager/request_collection.py
-/usr/lib64/ceph/mgr/rest/app/manager/request_collection.pyc
-/usr/lib64/ceph/mgr/rest/app/manager/request_collection.pyo
-/usr/lib64/ceph/mgr/rest/app/manager/request_factory.py
-/usr/lib64/ceph/mgr/rest/app/manager/request_factory.pyc
-/usr/lib64/ceph/mgr/rest/app/manager/request_factory.pyo
-/usr/lib64/ceph/mgr/rest/app/manager/user_request.py
-/usr/lib64/ceph/mgr/rest/app/manager/user_request.pyc
-/usr/lib64/ceph/mgr/rest/app/manager/user_request.pyo
-/usr/lib64/ceph/mgr/rest/app/models.py
-/usr/lib64/ceph/mgr/rest/app/models.pyc
-/usr/lib64/ceph/mgr/rest/app/models.pyo
-/usr/lib64/ceph/mgr/rest/app/serializers/__init__.py
-/usr/lib64/ceph/mgr/rest/app/serializers/__init__.pyc
-/usr/lib64/ceph/mgr/rest/app/serializers/__init__.pyo
-/usr/lib64/ceph/mgr/rest/app/serializers/fields.py
-/usr/lib64/ceph/mgr/rest/app/serializers/fields.pyc
-/usr/lib64/ceph/mgr/rest/app/serializers/fields.pyo
-/usr/lib64/ceph/mgr/rest/app/serializers/v2.py
-/usr/lib64/ceph/mgr/rest/app/serializers/v2.pyc
-/usr/lib64/ceph/mgr/rest/app/serializers/v2.pyo
-/usr/lib64/ceph/mgr/rest/app/settings.py
-/usr/lib64/ceph/mgr/rest/app/settings.pyc
-/usr/lib64/ceph/mgr/rest/app/settings.pyo
-/usr/lib64/ceph/mgr/rest/app/types.py
-/usr/lib64/ceph/mgr/rest/app/types.pyc
-/usr/lib64/ceph/mgr/rest/app/types.pyo
-/usr/lib64/ceph/mgr/rest/app/urls/__init__.py
-/usr/lib64/ceph/mgr/rest/app/urls/__init__.pyc
-/usr/lib64/ceph/mgr/rest/app/urls/__init__.pyo
-/usr/lib64/ceph/mgr/rest/app/urls/v2.py
-/usr/lib64/ceph/mgr/rest/app/urls/v2.pyc
-/usr/lib64/ceph/mgr/rest/app/urls/v2.pyo
-/usr/lib64/ceph/mgr/rest/app/util.py
-/usr/lib64/ceph/mgr/rest/app/util.pyc
-/usr/lib64/ceph/mgr/rest/app/util.pyo
-/usr/lib64/ceph/mgr/rest/app/views/__init__.py
-/usr/lib64/ceph/mgr/rest/app/views/__init__.pyc
-/usr/lib64/ceph/mgr/rest/app/views/__init__.pyo
-/usr/lib64/ceph/mgr/rest/app/views/paginated_mixin.py
-/usr/lib64/ceph/mgr/rest/app/views/paginated_mixin.pyc
-/usr/lib64/ceph/mgr/rest/app/views/paginated_mixin.pyo
-/usr/lib64/ceph/mgr/rest/app/views/rpc_view.py
-/usr/lib64/ceph/mgr/rest/app/views/rpc_view.pyc
-/usr/lib64/ceph/mgr/rest/app/views/rpc_view.pyo
-/usr/lib64/ceph/mgr/rest/app/views/v2.py
-/usr/lib64/ceph/mgr/rest/app/views/v2.pyc
-/usr/lib64/ceph/mgr/rest/app/views/v2.pyo
-/usr/lib64/ceph/mgr/rest/logger.py
-/usr/lib64/ceph/mgr/rest/logger.pyc
-/usr/lib64/ceph/mgr/rest/logger.pyo
-/usr/lib64/ceph/mgr/rest/module.py
-/usr/lib64/ceph/mgr/rest/module.pyc
-/usr/lib64/ceph/mgr/rest/module.pyo
 
 %files bin
 %defattr(-,root,root,-)
@@ -276,7 +194,6 @@ install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 /usr/bin/ceph-disk-udev
 /usr/bin/ceph-kvstore-tool
 /usr/bin/ceph-mds
-/usr/bin/ceph-mgr
 /usr/bin/ceph-mon
 /usr/bin/ceph-monstore-tool
 /usr/bin/ceph-objectstore-tool
@@ -381,11 +298,23 @@ install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 
 %files config
 %defattr(-,root,root,-)
-%config /usr/etc/bash_completion.d/ceph
-%config /usr/etc/bash_completion.d/rados
-%config /usr/etc/bash_completion.d/radosgw-admin
-%config /usr/etc/bash_completion.d/rbd
-%config /usr/etc/init.d/ceph
+/usr/lib/systemd/system/ceph-disk@.service
+/usr/lib/systemd/system/ceph-fuse.target
+/usr/lib/systemd/system/ceph-fuse@.service
+/usr/lib/systemd/system/ceph-mds.target
+/usr/lib/systemd/system/ceph-mds@.service
+/usr/lib/systemd/system/ceph-mgr.target
+/usr/lib/systemd/system/ceph-mgr@.service
+/usr/lib/systemd/system/ceph-mon.target
+/usr/lib/systemd/system/ceph-mon@.service
+/usr/lib/systemd/system/ceph-osd.target
+/usr/lib/systemd/system/ceph-osd@.service
+/usr/lib/systemd/system/ceph-radosgw.target
+/usr/lib/systemd/system/ceph-radosgw@.service
+/usr/lib/systemd/system/ceph-rbd-mirror.target
+/usr/lib/systemd/system/ceph-rbd-mirror@.service
+/usr/lib/systemd/system/ceph.target
+/usr/lib/systemd/system/rbdmap.service
 /usr/lib/tmpfiles.d/ceph.conf
 /usr/lib/udev/rules.d/50-rbd.rules
 /usr/lib/udev/rules.d/60-ceph-by-parttypeuuid.rules
@@ -393,6 +322,10 @@ install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/bash-completion/completions/ceph
+/usr/share/bash-completion/completions/rados
+/usr/share/bash-completion/completions/radosgw-admin
+/usr/share/bash-completion/completions/rbd
 /usr/share/ceph/id_rsa_drop.ceph.com
 /usr/share/ceph/id_rsa_drop.ceph.com.pub
 /usr/share/ceph/known_hosts_drop.ceph.com

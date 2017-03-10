@@ -1,7 +1,6 @@
 ld-linux-x86-64.so.2
 libaio.so.1
 libblkid.so.1
-libboost_python.so.1.59.0
 libc.so.6
 libcurl.so.4
 libdl.so.2
@@ -17,6 +16,7 @@ libnspr4.so
 libnss3.so
 libpthread.so.0
 libpython2.7.so.1.0
+libpython3.6m.so.1.0
 libresolv.so.2
 librt.so.1
 libsmime3.so

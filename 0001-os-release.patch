@@ -1,0 +1,38 @@
+From ebdabcc68841858e522c1af6fe38a766188d1fa7 Mon Sep 17 00:00:00 2001
+From: Alberto Murillo <alberto.murillo.silva@intel.com>
+Date: Thu, 9 Mar 2017 18:03:41 -0600
+Subject: [PATCH] os-release
+
+---
+ src/common/util.cc | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/common/util.cc b/src/common/util.cc
+index 73b457f..97f2289 100644
+--- a/src/common/util.cc
++++ b/src/common/util.cc
+@@ -159,10 +159,10 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
+     { "distro_version", "VERSION_ID=" }
+   };
+ 
+-  FILE *fp = fopen("/etc/os-release", "r");
++  FILE *fp = fopen("/usr/lib/os-release", "r");
+   if (!fp) {
+     int ret = -errno;
+-    lderr(cct) << "os_release_parse - failed to open /etc/os-release: " << cpp_strerror(ret) << dendl;
++    lderr(cct) << "os_release_parse - failed to open /usr/lib/os-release: " << cpp_strerror(ret) << dendl;
+     return false;
+   }
+ 
+@@ -176,7 +176,7 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
+ static void distro_detect(map<string, string> *m, CephContext *cct)
+ {
+   if (!os_release_parse(m, cct)) {
+-    lderr(cct) << "distro_detect - /etc/os-release is required" << dendl;
++    lderr(cct) << "distro_detect - /usr/lib/os-release is required" << dendl;
+   }
+ 
+   for (const char* rk: {"distro", "distro_version"}) {
+-- 
+2.9.3
+
