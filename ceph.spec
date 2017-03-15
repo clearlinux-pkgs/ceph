@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 11.2.0
-Release  : 34
+Release  : 35
 URL      : http://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source0  : http://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -146,15 +146,15 @@ python components for the ceph package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1489117577
+export SOURCE_DATE_EPOCH=1489597480
 mkdir clr-build
 pushd clr-build
-cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON
+cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF
 make VERBOSE=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1489117577
+export SOURCE_DATE_EPOCH=1489597480
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -173,7 +173,6 @@ rm -rf %{buildroot}/usr/etc
 
 %files
 %defattr(-,root,root,-)
-/usr/lib64/ceph/ceph-monstore-update-crush.sh
 
 %files bin
 %defattr(-,root,root,-)
@@ -181,99 +180,23 @@ rm -rf %{buildroot}/usr/etc
 /usr/bin/ceph-authtool
 /usr/bin/ceph-bluefs-tool
 /usr/bin/ceph-brag
-/usr/bin/ceph-client-debug
 /usr/bin/ceph-clsinfo
 /usr/bin/ceph-conf
-/usr/bin/ceph-coverage
 /usr/bin/ceph-create-keys
 /usr/bin/ceph-crush-location
-/usr/bin/ceph-debugpack
 /usr/bin/ceph-dencoder
 /usr/bin/ceph-detect-init
 /usr/bin/ceph-disk
 /usr/bin/ceph-disk-udev
-/usr/bin/ceph-kvstore-tool
 /usr/bin/ceph-mds
 /usr/bin/ceph-mon
-/usr/bin/ceph-monstore-tool
 /usr/bin/ceph-objectstore-tool
 /usr/bin/ceph-osd
-/usr/bin/ceph-osdomap-tool
 /usr/bin/ceph-post-file
 /usr/bin/ceph-rbdnamer
 /usr/bin/ceph-rest-api
 /usr/bin/ceph-run
 /usr/bin/ceph-syn
-/usr/bin/ceph_bench_log
-/usr/bin/ceph_erasure_code
-/usr/bin/ceph_erasure_code_benchmark
-/usr/bin/ceph_kvstorebench
-/usr/bin/ceph_multi_stress_watch
-/usr/bin/ceph_objectstore_bench
-/usr/bin/ceph_omapbench
-/usr/bin/ceph_perf_local
-/usr/bin/ceph_perf_msgr_client
-/usr/bin/ceph_perf_msgr_server
-/usr/bin/ceph_perf_objectstore
-/usr/bin/ceph_psim
-/usr/bin/ceph_radosacl
-/usr/bin/ceph_rgw_jsonparser
-/usr/bin/ceph_rgw_multiparser
-/usr/bin/ceph_scratchtool
-/usr/bin/ceph_scratchtoolpp
-/usr/bin/ceph_smalliobench
-/usr/bin/ceph_smalliobenchdumb
-/usr/bin/ceph_smalliobenchfs
-/usr/bin/ceph_smalliobenchrbd
-/usr/bin/ceph_test_async_driver
-/usr/bin/ceph_test_async_networkstack
-/usr/bin/ceph_test_cephd_api_misc
-/usr/bin/ceph_test_cls_hello
-/usr/bin/ceph_test_cls_lock
-/usr/bin/ceph_test_cls_lua
-/usr/bin/ceph_test_cls_numops
-/usr/bin/ceph_test_cls_rbd
-/usr/bin/ceph_test_cls_refcount
-/usr/bin/ceph_test_cls_rgw
-/usr/bin/ceph_test_cls_rgw_meta
-/usr/bin/ceph_test_filejournal
-/usr/bin/ceph_test_filestore_idempotent_sequence
-/usr/bin/ceph_test_keyvaluedb
-/usr/bin/ceph_test_libcephfs
-/usr/bin/ceph_test_libcephfs_access
-/usr/bin/ceph_test_librbd
-/usr/bin/ceph_test_librbd_api
-/usr/bin/ceph_test_librbd_fsx
-/usr/bin/ceph_test_mon_workloadgen
-/usr/bin/ceph_test_msgr
-/usr/bin/ceph_test_objectcacher_stress
-/usr/bin/ceph_test_objectstore
-/usr/bin/ceph_test_rados
-/usr/bin/ceph_test_rados_api_aio
-/usr/bin/ceph_test_rados_api_c_read_operations
-/usr/bin/ceph_test_rados_api_c_write_operations
-/usr/bin/ceph_test_rados_api_cmd
-/usr/bin/ceph_test_rados_api_io
-/usr/bin/ceph_test_rados_api_list
-/usr/bin/ceph_test_rados_api_lock
-/usr/bin/ceph_test_rados_api_misc
-/usr/bin/ceph_test_rados_api_pool
-/usr/bin/ceph_test_rados_api_snapshots
-/usr/bin/ceph_test_rados_api_stat
-/usr/bin/ceph_test_rados_api_tier
-/usr/bin/ceph_test_rados_api_watch_notify
-/usr/bin/ceph_test_rados_delete_pools_parallel
-/usr/bin/ceph_test_rados_list_parallel
-/usr/bin/ceph_test_rados_open_pools_parallel
-/usr/bin/ceph_test_rados_striper_api_aio
-/usr/bin/ceph_test_rados_striper_api_io
-/usr/bin/ceph_test_rados_striper_api_striping
-/usr/bin/ceph_test_rados_watch_notify
-/usr/bin/ceph_test_rbd_mirror
-/usr/bin/ceph_test_rbd_mirror_random_write
-/usr/bin/ceph_test_stress_watch
-/usr/bin/ceph_tpbench
-/usr/bin/ceph_xattr_bench
 /usr/bin/cephfs-data-scan
 /usr/bin/cephfs-journal-tool
 /usr/bin/cephfs-table-tool

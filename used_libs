@@ -7,7 +7,6 @@ libdl.so.2
 libexpat.so.1
 libfcgi.so.0
 libgcc_s.so.1
-libgmock_main.so
 libkeyutils.so.1
 libldap-2.4.so.2
 libleveldb.so.1
