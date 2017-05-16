@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 11.2.0
-Release  : 35
+Release  : 36
 URL      : http://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source0  : http://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
