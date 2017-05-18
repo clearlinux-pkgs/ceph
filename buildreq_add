@@ -38,3 +38,5 @@ virtualenv
 xfsprogs-dev
 yasm
 zlib-dev
+googletest
+gperftools
