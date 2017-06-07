@@ -4,3 +4,4 @@
 0001-systemd.patch
 0001-bash-completion.patch
 0001-os-release.patch
+build.patch

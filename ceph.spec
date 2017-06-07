@@ -5,12 +5,18 @@
 Name     : ceph
 Version  : 12.0.3
 Release  : 38
-URL      : http://download.ceph.com/tarballs/ceph_12.0.3.orig.tar.gz
-Source0  : http://download.ceph.com/tarballs/ceph_12.0.3.orig.tar.gz
+URL      : https://download.ceph.com/tarballs/ceph-12.0.3.tar.gz
+Source0  : https://download.ceph.com/tarballs/ceph-12.0.3.tar.gz
 Source1  : ceph.tmpfiles
 Summary  : Ceph Base Package
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 CC-BY-SA-1.0 GPL-2.0 GPL-2.0-with-autoconf-exception LGPL-2.0 LGPL-2.1 MIT MTLL NTP
+Requires: ceph-bin
+Requires: ceph-python
+Requires: ceph-config
+Requires: ceph-lib
+Requires: ceph-data
+Requires: ceph-doc
 Requires: pecan
 Requires: requests
 Requires: setuptools
@@ -18,13 +24,12 @@ BuildRequires : Cython
 BuildRequires : Sphinx-python
 BuildRequires : boost-dev
 BuildRequires : bzip2-dev
+BuildRequires : catkin-dev
 BuildRequires : cmake
 BuildRequires : curl-dev
 BuildRequires : expat-dev
 BuildRequires : fcgi-dev
-BuildRequires : googletest
 BuildRequires : googletest-dev
-BuildRequires : gperftools
 BuildRequires : gperftools-dev
 BuildRequires : imagesize
 BuildRequires : isa-l-dev
@@ -62,10 +67,75 @@ Patch3: 0001-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
 Patch4: 0001-systemd.patch
 Patch5: 0001-bash-completion.patch
 Patch6: 0001-os-release.patch
+Patch7: build.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
 on commodity hardware and delivers object, block and file system storage.
+
+%package bin
+Summary: bin components for the ceph package.
+Group: Binaries
+Requires: ceph-data
+Requires: ceph-config
+
+%description bin
+bin components for the ceph package.
+
+
+%package config
+Summary: config components for the ceph package.
+Group: Default
+
+%description config
+config components for the ceph package.
+
+
+%package data
+Summary: data components for the ceph package.
+Group: Data
+
+%description data
+data components for the ceph package.
+
+
+%package dev
+Summary: dev components for the ceph package.
+Group: Development
+Requires: ceph-lib
+Requires: ceph-bin
+Requires: ceph-data
+Provides: ceph-devel
+
+%description dev
+dev components for the ceph package.
+
+
+%package doc
+Summary: doc components for the ceph package.
+Group: Documentation
+
+%description doc
+doc components for the ceph package.
+
+
+%package lib
+Summary: lib components for the ceph package.
+Group: Libraries
+Requires: ceph-data
+Requires: ceph-config
+
+%description lib
+lib components for the ceph package.
+
+
+%package python
+Summary: python components for the ceph package.
+Group: Default
+
+%description python
+python components for the ceph package.
+
 
 %prep
 %setup -q -n ceph-12.0.3
@@ -75,21 +145,22 @@ on commodity hardware and delivers object, block and file system storage.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1495113485
+export SOURCE_DATE_EPOCH=1496859877
 mkdir clr-build
 pushd clr-build
-cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
+cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DCMAKE_MODULE_PATH="/usr/share/cmake/Modules:/usr/share/cmake-3.8/Modules"
 make VERBOSE=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1495113485
+export SOURCE_DATE_EPOCH=1496859877
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -108,3 +179,211 @@ rm -rf %{buildroot}/usr/etc
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/ceph
+/usr/bin/ceph-authtool
+/usr/bin/ceph-bluestore-tool
+/usr/bin/ceph-brag
+/usr/bin/ceph-clsinfo
+/usr/bin/ceph-conf
+/usr/bin/ceph-create-keys
+/usr/bin/ceph-crush-location
+/usr/bin/ceph-dencoder
+/usr/bin/ceph-detect-init
+/usr/bin/ceph-disk
+/usr/bin/ceph-disk-udev
+/usr/bin/ceph-mds
+/usr/bin/ceph-mon
+/usr/bin/ceph-objectstore-tool
+/usr/bin/ceph-osd
+/usr/bin/ceph-post-file
+/usr/bin/ceph-rbdnamer
+/usr/bin/ceph-rest-api
+/usr/bin/ceph-run
+/usr/bin/ceph-syn
+/usr/bin/cephfs-data-scan
+/usr/bin/cephfs-journal-tool
+/usr/bin/cephfs-table-tool
+/usr/bin/crushtool
+/usr/bin/librados-config
+/usr/bin/monmaptool
+/usr/bin/mount.ceph
+/usr/bin/osdmaptool
+/usr/bin/rados
+/usr/bin/radosgw
+/usr/bin/radosgw-admin
+/usr/bin/radosgw-object-expirer
+/usr/bin/radosgw-token
+/usr/bin/rbd
+/usr/bin/rbd-mirror
+/usr/bin/rbd-nbd
+/usr/bin/rbd-replay
+/usr/bin/rbd-replay-many
+/usr/bin/rbdmap
+/usr/libexec/ceph/ceph-osd-prestart.sh
+/usr/libexec/ceph/ceph_common.sh
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/ceph-disk@.service
+/usr/lib/systemd/system/ceph-fuse.target
+/usr/lib/systemd/system/ceph-fuse@.service
+/usr/lib/systemd/system/ceph-mds.target
+/usr/lib/systemd/system/ceph-mds@.service
+/usr/lib/systemd/system/ceph-mgr.target
+/usr/lib/systemd/system/ceph-mgr@.service
+/usr/lib/systemd/system/ceph-mon.target
+/usr/lib/systemd/system/ceph-mon@.service
+/usr/lib/systemd/system/ceph-osd.target
+/usr/lib/systemd/system/ceph-osd@.service
+/usr/lib/systemd/system/ceph-radosgw.target
+/usr/lib/systemd/system/ceph-radosgw@.service
+/usr/lib/systemd/system/ceph-rbd-mirror.target
+/usr/lib/systemd/system/ceph-rbd-mirror@.service
+/usr/lib/systemd/system/ceph.target
+/usr/lib/systemd/system/rbdmap.service
+/usr/lib/tmpfiles.d/ceph.conf
+/usr/lib/udev/rules.d/50-rbd.rules
+/usr/lib/udev/rules.d/60-ceph-by-parttypeuuid.rules
+/usr/lib/udev/rules.d/95-ceph-osd.rules
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/bash-completion/completions/ceph
+/usr/share/bash-completion/completions/rados
+/usr/share/bash-completion/completions/radosgw-admin
+/usr/share/bash-completion/completions/rbd
+/usr/share/ceph/id_rsa_drop.ceph.com
+/usr/share/ceph/id_rsa_drop.ceph.com.pub
+/usr/share/ceph/known_hosts_drop.ceph.com
+/usr/share/defaults/sudo/sudoers.d/ceph
+
+%files dev
+%defattr(-,root,root,-)
+/usr/include/cephfs/ceph_statx.h
+/usr/include/cephfs/libcephfs.h
+/usr/include/rados/buffer.h
+/usr/include/rados/buffer_fwd.h
+/usr/include/rados/crc32c.h
+/usr/include/rados/inline_memory.h
+/usr/include/rados/librados.h
+/usr/include/rados/librados.hpp
+/usr/include/rados/librgw.h
+/usr/include/rados/memory.h
+/usr/include/rados/objclass.h
+/usr/include/rados/page.h
+/usr/include/rados/rados_types.h
+/usr/include/rados/rados_types.hpp
+/usr/include/rados/rgw_file.h
+/usr/include/radosstriper/libradosstriper.h
+/usr/include/radosstriper/libradosstriper.hpp
+/usr/include/rbd/features.h
+/usr/include/rbd/librbd.h
+/usr/include/rbd/librbd.hpp
+/usr/lib64/libcephfs.so
+/usr/lib64/librados.so
+/usr/lib64/libradosstriper.so
+/usr/lib64/librbd.so
+/usr/lib64/librgw.so
+
+%files doc
+%defattr(-,root,root,-)
+%doc /usr/share/doc/ceph/*
+%doc /usr/share/man/man8/*
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/ceph/compressor/libceph_snappy.so
+/usr/lib64/ceph/compressor/libceph_snappy.so.2
+/usr/lib64/ceph/compressor/libceph_snappy.so.2.0.0
+/usr/lib64/ceph/compressor/libceph_zlib.so
+/usr/lib64/ceph/compressor/libceph_zlib.so.2
+/usr/lib64/ceph/compressor/libceph_zlib.so.2.0.0
+/usr/lib64/ceph/compressor/libceph_zstd.so
+/usr/lib64/ceph/compressor/libceph_zstd.so.2
+/usr/lib64/ceph/compressor/libceph_zstd.so.2.0.0
+/usr/lib64/ceph/crypto/libceph_crypto_isal.so
+/usr/lib64/ceph/crypto/libceph_crypto_isal.so.1
+/usr/lib64/ceph/crypto/libceph_crypto_isal.so.1.0.0
+/usr/lib64/ceph/erasure-code/libec_isa.so
+/usr/lib64/ceph/erasure-code/libec_isa.so.2
+/usr/lib64/ceph/erasure-code/libec_isa.so.2.14.0
+/usr/lib64/ceph/erasure-code/libec_jerasure.so
+/usr/lib64/ceph/erasure-code/libec_jerasure_generic.so
+/usr/lib64/ceph/erasure-code/libec_jerasure_sse3.so
+/usr/lib64/ceph/erasure-code/libec_jerasure_sse4.so
+/usr/lib64/ceph/erasure-code/libec_lrc.so
+/usr/lib64/ceph/erasure-code/libec_shec.so
+/usr/lib64/ceph/erasure-code/libec_shec_generic.so
+/usr/lib64/ceph/erasure-code/libec_shec_sse3.so
+/usr/lib64/ceph/erasure-code/libec_shec_sse4.so
+/usr/lib64/ceph/libceph-common.so
+/usr/lib64/ceph/libceph-common.so.0
+/usr/lib64/libcephfs.so.2
+/usr/lib64/libcephfs.so.2.0.0
+/usr/lib64/librados.so.2
+/usr/lib64/librados.so.2.0.0
+/usr/lib64/libradosstriper.so.1
+/usr/lib64/libradosstriper.so.1.0.0
+/usr/lib64/librbd.so.1
+/usr/lib64/librbd.so.1.12.0
+/usr/lib64/librgw.so.2
+/usr/lib64/librgw.so.2.0.0
+/usr/lib64/rados-classes/libcls_cephfs.so
+/usr/lib64/rados-classes/libcls_cephfs.so.1
+/usr/lib64/rados-classes/libcls_cephfs.so.1.0.0
+/usr/lib64/rados-classes/libcls_hello.so
+/usr/lib64/rados-classes/libcls_hello.so.1
+/usr/lib64/rados-classes/libcls_hello.so.1.0.0
+/usr/lib64/rados-classes/libcls_journal.so
+/usr/lib64/rados-classes/libcls_journal.so.1
+/usr/lib64/rados-classes/libcls_journal.so.1.0.0
+/usr/lib64/rados-classes/libcls_kvs.so
+/usr/lib64/rados-classes/libcls_kvs.so.1
+/usr/lib64/rados-classes/libcls_kvs.so.1.0.0
+/usr/lib64/rados-classes/libcls_lock.so
+/usr/lib64/rados-classes/libcls_lock.so.1
+/usr/lib64/rados-classes/libcls_lock.so.1.0.0
+/usr/lib64/rados-classes/libcls_log.so
+/usr/lib64/rados-classes/libcls_log.so.1
+/usr/lib64/rados-classes/libcls_log.so.1.0.0
+/usr/lib64/rados-classes/libcls_lua.so
+/usr/lib64/rados-classes/libcls_lua.so.1
+/usr/lib64/rados-classes/libcls_lua.so.1.0.0
+/usr/lib64/rados-classes/libcls_numops.so
+/usr/lib64/rados-classes/libcls_numops.so.1
+/usr/lib64/rados-classes/libcls_numops.so.1.0.0
+/usr/lib64/rados-classes/libcls_rbd.so
+/usr/lib64/rados-classes/libcls_rbd.so.1
+/usr/lib64/rados-classes/libcls_rbd.so.1.0.0
+/usr/lib64/rados-classes/libcls_refcount.so
+/usr/lib64/rados-classes/libcls_refcount.so.1
+/usr/lib64/rados-classes/libcls_refcount.so.1.0.0
+/usr/lib64/rados-classes/libcls_replica_log.so
+/usr/lib64/rados-classes/libcls_replica_log.so.1
+/usr/lib64/rados-classes/libcls_replica_log.so.1.0.0
+/usr/lib64/rados-classes/libcls_rgw.so
+/usr/lib64/rados-classes/libcls_rgw.so.1
+/usr/lib64/rados-classes/libcls_rgw.so.1.0.0
+/usr/lib64/rados-classes/libcls_sdk.so
+/usr/lib64/rados-classes/libcls_sdk.so.1
+/usr/lib64/rados-classes/libcls_sdk.so.1.0.0
+/usr/lib64/rados-classes/libcls_statelog.so
+/usr/lib64/rados-classes/libcls_statelog.so.1
+/usr/lib64/rados-classes/libcls_statelog.so.1.0.0
+/usr/lib64/rados-classes/libcls_timeindex.so
+/usr/lib64/rados-classes/libcls_timeindex.so.1
+/usr/lib64/rados-classes/libcls_timeindex.so.1.0.0
+/usr/lib64/rados-classes/libcls_user.so
+/usr/lib64/rados-classes/libcls_user.so.1
+/usr/lib64/rados-classes/libcls_user.so.1.0.0
+/usr/lib64/rados-classes/libcls_version.so
+/usr/lib64/rados-classes/libcls_version.so.1
+/usr/lib64/rados-classes/libcls_version.so.1.0.0
+
+%files python
+%defattr(-,root,root,-)
+/usr/lib/python2*/*
+/usr/lib/python3*/*
