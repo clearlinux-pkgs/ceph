@@ -1,0 +1,25 @@
+From 7faa4070817a012a68b5543c499fa6992ac4a8cd Mon Sep 17 00:00:00 2001
+From: Alberto Murillo <alberto.murillo.silva@intel.com>
+Date: Mon, 12 Jun 2017 15:45:36 +0000
+Subject: [PATCH 8/8] Remove -Werror
+
+---
+ src/rocksdb/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/rocksdb/CMakeLists.txt b/src/rocksdb/CMakeLists.txt
+index 51d3a99c..9842e548 100644
+--- a/src/rocksdb/CMakeLists.txt
++++ b/src/rocksdb/CMakeLists.txt
+@@ -104,7 +104,7 @@ if(FAIL_ON_WARNINGS)
+   if(MSVC)
+     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+   else() # assume GCC
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
++    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+   endif()
+ endif()
+ 
+-- 
+2.13.1
+

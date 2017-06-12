@@ -1,14 +1,14 @@
-From fb3b892b1cf2ab6afbf3e7ca5f60fcf583727e29 Mon Sep 17 00:00:00 2001
+From 1ba92655cf4417727ffaed103c25bef2e79cb861 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Thu, 9 Mar 2017 17:59:44 -0600
-Subject: [PATCH] bash-completion
+Subject: [PATCH 5/8] bash-completion
 
 ---
  src/bash_completion/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/bash_completion/CMakeLists.txt b/src/bash_completion/CMakeLists.txt
-index 8d83477..7c27c27 100644
+index 8d834774..7c27c277 100644
 --- a/src/bash_completion/CMakeLists.txt
 +++ b/src/bash_completion/CMakeLists.txt
 @@ -11,5 +11,5 @@ if(WITH_RADOSGW)
@@ -19,5 +19,5 @@ index 8d83477..7c27c27 100644
 +  DESTINATION ${CMAKE_INSTALL_PREFIX}/share/bash-completion/completions)
  
 -- 
-2.9.3
+2.13.1
 

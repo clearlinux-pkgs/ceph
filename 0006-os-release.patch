@@ -1,14 +1,14 @@
-From ebdabcc68841858e522c1af6fe38a766188d1fa7 Mon Sep 17 00:00:00 2001
+From ab1bd59e6e695a5793d31a259b34da7db49c3684 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Thu, 9 Mar 2017 18:03:41 -0600
-Subject: [PATCH] os-release
+Subject: [PATCH 6/8] os-release
 
 ---
  src/common/util.cc | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/src/common/util.cc b/src/common/util.cc
-index 73b457f..97f2289 100644
+index 73b457ff..97f2289a 100644
 --- a/src/common/util.cc
 +++ b/src/common/util.cc
 @@ -159,10 +159,10 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
@@ -34,5 +34,5 @@ index 73b457f..97f2289 100644
  
    for (const char* rk: {"distro", "distro_version"}) {
 -- 
-2.9.3
+2.13.1
 

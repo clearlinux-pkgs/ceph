@@ -1,10 +1,8 @@
-From 516a5b51261644353d0ed800d23c361d378055bc Mon Sep 17 00:00:00 2001
-From: Victor Rodriguez <victor.rodriguez.bahena@intel.com>
-Date: Wed, 17 May 2017 19:03:13 +0000
-Subject: [PATCH] detect clearlinux init system
-
+From 73d9209168b450c779aab80f89cfc6880fc12662 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
-Signed-off-by: Victor Rodriguez <victor.rodriguez.bahena@intel.com>
+Date: Thu, 18 Feb 2016 17:15:58 -0600
+Subject: [PATCH 2/8] detect clearlinux init system
+
 ---
  src/ceph-detect-init/ceph_detect_init/__init__.py            |  4 ++++
  src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py | 11 +++++++++++
@@ -12,37 +10,37 @@ Signed-off-by: Victor Rodriguez <victor.rodriguez.bahena@intel.com>
  create mode 100644 src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py
 
 diff --git a/src/ceph-detect-init/ceph_detect_init/__init__.py b/src/ceph-detect-init/ceph_detect_init/__init__.py
-index 78374be..38ffae4 100644
+index b749ea08..f460084d 100644
 --- a/src/ceph-detect-init/ceph_detect_init/__init__.py
 +++ b/src/ceph-detect-init/ceph_detect_init/__init__.py
-@@ -16,6 +16,7 @@
+@@ -15,6 +15,7 @@
+ #
  from ceph_detect_init import alpine
- from ceph_detect_init import arch
  from ceph_detect_init import centos
 +from ceph_detect_init import clearlinux
  from ceph_detect_init import debian
  from ceph_detect_init import exc
  from ceph_detect_init import fedora
-@@ -65,6 +66,7 @@ def _get_distro(distro, use_rhceph=False):
+@@ -59,6 +60,7 @@ def _get_distro(distro, use_rhceph=False):
          'ubuntu': debian,
          'linuxmint': debian,
          'centos': centos,
 +        'clearlinux': clearlinux,
          'scientific': centos,
-         'oraclel': centos,
-         'oraclevms': oraclevms,
-@@ -95,6 +97,8 @@ def _normalized_distro_name(distro):
+         'redhat': centos,
+         'fedora': fedora,
+@@ -85,6 +87,8 @@ def _normalized_distro_name(distro):
          return 'suse'
      elif distro.startswith('centos'):
          return 'centos'
 +    elif distro.startswith('clear linux'):
 +        return 'clearlinux'
-     elif distro.startswith('oracle linux'):
-         return 'oraclel'
-     elif distro.startswith('oracle vm'):
+     elif distro.startswith(('gentoo', 'funtoo', 'exherbo')):
+         return 'gentoo'
+     return distro
 diff --git a/src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py b/src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py
 new file mode 100644
-index 0000000..425ce50
+index 00000000..425ce50b
 --- /dev/null
 +++ b/src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py
 @@ -0,0 +1,11 @@
@@ -58,5 +56,5 @@ index 0000000..425ce50
 +    """
 +    return 'systemd'
 -- 
-2.13.0
+2.13.1
 

@@ -1,14 +1,14 @@
-From 529ae44e287e6b293680ff4a98bb70ac29d34e2b Mon Sep 17 00:00:00 2001
+From 09acd5b6cbdb77b3737089ad29577b63a23beb33 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Tue, 28 Jun 2016 12:35:10 -0500
-Subject: [PATCH] Call ceph-osd-prestart.sh from libexec dir
+Subject: [PATCH 3/8] Call ceph-osd-prestart.sh from libexec dir
 
 ---
  systemd/ceph-osd@.service | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/systemd/ceph-osd@.service b/systemd/ceph-osd@.service
-index 592b324..45d5ea1 100644
+index c85d7baa..91c0f468 100644
 --- a/systemd/ceph-osd@.service
 +++ b/systemd/ceph-osd@.service
 @@ -10,7 +10,7 @@ LimitNPROC=1048576
@@ -21,5 +21,5 @@ index 592b324..45d5ea1 100644
  ProtectHome=true
  ProtectSystem=full
 -- 
-2.7.4
+2.13.1
 

@@ -1,14 +1,14 @@
-From 76e931bddbea453a57ca63322f81a479a49ea977 Mon Sep 17 00:00:00 2001
+From fa566e42bd221b0899d1875ed15e5cacd5e69107 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Thu, 9 Mar 2017 17:50:14 -0600
-Subject: [PATCH] systemd
+Subject: [PATCH 4/8] systemd
 
 ---
  systemd/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/systemd/CMakeLists.txt b/systemd/CMakeLists.txt
-index 240a565..fd10a29 100644
+index 240a565d..fd10a29c 100644
 --- a/systemd/CMakeLists.txt
 +++ b/systemd/CMakeLists.txt
 @@ -16,4 +16,4 @@ install(FILES
@@ -18,5 +18,5 @@ index 240a565..fd10a29 100644
 -  DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/systemd/system)
 +  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/systemd/system)
 -- 
-2.9.3
+2.13.1
 

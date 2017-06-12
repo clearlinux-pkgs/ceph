@@ -1,7 +1,7 @@
-From efd82486376727f18fe473a2da22a3b54f16580a Mon Sep 17 00:00:00 2001
+From f3193361b412211c7875d6fe699e0dd102907114 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Tue, 26 Jan 2016 09:59:29 -0600
-Subject: [PATCH 1/2] Ceph sudoers entry
+Subject: [PATCH 1/8] Ceph sudoers entry
 
 ---
  ceph.sudoers | 1 +
@@ -10,11 +10,11 @@ Subject: [PATCH 1/2] Ceph sudoers entry
 
 diff --git a/ceph.sudoers b/ceph.sudoers
 new file mode 100644
-index 0000000..a1ff75a
+index 00000000..a1ff75a2
 --- /dev/null
 +++ b/ceph.sudoers
 @@ -0,0 +1 @@
 +ceph ALL = (root) NOPASSWD: ALL
 -- 
-2.5.0
+2.13.1
 

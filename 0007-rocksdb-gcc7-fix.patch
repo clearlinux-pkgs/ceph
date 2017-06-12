@@ -1,0 +1,299 @@
+From b53e4cefa6ad7670c3b089ae0038e670071fcf9e Mon Sep 17 00:00:00 2001
+From: Alberto Murillo <alberto.murillo.silva@intel.com>
+Date: Mon, 12 Jun 2017 15:37:41 +0000
+Subject: [PATCH 7/8] rocksdb gcc7 fix
+
+Signed-off-by: Alberto Murillo <alberto.murillo.silva@intel.com>
+---
+ src/rocksdb/db/db_iterator_test.cc                                | 2 ++
+ src/rocksdb/db/external_sst_file_test.cc                          | 2 ++
+ src/rocksdb/db/file_indexer.cc                                    | 3 ++-
+ src/rocksdb/db/version_builder.cc                                 | 1 +
+ src/rocksdb/db/write_callback_test.cc                             | 1 +
+ src/rocksdb/include/rocksdb/env.h                                 | 1 +
+ src/rocksdb/java/rocksjni/portal.h                                | 1 +
+ src/rocksdb/java/rocksjni/rocksjni.cc                             | 3 ++-
+ src/rocksdb/tools/ldb_cmd.cc                                      | 3 ++-
+ src/rocksdb/util/dynamic_bloom_test.cc                            | 3 ++-
+ src/rocksdb/util/fault_injection_test_env.cc                      | 1 +
+ src/rocksdb/util/sync_point.cc                                    | 1 +
+ src/rocksdb/util/sync_point.h                                     | 1 +
+ src/rocksdb/util/thread_local.h                                   | 1 +
+ src/rocksdb/util/xfunc.h                                          | 1 +
+ src/rocksdb/utilities/backupable/backupable_db.cc                 | 1 +
+ src/rocksdb/utilities/persistent_cache/block_cache_tier_file.cc   | 1 +
+ src/rocksdb/utilities/persistent_cache/hash_table_evictable.h     | 2 ++
+ src/rocksdb/utilities/transactions/optimistic_transaction_test.cc | 1 +
+ src/rocksdb/utilities/transactions/transaction_test.cc            | 1 +
+ 20 files changed, 27 insertions(+), 4 deletions(-)
+
+diff --git a/src/rocksdb/db/db_iterator_test.cc b/src/rocksdb/db/db_iterator_test.cc
+index 20fd2ffb..567e4292 100644
+--- a/src/rocksdb/db/db_iterator_test.cc
++++ b/src/rocksdb/db/db_iterator_test.cc
+@@ -7,6 +7,8 @@
+ // Use of this source code is governed by a BSD-style license that can be
+ // found in the LICENSE file. See the AUTHORS file for names of contributors.
+ 
++#include <functional>
++
+ #include "db/db_test_util.h"
+ #include "port/stack_trace.h"
+ #include "rocksdb/iostats_context.h"
+diff --git a/src/rocksdb/db/external_sst_file_test.cc b/src/rocksdb/db/external_sst_file_test.cc
+index 8295c2d8..6512237c 100644
+--- a/src/rocksdb/db/external_sst_file_test.cc
++++ b/src/rocksdb/db/external_sst_file_test.cc
+@@ -3,6 +3,8 @@
+ //  LICENSE file in the root directory of this source tree. An additional grant
+ //  of patent rights can be found in the PATENTS file in the same directory.
+ 
++#include <functional>
++
+ #include "db/db_test_util.h"
+ #include "port/port.h"
+ #include "port/stack_trace.h"
+diff --git a/src/rocksdb/db/file_indexer.cc b/src/rocksdb/db/file_indexer.cc
+index 9b31c2bd..bce0e96f 100644
+--- a/src/rocksdb/db/file_indexer.cc
++++ b/src/rocksdb/db/file_indexer.cc
+@@ -9,8 +9,9 @@
+ 
+ #include "db/file_indexer.h"
+ #include <algorithm>
+-#include "rocksdb/comparator.h"
++#include <functional>
+ #include "db/version_edit.h"
++#include "rocksdb/comparator.h"
+ 
+ namespace rocksdb {
+ 
+diff --git a/src/rocksdb/db/version_builder.cc b/src/rocksdb/db/version_builder.cc
+index 7add24fa..09b449a5 100644
+--- a/src/rocksdb/db/version_builder.cc
++++ b/src/rocksdb/db/version_builder.cc
+@@ -16,6 +16,7 @@
+ #include <inttypes.h>
+ #include <algorithm>
+ #include <atomic>
++#include <functional>
+ #include <set>
+ #include <thread>
+ #include <unordered_map>
+diff --git a/src/rocksdb/db/write_callback_test.cc b/src/rocksdb/db/write_callback_test.cc
+index 33aaab7f..8e167b4b 100644
+--- a/src/rocksdb/db/write_callback_test.cc
++++ b/src/rocksdb/db/write_callback_test.cc
+@@ -5,6 +5,7 @@
+ 
+ #ifndef ROCKSDB_LITE
+ 
++#include <functional>
+ #include <string>
+ #include <utility>
+ #include <vector>
+diff --git a/src/rocksdb/include/rocksdb/env.h b/src/rocksdb/include/rocksdb/env.h
+index 5a1e425a..0305c47e 100644
+--- a/src/rocksdb/include/rocksdb/env.h
++++ b/src/rocksdb/include/rocksdb/env.h
+@@ -19,6 +19,7 @@
+ 
+ #include <stdint.h>
+ #include <cstdarg>
++#include <functional>
+ #include <limits>
+ #include <memory>
+ #include <string>
+diff --git a/src/rocksdb/java/rocksjni/portal.h b/src/rocksdb/java/rocksjni/portal.h
+index f51a0ba3..72b5bdad 100644
+--- a/src/rocksdb/java/rocksjni/portal.h
++++ b/src/rocksdb/java/rocksjni/portal.h
+@@ -11,6 +11,7 @@
+ #define JAVA_ROCKSJNI_PORTAL_H_
+ 
+ #include <jni.h>
++#include <functional>
+ #include <limits>
+ #include <string>
+ #include <vector>
+diff --git a/src/rocksdb/java/rocksjni/rocksjni.cc b/src/rocksdb/java/rocksjni/rocksjni.cc
+index b86cf63f..4c5d2b8a 100644
+--- a/src/rocksdb/java/rocksjni/rocksjni.cc
++++ b/src/rocksdb/java/rocksjni/rocksjni.cc
+@@ -9,11 +9,12 @@
+ #include <jni.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <algorithm>
++#include <functional>
+ #include <memory>
+ #include <string>
+ #include <tuple>
+ #include <vector>
+-#include <algorithm>
+ 
+ #include "include/org_rocksdb_RocksDB.h"
+ #include "rocksdb/cache.h"
+diff --git a/src/rocksdb/tools/ldb_cmd.cc b/src/rocksdb/tools/ldb_cmd.cc
+index da170776..06ca664d 100644
+--- a/src/rocksdb/tools/ldb_cmd.cc
++++ b/src/rocksdb/tools/ldb_cmd.cc
+@@ -34,12 +34,13 @@
+ 
+ #include <cstdlib>
+ #include <ctime>
++#include <fstream>
++#include <functional>
+ #include <iostream>
+ #include <limits>
+ #include <sstream>
+ #include <stdexcept>
+ #include <string>
+-#include <fstream>
+ 
+ namespace rocksdb {
+ 
+diff --git a/src/rocksdb/util/dynamic_bloom_test.cc b/src/rocksdb/util/dynamic_bloom_test.cc
+index 5b8ec749..fcce2a6d 100644
+--- a/src/rocksdb/util/dynamic_bloom_test.cc
++++ b/src/rocksdb/util/dynamic_bloom_test.cc
+@@ -15,13 +15,14 @@ int main() {
+ #define __STDC_FORMAT_MACROS
+ #endif
+ 
++#include <gflags/gflags.h>
+ #include <inttypes.h>
+ #include <algorithm>
+ #include <atomic>
++#include <functional>
+ #include <memory>
+ #include <thread>
+ #include <vector>
+-#include <gflags/gflags.h>
+ 
+ #include "dynamic_bloom.h"
+ #include "port/port.h"
+diff --git a/src/rocksdb/util/fault_injection_test_env.cc b/src/rocksdb/util/fault_injection_test_env.cc
+index 9898a0d3..e0a39c5c 100644
+--- a/src/rocksdb/util/fault_injection_test_env.cc
++++ b/src/rocksdb/util/fault_injection_test_env.cc
+@@ -12,6 +12,7 @@
+ // file data (or entire files) not protected by a "sync".
+ 
+ #include "util/fault_injection_test_env.h"
++#include <functional>
+ #include <utility>
+ 
+ namespace rocksdb {
+diff --git a/src/rocksdb/util/sync_point.cc b/src/rocksdb/util/sync_point.cc
+index 5f3a726a..307cde76 100644
+--- a/src/rocksdb/util/sync_point.cc
++++ b/src/rocksdb/util/sync_point.cc
+@@ -4,6 +4,7 @@
+ //  of patent rights can be found in the PATENTS file in the same directory.
+ 
+ #include "util/sync_point.h"
++#include <functional>
+ #include <thread>
+ #include "port/port.h"
+ #include "util/random.h"
+diff --git a/src/rocksdb/util/sync_point.h b/src/rocksdb/util/sync_point.h
+index 0201ec72..9b3b7533 100644
+--- a/src/rocksdb/util/sync_point.h
++++ b/src/rocksdb/util/sync_point.h
+@@ -6,6 +6,7 @@
+ 
+ #include <assert.h>
+ #include <condition_variable>
++#include <functional>
+ #include <mutex>
+ #include <string>
+ #include <thread>
+diff --git a/src/rocksdb/util/thread_local.h b/src/rocksdb/util/thread_local.h
+index 5806b544..f3a7f0da 100644
+--- a/src/rocksdb/util/thread_local.h
++++ b/src/rocksdb/util/thread_local.h
+@@ -10,6 +10,7 @@
+ #pragma once
+ 
+ #include <atomic>
++#include <functional>
+ #include <memory>
+ #include <unordered_map>
+ #include <vector>
+diff --git a/src/rocksdb/util/xfunc.h b/src/rocksdb/util/xfunc.h
+index e19a03f1..e300f580 100644
+--- a/src/rocksdb/util/xfunc.h
++++ b/src/rocksdb/util/xfunc.h
+@@ -5,6 +5,7 @@
+ #pragma once
+ 
+ #include <cstdlib>
++#include <functional>
+ #include <string>
+ 
+ #include "rocksdb/options.h"
+diff --git a/src/rocksdb/utilities/backupable/backupable_db.cc b/src/rocksdb/utilities/backupable/backupable_db.cc
+index fc3e7f3e..49e702d7 100644
+--- a/src/rocksdb/utilities/backupable/backupable_db.cc
++++ b/src/rocksdb/utilities/backupable/backupable_db.cc
+@@ -30,6 +30,7 @@
+ #include <stdlib.h>
+ #include <algorithm>
+ #include <atomic>
++#include <functional>
+ #include <future>
+ #include <limits>
+ #include <map>
+diff --git a/src/rocksdb/utilities/persistent_cache/block_cache_tier_file.cc b/src/rocksdb/utilities/persistent_cache/block_cache_tier_file.cc
+index 0ea0345a..3ae641b3 100644
+--- a/src/rocksdb/utilities/persistent_cache/block_cache_tier_file.cc
++++ b/src/rocksdb/utilities/persistent_cache/block_cache_tier_file.cc
+@@ -9,6 +9,7 @@
+ #ifndef OS_WIN
+ #include <unistd.h>
+ #endif
++#include <functional>
+ #include <memory>
+ #include <vector>
+ 
+diff --git a/src/rocksdb/utilities/persistent_cache/hash_table_evictable.h b/src/rocksdb/utilities/persistent_cache/hash_table_evictable.h
+index da13c0e9..0b68385d 100644
+--- a/src/rocksdb/utilities/persistent_cache/hash_table_evictable.h
++++ b/src/rocksdb/utilities/persistent_cache/hash_table_evictable.h
+@@ -7,6 +7,8 @@
+ 
+ #ifndef ROCKSDB_LITE
+ 
++#include <functional>
++
+ #include "util/random.h"
+ #include "utilities/persistent_cache/hash_table.h"
+ #include "utilities/persistent_cache/lrulist.h"
+diff --git a/src/rocksdb/utilities/transactions/optimistic_transaction_test.cc b/src/rocksdb/utilities/transactions/optimistic_transaction_test.cc
+index 0b540471..4842b7aa 100644
+--- a/src/rocksdb/utilities/transactions/optimistic_transaction_test.cc
++++ b/src/rocksdb/utilities/transactions/optimistic_transaction_test.cc
+@@ -5,6 +5,7 @@
+ 
+ #ifndef ROCKSDB_LITE
+ 
++#include <functional>
+ #include <string>
+ #include <thread>
+ 
+diff --git a/src/rocksdb/utilities/transactions/transaction_test.cc b/src/rocksdb/utilities/transactions/transaction_test.cc
+index 917dbb7d..4cb79427 100644
+--- a/src/rocksdb/utilities/transactions/transaction_test.cc
++++ b/src/rocksdb/utilities/transactions/transaction_test.cc
+@@ -6,6 +6,7 @@
+ #ifndef ROCKSDB_LITE
+ 
+ #include <algorithm>
++#include <functional>
+ #include <string>
+ #include <thread>
+ 
+-- 
+2.13.1
+
