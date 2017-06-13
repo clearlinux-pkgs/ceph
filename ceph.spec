@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 11.2.0
-Release  : 39
+Release  : 40
 URL      : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -154,7 +154,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1497289195
+export SOURCE_DATE_EPOCH=1497315553
 mkdir clr-build
 pushd clr-build
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DCMAKE_MODULE_PATH="/usr/share/cmake/Modules:/usr/share/cmake-3.8/Modules"
@@ -162,7 +162,7 @@ make VERBOSE=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1497289195
+export SOURCE_DATE_EPOCH=1497315553
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -177,6 +177,8 @@ install -p -D -m 644 udev/50-rbd.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/60-ceph-by-parttypeuuid.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 rm -rf %{buildroot}/usr/etc
+rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
+rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 ## make_install_append end
 
 %files
@@ -230,12 +232,8 @@ rm -rf %{buildroot}/usr/etc
 %files config
 %defattr(-,root,root,-)
 /usr/lib/systemd/system/ceph-disk@.service
-/usr/lib/systemd/system/ceph-fuse.target
-/usr/lib/systemd/system/ceph-fuse@.service
 /usr/lib/systemd/system/ceph-mds.target
 /usr/lib/systemd/system/ceph-mds@.service
-/usr/lib/systemd/system/ceph-mgr.target
-/usr/lib/systemd/system/ceph-mgr@.service
 /usr/lib/systemd/system/ceph-mon.target
 /usr/lib/systemd/system/ceph-mon@.service
 /usr/lib/systemd/system/ceph-osd.target
