@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 11.2.0
-Release  : 40
+Release  : 41
 URL      : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -24,7 +24,6 @@ BuildRequires : Cython
 BuildRequires : Sphinx-python
 BuildRequires : boost-dev
 BuildRequires : bzip2-dev
-BuildRequires : catkin-dev
 BuildRequires : cmake
 BuildRequires : curl-dev
 BuildRequires : expat-dev

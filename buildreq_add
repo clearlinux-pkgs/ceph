@@ -40,4 +40,3 @@ yasm
 zlib-dev
 googletest-dev
 gperftools-dev
-catkin-dev
