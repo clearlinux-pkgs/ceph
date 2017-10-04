@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 11.2.0
-Release  : 42
+Release  : 43
 URL      : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -12,11 +12,13 @@ Summary  : Ceph Base Package
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 CC-BY-SA-1.0 GPL-2.0 GPL-2.0-with-autoconf-exception LGPL-2.0 LGPL-2.1 MIT MTLL NTP
 Requires: ceph-bin
-Requires: ceph-python
+Requires: ceph-legacypython
+Requires: ceph-python3
 Requires: ceph-config
 Requires: ceph-lib
 Requires: ceph-data
 Requires: ceph-doc
+Requires: ceph-python
 Requires: pecan
 Requires: requests
 Requires: setuptools
@@ -119,11 +121,19 @@ Group: Documentation
 doc components for the ceph package.
 
 
+%package legacypython
+Summary: legacypython components for the ceph package.
+Group: Default
+Requires: python-core
+
+%description legacypython
+legacypython components for the ceph package.
+
+
 %package lib
 Summary: lib components for the ceph package.
 Group: Libraries
 Requires: ceph-data
-Requires: ceph-config
 
 %description lib
 lib components for the ceph package.
@@ -132,9 +142,20 @@ lib components for the ceph package.
 %package python
 Summary: python components for the ceph package.
 Group: Default
+Requires: ceph-legacypython
+Requires: ceph-python3
 
 %description python
 python components for the ceph package.
+
+
+%package python3
+Summary: python3 components for the ceph package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the ceph package.
 
 
 %prep
@@ -153,15 +174,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1497315553
+export SOURCE_DATE_EPOCH=1507151490
 mkdir clr-build
 pushd clr-build
-cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DCMAKE_MODULE_PATH="/usr/share/cmake/Modules:/usr/share/cmake-3.8/Modules"
+cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DCMAKE_MODULE_PATH="/usr/share/cmake/Modules:/usr/share/cmake-3.8/Modules"
 make VERBOSE=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1497315553
+export SOURCE_DATE_EPOCH=1507151490
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -291,6 +312,10 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 %doc /usr/share/doc/ceph/*
 %doc /usr/share/man/man8/*
 
+%files legacypython
+%defattr(-,root,root,-)
+/usr/lib/python2*/*
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/ceph/compressor/libceph_snappy.so
@@ -372,5 +397,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python2*/*
+
+%files python3
+%defattr(-,root,root,-)
 /usr/lib/python3*/*
