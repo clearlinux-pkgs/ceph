@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 11.2.0
-Release  : 44
+Release  : 45
 URL      : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -62,6 +62,9 @@ BuildRequires : virtualenv
 BuildRequires : xfsprogs-dev
 BuildRequires : yasm
 BuildRequires : zlib-dev
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 Patch1: 0001-Ceph-sudoers-entry.patch
 Patch2: 0002-detect-clearlinux-init-system.patch
 Patch3: 0003-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
@@ -174,7 +177,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1507151490
+export SOURCE_DATE_EPOCH=1509057483
 mkdir clr-build
 pushd clr-build
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DCMAKE_MODULE_PATH="/usr/share/cmake/Modules:/usr/share/cmake-3.8/Modules"
@@ -182,7 +185,7 @@ make VERBOSE=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1507151490
+export SOURCE_DATE_EPOCH=1509057483
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
