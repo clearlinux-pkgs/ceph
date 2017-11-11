@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 11.2.0
-Release  : 45
+Release  : 46
 URL      : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_11.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -62,9 +62,6 @@ BuildRequires : virtualenv
 BuildRequires : xfsprogs-dev
 BuildRequires : yasm
 BuildRequires : zlib-dev
-# Suppress stripping binaries
-%define __strip /bin/true
-%define debug_package %{nil}
 Patch1: 0001-Ceph-sudoers-entry.patch
 Patch2: 0002-detect-clearlinux-init-system.patch
 Patch3: 0003-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
