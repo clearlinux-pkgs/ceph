@@ -1,0 +1,2143 @@
+From 32eac20c8cf460ce3bceed19af8cf9c778f162f2 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Fri, 2 Feb 2018 20:33:53 +0000
+Subject: [PATCH] Force /usr/bin/python2
+
+---
+ admin/serve-doc                                                       | 2 +-
+ qa/workunits/fs/misc/direct_io.py                                     | 2 +-
+ qa/workunits/fs/misc/filelock_deadlock.py                             | 2 +-
+ qa/workunits/fs/misc/filelock_interrupt.py                            | 2 +-
+ qa/workunits/fs/multiclient_sync_read_eof.py                          | 2 +-
+ qa/workunits/mon/caps.py                                              | 2 +-
+ qa/workunits/mon/ping.py                                              | 2 +-
+ qa/workunits/mon/test_mon_config_key.py                               | 2 +-
+ qa/workunits/rest/test.py                                             | 2 +-
+ src/boost/libs/compute/perf/perf.py                                   | 2 +-
+ src/boost/libs/compute/perf/perfdoc.py                                | 2 +-
+ src/boost/libs/iterator/doc/generate.py                               | 2 +-
+ src/boost/libs/metaparse/tools/benchmark/benchmark.py                 | 2 +-
+ src/boost/libs/metaparse/tools/benchmark/char_stat.py                 | 2 +-
+ src/boost/libs/metaparse/tools/benchmark/generate.py                  | 2 +-
+ src/boost/libs/metaparse/tools/build_environment.py                   | 2 +-
+ src/boost/libs/metaparse/tools/generate_all.py                        | 2 +-
+ src/boost/libs/metaparse/tools/string_headers.py                      | 2 +-
+ src/boost/libs/program_options/test/program_options_size_test.py      | 2 +-
+ src/boost/tools/build/example/customization/inline_file.py            | 2 +-
+ src/boost/tools/build/src/engine/bump_version.py                      | 2 +-
+ src/boost/tools/build/src/tools/doxproc.py                            | 2 +-
+ src/boost/tools/build/test/MockToolset.py                             | 2 +-
+ src/boost/tools/build/test/absolute_sources.py                        | 2 +-
+ src/boost/tools/build/test/alias.py                                   | 2 +-
+ src/boost/tools/build/test/alternatives.py                            | 2 +-
+ src/boost/tools/build/test/bad_dirname.py                             | 2 +-
+ src/boost/tools/build/test/boostbook.py                               | 2 +-
+ src/boost/tools/build/test/build_dir.py                               | 2 +-
+ src/boost/tools/build/test/build_file.py                              | 2 +-
+ src/boost/tools/build/test/build_no.py                                | 2 +-
+ src/boost/tools/build/test/builtin_echo.py                            | 2 +-
+ src/boost/tools/build/test/builtin_exit.py                            | 2 +-
+ src/boost/tools/build/test/builtin_glob.py                            | 2 +-
+ src/boost/tools/build/test/builtin_glob_archive.py                    | 2 +-
+ src/boost/tools/build/test/builtin_readlink.py                        | 2 +-
+ src/boost/tools/build/test/builtin_split_by_characters.py             | 2 +-
+ src/boost/tools/build/test/bzip2.py                                   | 2 +-
+ src/boost/tools/build/test/c_file.py                                  | 2 +-
+ src/boost/tools/build/test/chain.py                                   | 2 +-
+ src/boost/tools/build/test/clean.py                                   | 2 +-
+ src/boost/tools/build/test/cli_property_expansion.py                  | 2 +-
+ src/boost/tools/build/test/collect_debug_info.py                      | 2 +-
+ src/boost/tools/build/test/composite.py                               | 2 +-
+ src/boost/tools/build/test/conditionals.py                            | 2 +-
+ src/boost/tools/build/test/conditionals2.py                           | 2 +-
+ src/boost/tools/build/test/conditionals3.py                           | 2 +-
+ src/boost/tools/build/test/conditionals_multiple.py                   | 2 +-
+ src/boost/tools/build/test/configuration.py                           | 2 +-
+ src/boost/tools/build/test/copy_time.py                               | 2 +-
+ src/boost/tools/build/test/core_action_output.py                      | 2 +-
+ src/boost/tools/build/test/core_action_status.py                      | 2 +-
+ src/boost/tools/build/test/core_actions_quietly.py                    | 2 +-
+ src/boost/tools/build/test/core_arguments.py                          | 2 +-
+ src/boost/tools/build/test/core_at_file.py                            | 2 +-
+ src/boost/tools/build/test/core_bindrule.py                           | 2 +-
+ src/boost/tools/build/test/core_d12.py                                | 2 +-
+ src/boost/tools/build/test/core_delete_module.py                      | 2 +-
+ src/boost/tools/build/test/core_dependencies.py                       | 2 +-
+ src/boost/tools/build/test/core_import_module.py                      | 2 +-
+ src/boost/tools/build/test/core_jamshell.py                           | 2 +-
+ src/boost/tools/build/test/core_language.py                           | 2 +-
+ src/boost/tools/build/test/core_modifiers.py                          | 2 +-
+ src/boost/tools/build/test/core_multifile_actions.py                  | 2 +-
+ src/boost/tools/build/test/core_nt_cmd_line.py                        | 2 +-
+ src/boost/tools/build/test/core_option_d2.py                          | 2 +-
+ src/boost/tools/build/test/core_option_l.py                           | 2 +-
+ src/boost/tools/build/test/core_option_n.py                           | 2 +-
+ src/boost/tools/build/test/core_parallel_actions.py                   | 2 +-
+ src/boost/tools/build/test/core_parallel_multifile_actions_1.py       | 2 +-
+ src/boost/tools/build/test/core_parallel_multifile_actions_2.py       | 2 +-
+ src/boost/tools/build/test/core_source_line_tracking.py               | 2 +-
+ src/boost/tools/build/test/core_typecheck.py                          | 2 +-
+ src/boost/tools/build/test/core_update_now.py                         | 2 +-
+ src/boost/tools/build/test/core_variables_in_actions.py               | 2 +-
+ src/boost/tools/build/test/core_varnames.py                           | 2 +-
+ src/boost/tools/build/test/custom_generator.py                        | 2 +-
+ src/boost/tools/build/test/default_build.py                           | 2 +-
+ src/boost/tools/build/test/default_features.py                        | 2 +-
+ src/boost/tools/build/test/default_toolset.py                         | 2 +-
+ src/boost/tools/build/test/dependency_property.py                     | 2 +-
+ src/boost/tools/build/test/dependency_test.py                         | 2 +-
+ src/boost/tools/build/test/direct_request_test.py                     | 2 +-
+ src/boost/tools/build/test/disambiguation.py                          | 2 +-
+ src/boost/tools/build/test/dll_path.py                                | 2 +-
+ src/boost/tools/build/test/double_loading.py                          | 2 +-
+ src/boost/tools/build/test/duplicate.py                               | 2 +-
+ src/boost/tools/build/test/example_customization.py                   | 2 +-
+ src/boost/tools/build/test/example_gettext.py                         | 2 +-
+ src/boost/tools/build/test/example_libraries.py                       | 2 +-
+ src/boost/tools/build/test/example_make.py                            | 2 +-
+ src/boost/tools/build/test/example_qt4.py                             | 2 +-
+ src/boost/tools/build/test/exit_status.py                             | 2 +-
+ src/boost/tools/build/test/expansion.py                               | 2 +-
+ src/boost/tools/build/test/explicit.py                                | 2 +-
+ src/boost/tools/build/test/feature_cxxflags.py                        | 2 +-
+ src/boost/tools/build/test/free_features_request.py                   | 2 +-
+ src/boost/tools/build/test/gcc_runtime.py                             | 2 +-
+ src/boost/tools/build/test/generator_selection.py                     | 2 +-
+ src/boost/tools/build/test/generators_test.py                         | 2 +-
+ src/boost/tools/build/test/implicit_dependency.py                     | 2 +-
+ src/boost/tools/build/test/indirect_conditional.py                    | 2 +-
+ src/boost/tools/build/test/inherit_toolset.py                         | 2 +-
+ src/boost/tools/build/test/inherited_dependency.py                    | 2 +-
+ src/boost/tools/build/test/inline.py                                  | 2 +-
+ src/boost/tools/build/test/lib_source_property.py                     | 2 +-
+ src/boost/tools/build/test/libjpeg.py                                 | 2 +-
+ src/boost/tools/build/test/libpng.py                                  | 2 +-
+ src/boost/tools/build/test/library_chain.py                           | 2 +-
+ src/boost/tools/build/test/library_order.py                           | 2 +-
+ src/boost/tools/build/test/library_property.py                        | 2 +-
+ src/boost/tools/build/test/libtiff.py                                 | 2 +-
+ src/boost/tools/build/test/link.py                                    | 2 +-
+ src/boost/tools/build/test/load_dir.py                                | 4 ++--
+ src/boost/tools/build/test/load_order.py                              | 2 +-
+ src/boost/tools/build/test/loop.py                                    | 2 +-
+ src/boost/tools/build/test/make_rule.py                               | 2 +-
+ src/boost/tools/build/test/message.py                                 | 2 +-
+ src/boost/tools/build/test/module_actions.py                          | 2 +-
+ src/boost/tools/build/test/ndebug.py                                  | 2 +-
+ src/boost/tools/build/test/no_type.py                                 | 2 +-
+ src/boost/tools/build/test/notfile.py                                 | 2 +-
+ src/boost/tools/build/test/ordered_include.py                         | 2 +-
+ src/boost/tools/build/test/ordered_properties.py                      | 2 +-
+ src/boost/tools/build/test/out_of_tree.py                             | 2 +-
+ src/boost/tools/build/test/path_features.py                           | 2 +-
+ src/boost/tools/build/test/pch.py                                     | 2 +-
+ src/boost/tools/build/test/prebuilt.py                                | 2 +-
+ src/boost/tools/build/test/preprocessor.py                            | 2 +-
+ src/boost/tools/build/test/print.py                                   | 2 +-
+ src/boost/tools/build/test/project_dependencies.py                    | 2 +-
+ src/boost/tools/build/test/project_glob.py                            | 2 +-
+ src/boost/tools/build/test/project_id.py                              | 2 +-
+ src/boost/tools/build/test/project_root_constants.py                  | 2 +-
+ src/boost/tools/build/test/project_root_rule.py                       | 2 +-
+ src/boost/tools/build/test/project_test3.py                           | 2 +-
+ src/boost/tools/build/test/project_test4.py                           | 2 +-
+ src/boost/tools/build/test/property_expansion.py                      | 2 +-
+ src/boost/tools/build/test/qt4.py                                     | 2 +-
+ src/boost/tools/build/test/qt5.py                                     | 2 +-
+ src/boost/tools/build/test/railsys.py                                 | 2 +-
+ src/boost/tools/build/test/rebuilds.py                                | 2 +-
+ src/boost/tools/build/test/regression.py                              | 2 +-
+ src/boost/tools/build/test/relative_sources.py                        | 2 +-
+ src/boost/tools/build/test/remove_requirement.py                      | 2 +-
+ src/boost/tools/build/test/rescan_header.py                           | 2 +-
+ src/boost/tools/build/test/resolution.py                              | 2 +-
+ src/boost/tools/build/test/scanner_causing_rebuilds.py                | 2 +-
+ src/boost/tools/build/test/searched_lib.py                            | 2 +-
+ src/boost/tools/build/test/skipping.py                                | 2 +-
+ src/boost/tools/build/test/sort_rule.py                               | 2 +-
+ src/boost/tools/build/test/source_locations.py                        | 2 +-
+ src/boost/tools/build/test/source_order.py                            | 2 +-
+ src/boost/tools/build/test/space_in_path.py                           | 2 +-
+ src/boost/tools/build/test/stage.py                                   | 2 +-
+ src/boost/tools/build/test/standalone.py                              | 2 +-
+ src/boost/tools/build/test/startup_v2.py                              | 2 +-
+ src/boost/tools/build/test/static_and_shared_library.py               | 2 +-
+ src/boost/tools/build/test/suffix.py                                  | 2 +-
+ src/boost/tools/build/test/symlink.py                                 | 2 +-
+ src/boost/tools/build/test/tag.py                                     | 2 +-
+ src/boost/tools/build/test/template.py                                | 2 +-
+ src/boost/tools/build/test/test1.py                                   | 2 +-
+ src/boost/tools/build/test/test2.py                                   | 2 +-
+ src/boost/tools/build/test/test_all.py                                | 2 +-
+ src/boost/tools/build/test/test_rc.py                                 | 2 +-
+ src/boost/tools/build/test/test_result_dumping.py                     | 2 +-
+ src/boost/tools/build/test/testing_support.py                         | 2 +-
+ src/boost/tools/build/test/timedata.py                                | 2 +-
+ src/boost/tools/build/test/toolset_requirements.py                    | 2 +-
+ src/boost/tools/build/test/unit_test.py                               | 2 +-
+ src/boost/tools/build/test/unit_tests.py                              | 2 +-
+ src/boost/tools/build/test/unused.py                                  | 2 +-
+ src/boost/tools/build/test/use_requirements.py                        | 2 +-
+ src/boost/tools/build/test/using.py                                   | 2 +-
+ src/boost/tools/build/test/wrapper.py                                 | 2 +-
+ src/boost/tools/build/test/wrong_project.py                           | 2 +-
+ src/boost/tools/build/test/zlib.py                                    | 2 +-
+ src/civetweb/src/third_party/duktape-1.3.0/config/genconfig.py        | 2 +-
+ .../third_party/duktape-1.3.0/examples/alloc-logging/log2gnuplot.py   | 2 +-
+ src/dpdk/app/cmdline_test/cmdline_test.py                             | 2 +-
+ src/dpdk/app/cmdline_test/cmdline_test_data.py                        | 2 +-
+ src/dpdk/app/test/autotest.py                                         | 2 +-
+ src/dpdk/app/test/autotest_data.py                                    | 2 +-
+ src/dpdk/app/test/autotest_runner.py                                  | 2 +-
+ src/dpdk/app/test/autotest_test_funcs.py                              | 2 +-
+ src/dpdk/lib/librte_vhost/libvirt/qemu-wrap.py                        | 2 +-
+ src/dpdk/tools/cpu_layout.py                                          | 2 +-
+ src/dpdk/tools/dpdk_nic_bind.py                                       | 2 +-
+ src/powerdns/pdns-backend-rgw.py                                      | 2 +-
+ src/rocksdb/arcanist_util/cpp_linter/cpplint.py                       | 2 +-
+ src/rocksdb/build_tools/amalgamate.py                                 | 2 +-
+ src/test/librbd/test_notify.py                                        | 2 +-
+ 193 files changed, 194 insertions(+), 194 deletions(-)
+
+diff --git a/admin/serve-doc b/admin/serve-doc
+index 9c1bfb4..1c2523d 100755
+--- a/admin/serve-doc
++++ b/admin/serve-doc
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ import SimpleHTTPServer
+ import SocketServer
+ import os
+diff --git a/qa/workunits/fs/misc/direct_io.py b/qa/workunits/fs/misc/direct_io.py
+index b5c4226..587d31f 100755
+--- a/qa/workunits/fs/misc/direct_io.py
++++ b/qa/workunits/fs/misc/direct_io.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ import json
+ import mmap
+diff --git a/qa/workunits/fs/misc/filelock_deadlock.py b/qa/workunits/fs/misc/filelock_deadlock.py
+index 3ebc977..240636b 100755
+--- a/qa/workunits/fs/misc/filelock_deadlock.py
++++ b/qa/workunits/fs/misc/filelock_deadlock.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ import errno
+ import fcntl
+diff --git a/qa/workunits/fs/misc/filelock_interrupt.py b/qa/workunits/fs/misc/filelock_interrupt.py
+index 2a413a6..18fc7f1 100755
+--- a/qa/workunits/fs/misc/filelock_interrupt.py
++++ b/qa/workunits/fs/misc/filelock_interrupt.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ import errno
+ import fcntl
+diff --git a/qa/workunits/fs/multiclient_sync_read_eof.py b/qa/workunits/fs/multiclient_sync_read_eof.py
+index d3e0f8e..276a251 100755
+--- a/qa/workunits/fs/multiclient_sync_read_eof.py
++++ b/qa/workunits/fs/multiclient_sync_read_eof.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ import argparse
+ import os
+diff --git a/qa/workunits/mon/caps.py b/qa/workunits/mon/caps.py
+index 96dbf73..53359dc 100644
+--- a/qa/workunits/mon/caps.py
++++ b/qa/workunits/mon/caps.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ import json
+ import subprocess
+diff --git a/qa/workunits/mon/ping.py b/qa/workunits/mon/ping.py
+index 1773c73..cc95bcc 100755
+--- a/qa/workunits/mon/ping.py
++++ b/qa/workunits/mon/ping.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ import json
+ import shlex
+diff --git a/qa/workunits/mon/test_mon_config_key.py b/qa/workunits/mon/test_mon_config_key.py
+index 9e7537a..2ff5e9b 100755
+--- a/qa/workunits/mon/test_mon_config_key.py
++++ b/qa/workunits/mon/test_mon_config_key.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ # test_mon_config_key - Test 'ceph config-key' interface
+ #
+diff --git a/qa/workunits/rest/test.py b/qa/workunits/rest/test.py
+index f12cf2b..51cc6e6 100755
+--- a/qa/workunits/rest/test.py
++++ b/qa/workunits/rest/test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ from __future__ import print_function
+ 
+diff --git a/src/boost/libs/compute/perf/perf.py b/src/boost/libs/compute/perf/perf.py
+index c7b33f6..bdd2298 100755
+--- a/src/boost/libs/compute/perf/perf.py
++++ b/src/boost/libs/compute/perf/perf.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (c) 2014 Kyle Lutz <kyle.r.lutz@gmail.com>
+ # Distributed under the Boost Software License, Version 1.0
+diff --git a/src/boost/libs/compute/perf/perfdoc.py b/src/boost/libs/compute/perf/perfdoc.py
+index e9c6036..aabcd9b 100755
+--- a/src/boost/libs/compute/perf/perfdoc.py
++++ b/src/boost/libs/compute/perf/perfdoc.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (c) 2014 Kyle Lutz <kyle.r.lutz@gmail.com>
+ # Distributed under the Boost Software License, Version 1.0
+diff --git a/src/boost/libs/iterator/doc/generate.py b/src/boost/libs/iterator/doc/generate.py
+index f5d0de8..fd92ad6 100644
+--- a/src/boost/libs/iterator/doc/generate.py
++++ b/src/boost/libs/iterator/doc/generate.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ # Copyright David Abrahams 2004. Use, modification and distribution is
+ # subject to the Boost Software License, Version 1.0. (See accompanying
+ # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+diff --git a/src/boost/libs/metaparse/tools/benchmark/benchmark.py b/src/boost/libs/metaparse/tools/benchmark/benchmark.py
+index 8e2b0a1..d3bff71 100755
+--- a/src/boost/libs/metaparse/tools/benchmark/benchmark.py
++++ b/src/boost/libs/metaparse/tools/benchmark/benchmark.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ """Utility to benchmark the generated source files"""
+ 
+ # Copyright Abel Sinkovics (abel@sinkovics.hu) 2016.
+diff --git a/src/boost/libs/metaparse/tools/benchmark/char_stat.py b/src/boost/libs/metaparse/tools/benchmark/char_stat.py
+index be5935d..9d1df93 100755
+--- a/src/boost/libs/metaparse/tools/benchmark/char_stat.py
++++ b/src/boost/libs/metaparse/tools/benchmark/char_stat.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ """Utility to generate character statistics about a number of source files"""
+ 
+ # Copyright Abel Sinkovics (abel@sinkovics.hu) 2016.
+diff --git a/src/boost/libs/metaparse/tools/benchmark/generate.py b/src/boost/libs/metaparse/tools/benchmark/generate.py
+index 52526c8..7ec72bc 100755
+--- a/src/boost/libs/metaparse/tools/benchmark/generate.py
++++ b/src/boost/libs/metaparse/tools/benchmark/generate.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ """Utility to generate files to benchmark"""
+ 
+ # Copyright Abel Sinkovics (abel@sinkovics.hu) 2016.
+diff --git a/src/boost/libs/metaparse/tools/build_environment.py b/src/boost/libs/metaparse/tools/build_environment.py
+index b104fb3..f0e4c21 100755
+--- a/src/boost/libs/metaparse/tools/build_environment.py
++++ b/src/boost/libs/metaparse/tools/build_environment.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright Abel Sinkovics (abel@sinkovics.hu) 2016.
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/libs/metaparse/tools/generate_all.py b/src/boost/libs/metaparse/tools/generate_all.py
+index 66a5267..49cd1be 100755
+--- a/src/boost/libs/metaparse/tools/generate_all.py
++++ b/src/boost/libs/metaparse/tools/generate_all.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright Abel Sinkovics (abel@sinkovics.hu)  2015.
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/libs/metaparse/tools/string_headers.py b/src/boost/libs/metaparse/tools/string_headers.py
+index 2676f3f..fe74029 100755
+--- a/src/boost/libs/metaparse/tools/string_headers.py
++++ b/src/boost/libs/metaparse/tools/string_headers.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ """Utility to generate the header files for BOOST_METAPARSE_STRING"""
+ 
+ # Copyright Abel Sinkovics (abel@sinkovics.hu) 2016.
+diff --git a/src/boost/libs/program_options/test/program_options_size_test.py b/src/boost/libs/program_options/test/program_options_size_test.py
+index 25ca2f7..ca38df7 100644
+--- a/src/boost/libs/program_options/test/program_options_size_test.py
++++ b/src/boost/libs/program_options/test/program_options_size_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ import os
+ import string
+diff --git a/src/boost/tools/build/example/customization/inline_file.py b/src/boost/tools/build/example/customization/inline_file.py
+index 9f13acd..1eb8c66 100644
+--- a/src/boost/tools/build/example/customization/inline_file.py
++++ b/src/boost/tools/build/example/customization/inline_file.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/src/engine/bump_version.py b/src/boost/tools/build/src/engine/bump_version.py
+index 1771422..c09e204 100644
+--- a/src/boost/tools/build/src/engine/bump_version.py
++++ b/src/boost/tools/build/src/engine/bump_version.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # This script is used to bump the bjam version. It takes a single argument, e.g
+ #
+diff --git a/src/boost/tools/build/src/tools/doxproc.py b/src/boost/tools/build/src/tools/doxproc.py
+index d415133..3b614a0 100644
+--- a/src/boost/tools/build/src/tools/doxproc.py
++++ b/src/boost/tools/build/src/tools/doxproc.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ # Copyright 2006 Rene Rivera
+ # Distributed under the Boost Software License, Version 1.0.
+ # (See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
+diff --git a/src/boost/tools/build/test/MockToolset.py b/src/boost/tools/build/test/MockToolset.py
+index 741959e..8297c11 100755
+--- a/src/boost/tools/build/test/MockToolset.py
++++ b/src/boost/tools/build/test/MockToolset.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2013 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/absolute_sources.py b/src/boost/tools/build/test/absolute_sources.py
+index 64cd770..b446de8 100644
+--- a/src/boost/tools/build/test/absolute_sources.py
++++ b/src/boost/tools/build/test/absolute_sources.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003, 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/alias.py b/src/boost/tools/build/test/alias.py
+index 7ac4c61..e4fb206 100644
+--- a/src/boost/tools/build/test/alias.py
++++ b/src/boost/tools/build/test/alias.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2003 Vladimir Prus
+diff --git a/src/boost/tools/build/test/alternatives.py b/src/boost/tools/build/test/alternatives.py
+index 6459273..2cbc965 100644
+--- a/src/boost/tools/build/test/alternatives.py
++++ b/src/boost/tools/build/test/alternatives.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2003, 2006 Vladimir Prus
+diff --git a/src/boost/tools/build/test/bad_dirname.py b/src/boost/tools/build/test/bad_dirname.py
+index 961a45a..ec0b026 100644
+--- a/src/boost/tools/build/test/bad_dirname.py
++++ b/src/boost/tools/build/test/bad_dirname.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/boostbook.py b/src/boost/tools/build/test/boostbook.py
+index 78eab87..0a8af03 100644
+--- a/src/boost/tools/build/test/boostbook.py
++++ b/src/boost/tools/build/test/boostbook.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2004, 2006 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/build_dir.py b/src/boost/tools/build/test/build_dir.py
+index 50c2a90..6e2585a 100644
+--- a/src/boost/tools/build/test/build_dir.py
++++ b/src/boost/tools/build/test/build_dir.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2005 Vladimir Prus
+diff --git a/src/boost/tools/build/test/build_file.py b/src/boost/tools/build/test/build_file.py
+index d670af4..5a4eaba 100644
+--- a/src/boost/tools/build/test/build_file.py
++++ b/src/boost/tools/build/test/build_file.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2006. Vladimir Prus
+ # Copyright (C) 2008. Jurko Gospodnetic
+diff --git a/src/boost/tools/build/test/build_no.py b/src/boost/tools/build/test/build_no.py
+index 07b4580..3e19266 100644
+--- a/src/boost/tools/build/test/build_no.py
++++ b/src/boost/tools/build/test/build_no.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/builtin_echo.py b/src/boost/tools/build/test/builtin_echo.py
+index 3092361..7871fd5 100755
+--- a/src/boost/tools/build/test/builtin_echo.py
++++ b/src/boost/tools/build/test/builtin_echo.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/builtin_exit.py b/src/boost/tools/build/test/builtin_exit.py
+index 1db8693..1c17236 100755
+--- a/src/boost/tools/build/test/builtin_exit.py
++++ b/src/boost/tools/build/test/builtin_exit.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/builtin_glob.py b/src/boost/tools/build/test/builtin_glob.py
+index 6f55a4d..2d2e7bf 100755
+--- a/src/boost/tools/build/test/builtin_glob.py
++++ b/src/boost/tools/build/test/builtin_glob.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2014 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/builtin_glob_archive.py b/src/boost/tools/build/test/builtin_glob_archive.py
+index d9eed3a..7beb8bb 100644
+--- a/src/boost/tools/build/test/builtin_glob_archive.py
++++ b/src/boost/tools/build/test/builtin_glob_archive.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2014 Steven Watanabe
+ # Copyright 2015 Artur Shepilko
+diff --git a/src/boost/tools/build/test/builtin_readlink.py b/src/boost/tools/build/test/builtin_readlink.py
+index e57d728..029362c 100755
+--- a/src/boost/tools/build/test/builtin_readlink.py
++++ b/src/boost/tools/build/test/builtin_readlink.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/builtin_split_by_characters.py b/src/boost/tools/build/test/builtin_split_by_characters.py
+index 4a0a0e0..ec30e79 100755
+--- a/src/boost/tools/build/test/builtin_split_by_characters.py
++++ b/src/boost/tools/build/test/builtin_split_by_characters.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012. Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/bzip2.py b/src/boost/tools/build/test/bzip2.py
+index 4e74c60..2207c5b 100755
+--- a/src/boost/tools/build/test/bzip2.py
++++ b/src/boost/tools/build/test/bzip2.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2013 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/c_file.py b/src/boost/tools/build/test/c_file.py
+index 672fd48..7dcc8cb 100644
+--- a/src/boost/tools/build/test/c_file.py
++++ b/src/boost/tools/build/test/c_file.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/chain.py b/src/boost/tools/build/test/chain.py
+index 4a39f52..1f079a6 100644
+--- a/src/boost/tools/build/test/chain.py
++++ b/src/boost/tools/build/test/chain.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003 Vladimir Prus
+diff --git a/src/boost/tools/build/test/clean.py b/src/boost/tools/build/test/clean.py
+index b10644a..6e6a041 100644
+--- a/src/boost/tools/build/test/clean.py
++++ b/src/boost/tools/build/test/clean.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #  Copyright (C) Vladimir Prus 2006.
+ #  Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/cli_property_expansion.py b/src/boost/tools/build/test/cli_property_expansion.py
+index 24c8216..a8906b5 100644
+--- a/src/boost/tools/build/test/cli_property_expansion.py
++++ b/src/boost/tools/build/test/cli_property_expansion.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2015 Aaron Boman
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/collect_debug_info.py b/src/boost/tools/build/test/collect_debug_info.py
+index b25c15c..9551a12 100755
+--- a/src/boost/tools/build/test/collect_debug_info.py
++++ b/src/boost/tools/build/test/collect_debug_info.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/composite.py b/src/boost/tools/build/test/composite.py
+index a35b88d..e2c82e5 100644
+--- a/src/boost/tools/build/test/composite.py
++++ b/src/boost/tools/build/test/composite.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/conditionals.py b/src/boost/tools/build/test/conditionals.py
+index 7a9848b..e35c6c7 100644
+--- a/src/boost/tools/build/test/conditionals.py
++++ b/src/boost/tools/build/test/conditionals.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2004 Vladimir Prus
+diff --git a/src/boost/tools/build/test/conditionals2.py b/src/boost/tools/build/test/conditionals2.py
+index 585e5ca..041566f 100644
+--- a/src/boost/tools/build/test/conditionals2.py
++++ b/src/boost/tools/build/test/conditionals2.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/conditionals3.py b/src/boost/tools/build/test/conditionals3.py
+index 028fad6..567178c 100644
+--- a/src/boost/tools/build/test/conditionals3.py
++++ b/src/boost/tools/build/test/conditionals3.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/conditionals_multiple.py b/src/boost/tools/build/test/conditionals_multiple.py
+index dd11690..6b0f245 100755
+--- a/src/boost/tools/build/test/conditionals_multiple.py
++++ b/src/boost/tools/build/test/conditionals_multiple.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2008 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/configuration.py b/src/boost/tools/build/test/configuration.py
+index 724ecd7..73420d3 100755
+--- a/src/boost/tools/build/test/configuration.py
++++ b/src/boost/tools/build/test/configuration.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2008, 2012 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/copy_time.py b/src/boost/tools/build/test/copy_time.py
+index 4bdaa88..c810c9b 100755
+--- a/src/boost/tools/build/test/copy_time.py
++++ b/src/boost/tools/build/test/copy_time.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ # Copyright (c) 2008 Steven Watanabe
+ #
+diff --git a/src/boost/tools/build/test/core_action_output.py b/src/boost/tools/build/test/core_action_output.py
+index b26f0e0..13e4866 100755
+--- a/src/boost/tools/build/test/core_action_output.py
++++ b/src/boost/tools/build/test/core_action_output.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012. Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_action_status.py b/src/boost/tools/build/test/core_action_status.py
+index 7ebd438..65af97c 100755
+--- a/src/boost/tools/build/test/core_action_status.py
++++ b/src/boost/tools/build/test/core_action_status.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2007 Rene Rivera.
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_actions_quietly.py b/src/boost/tools/build/test/core_actions_quietly.py
+index c020846..4210744 100755
+--- a/src/boost/tools/build/test/core_actions_quietly.py
++++ b/src/boost/tools/build/test/core_actions_quietly.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2007 Rene Rivera.
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_arguments.py b/src/boost/tools/build/test/core_arguments.py
+index a6e886f..7baed56 100755
+--- a/src/boost/tools/build/test/core_arguments.py
++++ b/src/boost/tools/build/test/core_arguments.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2001 Dave Abrahams
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_at_file.py b/src/boost/tools/build/test/core_at_file.py
+index 1bcdcab..ca7a54f 100755
+--- a/src/boost/tools/build/test/core_at_file.py
++++ b/src/boost/tools/build/test/core_at_file.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2011 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_bindrule.py b/src/boost/tools/build/test/core_bindrule.py
+index 6ae4ab3..bbada8b 100755
+--- a/src/boost/tools/build/test/core_bindrule.py
++++ b/src/boost/tools/build/test/core_bindrule.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2001 Dave Abrahams
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_d12.py b/src/boost/tools/build/test/core_d12.py
+index 5488973..418e4be 100644
+--- a/src/boost/tools/build/test/core_d12.py
++++ b/src/boost/tools/build/test/core_d12.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002, 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_delete_module.py b/src/boost/tools/build/test/core_delete_module.py
+index d56ffe6..5ea0546 100644
+--- a/src/boost/tools/build/test/core_delete_module.py
++++ b/src/boost/tools/build/test/core_delete_module.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_dependencies.py b/src/boost/tools/build/test/core_dependencies.py
+index cf9873c..311f4b5 100644
+--- a/src/boost/tools/build/test/core_dependencies.py
++++ b/src/boost/tools/build/test/core_dependencies.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_import_module.py b/src/boost/tools/build/test/core_import_module.py
+index c5bbd3e..68495b3 100644
+--- a/src/boost/tools/build/test/core_import_module.py
++++ b/src/boost/tools/build/test/core_import_module.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_jamshell.py b/src/boost/tools/build/test/core_jamshell.py
+index 0344a57..40164bd 100644
+--- a/src/boost/tools/build/test/core_jamshell.py
++++ b/src/boost/tools/build/test/core_jamshell.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2014 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_language.py b/src/boost/tools/build/test/core_language.py
+index 88a6d19..8d17d45 100755
+--- a/src/boost/tools/build/test/core_language.py
++++ b/src/boost/tools/build/test/core_language.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002, 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_modifiers.py b/src/boost/tools/build/test/core_modifiers.py
+index fb95cbf..901dfef 100644
+--- a/src/boost/tools/build/test/core_modifiers.py
++++ b/src/boost/tools/build/test/core_modifiers.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_multifile_actions.py b/src/boost/tools/build/test/core_multifile_actions.py
+index 50bfe83..92ad736 100755
+--- a/src/boost/tools/build/test/core_multifile_actions.py
++++ b/src/boost/tools/build/test/core_multifile_actions.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2013 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_nt_cmd_line.py b/src/boost/tools/build/test/core_nt_cmd_line.py
+index 579242d..6d08401 100755
+--- a/src/boost/tools/build/test/core_nt_cmd_line.py
++++ b/src/boost/tools/build/test/core_nt_cmd_line.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2001 Dave Abrahams
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_option_d2.py b/src/boost/tools/build/test/core_option_d2.py
+index bf809aa..c5e06c2 100755
+--- a/src/boost/tools/build/test/core_option_d2.py
++++ b/src/boost/tools/build/test/core_option_d2.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2007 Rene Rivera.
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_option_l.py b/src/boost/tools/build/test/core_option_l.py
+index e237dcf..93b3fa0 100755
+--- a/src/boost/tools/build/test/core_option_l.py
++++ b/src/boost/tools/build/test/core_option_l.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2007 Rene Rivera.
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_option_n.py b/src/boost/tools/build/test/core_option_n.py
+index 4dab3bf..ff407cc 100755
+--- a/src/boost/tools/build/test/core_option_n.py
++++ b/src/boost/tools/build/test/core_option_n.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2007 Rene Rivera.
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_parallel_actions.py b/src/boost/tools/build/test/core_parallel_actions.py
+index 0d44149..25f29e3 100755
+--- a/src/boost/tools/build/test/core_parallel_actions.py
++++ b/src/boost/tools/build/test/core_parallel_actions.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2006 Rene Rivera.
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_parallel_multifile_actions_1.py b/src/boost/tools/build/test/core_parallel_multifile_actions_1.py
+index 8d9448e..3a01daf 100755
+--- a/src/boost/tools/build/test/core_parallel_multifile_actions_1.py
++++ b/src/boost/tools/build/test/core_parallel_multifile_actions_1.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2007 Rene Rivera.
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_parallel_multifile_actions_2.py b/src/boost/tools/build/test/core_parallel_multifile_actions_2.py
+index ea4034a..139d248 100755
+--- a/src/boost/tools/build/test/core_parallel_multifile_actions_2.py
++++ b/src/boost/tools/build/test/core_parallel_multifile_actions_2.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2008 Jurko Gospodnetic, Vladimir Prus
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/core_source_line_tracking.py b/src/boost/tools/build/test/core_source_line_tracking.py
+index 61526a2..957913e 100755
+--- a/src/boost/tools/build/test/core_source_line_tracking.py
++++ b/src/boost/tools/build/test/core_source_line_tracking.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012. Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_typecheck.py b/src/boost/tools/build/test/core_typecheck.py
+index 225ea7a..a4db50b 100644
+--- a/src/boost/tools/build/test/core_typecheck.py
++++ b/src/boost/tools/build/test/core_typecheck.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_update_now.py b/src/boost/tools/build/test/core_update_now.py
+index 819309a..76f8e59 100755
+--- a/src/boost/tools/build/test/core_update_now.py
++++ b/src/boost/tools/build/test/core_update_now.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2011 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_variables_in_actions.py b/src/boost/tools/build/test/core_variables_in_actions.py
+index e3a7177..1390e3c 100755
+--- a/src/boost/tools/build/test/core_variables_in_actions.py
++++ b/src/boost/tools/build/test/core_variables_in_actions.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012. Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/core_varnames.py b/src/boost/tools/build/test/core_varnames.py
+index 6b61ffc..2457dbc 100644
+--- a/src/boost/tools/build/test/core_varnames.py
++++ b/src/boost/tools/build/test/core_varnames.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/custom_generator.py b/src/boost/tools/build/test/custom_generator.py
+index 8c477a6..0dff971 100644
+--- a/src/boost/tools/build/test/custom_generator.py
++++ b/src/boost/tools/build/test/custom_generator.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003, 2004, 2005 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/default_build.py b/src/boost/tools/build/test/default_build.py
+index f6c8302..4c2061a 100644
+--- a/src/boost/tools/build/test/default_build.py
++++ b/src/boost/tools/build/test/default_build.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003 Vladimir Prus
+diff --git a/src/boost/tools/build/test/default_features.py b/src/boost/tools/build/test/default_features.py
+index 0d285a3..02503d5 100644
+--- a/src/boost/tools/build/test/default_features.py
++++ b/src/boost/tools/build/test/default_features.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/default_toolset.py b/src/boost/tools/build/test/default_toolset.py
+index 682e7fc..49b179e 100755
+--- a/src/boost/tools/build/test/default_toolset.py
++++ b/src/boost/tools/build/test/default_toolset.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2008 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/dependency_property.py b/src/boost/tools/build/test/dependency_property.py
+index bcced6a..e7ddffa 100644
+--- a/src/boost/tools/build/test/dependency_property.py
++++ b/src/boost/tools/build/test/dependency_property.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/dependency_test.py b/src/boost/tools/build/test/dependency_test.py
+index d53ce69..278f765 100644
+--- a/src/boost/tools/build/test/dependency_test.py
++++ b/src/boost/tools/build/test/dependency_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2005, 2006 Vladimir Prus
+diff --git a/src/boost/tools/build/test/direct_request_test.py b/src/boost/tools/build/test/direct_request_test.py
+index 49a0832..e50a669 100644
+--- a/src/boost/tools/build/test/direct_request_test.py
++++ b/src/boost/tools/build/test/direct_request_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ import BoostBuild
+ 
+diff --git a/src/boost/tools/build/test/disambiguation.py b/src/boost/tools/build/test/disambiguation.py
+index 72867e0..f07efc8 100644
+--- a/src/boost/tools/build/test/disambiguation.py
++++ b/src/boost/tools/build/test/disambiguation.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/dll_path.py b/src/boost/tools/build/test/dll_path.py
+index 60acf6a..162dba3 100644
+--- a/src/boost/tools/build/test/dll_path.py
++++ b/src/boost/tools/build/test/dll_path.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2003. Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/double_loading.py b/src/boost/tools/build/test/double_loading.py
+index c708b00..23907c6 100644
+--- a/src/boost/tools/build/test/double_loading.py
++++ b/src/boost/tools/build/test/double_loading.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/duplicate.py b/src/boost/tools/build/test/duplicate.py
+index 1d0d5f7..f6d5181 100644
+--- a/src/boost/tools/build/test/duplicate.py
++++ b/src/boost/tools/build/test/duplicate.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/example_customization.py b/src/boost/tools/build/test/example_customization.py
+index f8fe15c..f313115 100644
+--- a/src/boost/tools/build/test/example_customization.py
++++ b/src/boost/tools/build/test/example_customization.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/example_gettext.py b/src/boost/tools/build/test/example_gettext.py
+index e7cfa8e..7e26240 100644
+--- a/src/boost/tools/build/test/example_gettext.py
++++ b/src/boost/tools/build/test/example_gettext.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/example_libraries.py b/src/boost/tools/build/test/example_libraries.py
+index 3097bd9..10ec66e 100644
+--- a/src/boost/tools/build/test/example_libraries.py
++++ b/src/boost/tools/build/test/example_libraries.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/example_make.py b/src/boost/tools/build/test/example_make.py
+index 2705418..14c98b8 100644
+--- a/src/boost/tools/build/test/example_make.py
++++ b/src/boost/tools/build/test/example_make.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/example_qt4.py b/src/boost/tools/build/test/example_qt4.py
+index 1b0dc27..ffca0a4 100644
+--- a/src/boost/tools/build/test/example_qt4.py
++++ b/src/boost/tools/build/test/example_qt4.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #  Copyright (C) Vladimir Prus 2006.
+ #  Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/exit_status.py b/src/boost/tools/build/test/exit_status.py
+index 11c4abf..915119f 100755
+--- a/src/boost/tools/build/test/exit_status.py
++++ b/src/boost/tools/build/test/exit_status.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2010.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/expansion.py b/src/boost/tools/build/test/expansion.py
+index f49cbd8..230205c 100644
+--- a/src/boost/tools/build/test/expansion.py
++++ b/src/boost/tools/build/test/expansion.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/explicit.py b/src/boost/tools/build/test/explicit.py
+index 387f364..fb527f7 100644
+--- a/src/boost/tools/build/test/explicit.py
++++ b/src/boost/tools/build/test/explicit.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/feature_cxxflags.py b/src/boost/tools/build/test/feature_cxxflags.py
+index 76e8b20..a5d03f0 100755
+--- a/src/boost/tools/build/test/feature_cxxflags.py
++++ b/src/boost/tools/build/test/feature_cxxflags.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2014 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/free_features_request.py b/src/boost/tools/build/test/free_features_request.py
+index e7949d1..8e6b42d 100644
+--- a/src/boost/tools/build/test/free_features_request.py
++++ b/src/boost/tools/build/test/free_features_request.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2007.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/gcc_runtime.py b/src/boost/tools/build/test/gcc_runtime.py
+index bc56eae..66c8966 100644
+--- a/src/boost/tools/build/test/gcc_runtime.py
++++ b/src/boost/tools/build/test/gcc_runtime.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/generator_selection.py b/src/boost/tools/build/test/generator_selection.py
+index 87f0df3..3e37f56 100755
+--- a/src/boost/tools/build/test/generator_selection.py
++++ b/src/boost/tools/build/test/generator_selection.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2008, 2012 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/generators_test.py b/src/boost/tools/build/test/generators_test.py
+index 755a391..da4ed60 100644
+--- a/src/boost/tools/build/test/generators_test.py
++++ b/src/boost/tools/build/test/generators_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002, 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2004, 2005 Vladimir Prus
+diff --git a/src/boost/tools/build/test/implicit_dependency.py b/src/boost/tools/build/test/implicit_dependency.py
+index d6392c9..4a16f1a 100644
+--- a/src/boost/tools/build/test/implicit_dependency.py
++++ b/src/boost/tools/build/test/implicit_dependency.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/indirect_conditional.py b/src/boost/tools/build/test/indirect_conditional.py
+index b466910..c718d5a 100644
+--- a/src/boost/tools/build/test/indirect_conditional.py
++++ b/src/boost/tools/build/test/indirect_conditional.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2006. Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/inherit_toolset.py b/src/boost/tools/build/test/inherit_toolset.py
+index 9588464..41e646f 100644
+--- a/src/boost/tools/build/test/inherit_toolset.py
++++ b/src/boost/tools/build/test/inherit_toolset.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/inherited_dependency.py b/src/boost/tools/build/test/inherited_dependency.py
+index 69eefeb..47a71e2 100755
+--- a/src/boost/tools/build/test/inherited_dependency.py
++++ b/src/boost/tools/build/test/inherited_dependency.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ # Copyright (c) 2008 Steven Watanabe
+ #
+diff --git a/src/boost/tools/build/test/inline.py b/src/boost/tools/build/test/inline.py
+index f076fde..42beaa4 100644
+--- a/src/boost/tools/build/test/inline.py
++++ b/src/boost/tools/build/test/inline.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003, 2006 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/lib_source_property.py b/src/boost/tools/build/test/lib_source_property.py
+index 8267293..0a3ab6e 100644
+--- a/src/boost/tools/build/test/lib_source_property.py
++++ b/src/boost/tools/build/test/lib_source_property.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/libjpeg.py b/src/boost/tools/build/test/libjpeg.py
+index dcf81c9..f0ead1e 100755
+--- a/src/boost/tools/build/test/libjpeg.py
++++ b/src/boost/tools/build/test/libjpeg.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2013 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/libpng.py b/src/boost/tools/build/test/libpng.py
+index 3e7e5cd..7aced72 100755
+--- a/src/boost/tools/build/test/libpng.py
++++ b/src/boost/tools/build/test/libpng.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2013 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/library_chain.py b/src/boost/tools/build/test/library_chain.py
+index e7c3dcd..4a11da1 100644
+--- a/src/boost/tools/build/test/library_chain.py
++++ b/src/boost/tools/build/test/library_chain.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003, 2004, 2005, 2006 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/library_order.py b/src/boost/tools/build/test/library_order.py
+index 188f533..37afb33 100644
+--- a/src/boost/tools/build/test/library_order.py
++++ b/src/boost/tools/build/test/library_order.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/library_property.py b/src/boost/tools/build/test/library_property.py
+index b7c24c8..f21bcaf 100644
+--- a/src/boost/tools/build/test/library_property.py
++++ b/src/boost/tools/build/test/library_property.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/libtiff.py b/src/boost/tools/build/test/libtiff.py
+index cb0d07b..39420a5 100755
+--- a/src/boost/tools/build/test/libtiff.py
++++ b/src/boost/tools/build/test/libtiff.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2013 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/link.py b/src/boost/tools/build/test/link.py
+index e25b702..7c61778 100755
+--- a/src/boost/tools/build/test/link.py
++++ b/src/boost/tools/build/test/link.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2014-2015 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/load_dir.py b/src/boost/tools/build/test/load_dir.py
+index 09a59f9..3d6b988 100644
+--- a/src/boost/tools/build/test/load_dir.py
++++ b/src/boost/tools/build/test/load_dir.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ """
+ Traverses a directory and output the code that would create the same directory
+@@ -35,7 +35,7 @@ def create_file(arg, dirname, fnames):
+             print '\n""")\n'
+ 
+ 
+-header = """#!/usr/bin/python
++header = """#!/usr/bin/python2
+ 
+ #  Copyright (C) FILL SOMETHING HERE 2005.
+ #  Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/load_order.py b/src/boost/tools/build/test/load_order.py
+index c35ca8d..7a09064 100644
+--- a/src/boost/tools/build/test/load_order.py
++++ b/src/boost/tools/build/test/load_order.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2004 Vladimir Prus.
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/loop.py b/src/boost/tools/build/test/loop.py
+index 30b0690..d5540e4 100644
+--- a/src/boost/tools/build/test/loop.py
++++ b/src/boost/tools/build/test/loop.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/make_rule.py b/src/boost/tools/build/test/make_rule.py
+index f13bdb4..6e97465 100644
+--- a/src/boost/tools/build/test/make_rule.py
++++ b/src/boost/tools/build/test/make_rule.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2003, 2006 Vladimir Prus
+diff --git a/src/boost/tools/build/test/message.py b/src/boost/tools/build/test/message.py
+index f0f0d31..bc83b61 100755
+--- a/src/boost/tools/build/test/message.py
++++ b/src/boost/tools/build/test/message.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2003.
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/module_actions.py b/src/boost/tools/build/test/module_actions.py
+index 33c5635..236e821 100644
+--- a/src/boost/tools/build/test/module_actions.py
++++ b/src/boost/tools/build/test/module_actions.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2006 Rene Rivera
+diff --git a/src/boost/tools/build/test/ndebug.py b/src/boost/tools/build/test/ndebug.py
+index 87fbc6c..a30aed6 100644
+--- a/src/boost/tools/build/test/ndebug.py
++++ b/src/boost/tools/build/test/ndebug.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/no_type.py b/src/boost/tools/build/test/no_type.py
+index 0384ec6..aa853f9 100644
+--- a/src/boost/tools/build/test/no_type.py
++++ b/src/boost/tools/build/test/no_type.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/notfile.py b/src/boost/tools/build/test/notfile.py
+index 10205f6..beba531 100644
+--- a/src/boost/tools/build/test/notfile.py
++++ b/src/boost/tools/build/test/notfile.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2005.
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/ordered_include.py b/src/boost/tools/build/test/ordered_include.py
+index 72ab0d3..27bdd39 100644
+--- a/src/boost/tools/build/test/ordered_include.py
++++ b/src/boost/tools/build/test/ordered_include.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ # Copyright (c) 2008 Steven Watanabe
+ #
+diff --git a/src/boost/tools/build/test/ordered_properties.py b/src/boost/tools/build/test/ordered_properties.py
+index 58ea5a9..9f93532 100644
+--- a/src/boost/tools/build/test/ordered_properties.py
++++ b/src/boost/tools/build/test/ordered_properties.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/out_of_tree.py b/src/boost/tools/build/test/out_of_tree.py
+index b655291..4274421 100644
+--- a/src/boost/tools/build/test/out_of_tree.py
++++ b/src/boost/tools/build/test/out_of_tree.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2005.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/path_features.py b/src/boost/tools/build/test/path_features.py
+index 224dd3c..dc3725d 100644
+--- a/src/boost/tools/build/test/path_features.py
++++ b/src/boost/tools/build/test/path_features.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2004 Vladimir Prus
+diff --git a/src/boost/tools/build/test/pch.py b/src/boost/tools/build/test/pch.py
+index d36260a..4e2581b 100644
+--- a/src/boost/tools/build/test/pch.py
++++ b/src/boost/tools/build/test/pch.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2006 Vladimir Prus.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/prebuilt.py b/src/boost/tools/build/test/prebuilt.py
+index 5fe46f4..7300352 100644
+--- a/src/boost/tools/build/test/prebuilt.py
++++ b/src/boost/tools/build/test/prebuilt.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002, 2003, 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/preprocessor.py b/src/boost/tools/build/test/preprocessor.py
+index 9faa711..c52c795 100755
+--- a/src/boost/tools/build/test/preprocessor.py
++++ b/src/boost/tools/build/test/preprocessor.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Copyright 2011 Steven Watanabe
+diff --git a/src/boost/tools/build/test/print.py b/src/boost/tools/build/test/print.py
+index 6579bce..c7e9037 100644
+--- a/src/boost/tools/build/test/print.py
++++ b/src/boost/tools/build/test/print.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Douglas Gregor
+ # Copyright 2005 Vladimir Prus
+diff --git a/src/boost/tools/build/test/project_dependencies.py b/src/boost/tools/build/test/project_dependencies.py
+index 2e439d2..66a6cdb 100644
+--- a/src/boost/tools/build/test/project_dependencies.py
++++ b/src/boost/tools/build/test/project_dependencies.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2004 Vladimir Prus
+diff --git a/src/boost/tools/build/test/project_glob.py b/src/boost/tools/build/test/project_glob.py
+index 95e3f30..f2d6a76 100644
+--- a/src/boost/tools/build/test/project_glob.py
++++ b/src/boost/tools/build/test/project_glob.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2003. Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/project_id.py b/src/boost/tools/build/test/project_id.py
+index f6846af..a86cf2a 100755
+--- a/src/boost/tools/build/test/project_id.py
++++ b/src/boost/tools/build/test/project_id.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2012. Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/project_root_constants.py b/src/boost/tools/build/test/project_root_constants.py
+index b3bdcbb..16430b1 100644
+--- a/src/boost/tools/build/test/project_root_constants.py
++++ b/src/boost/tools/build/test/project_root_constants.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003, 2004, 2005 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/project_root_rule.py b/src/boost/tools/build/test/project_root_rule.py
+index 9f5ca47..7b7909a 100644
+--- a/src/boost/tools/build/test/project_root_rule.py
++++ b/src/boost/tools/build/test/project_root_rule.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2005.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/project_test3.py b/src/boost/tools/build/test/project_test3.py
+index 4f6cda2..19b9280 100644
+--- a/src/boost/tools/build/test/project_test3.py
++++ b/src/boost/tools/build/test/project_test3.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002, 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2004, 2006 Vladimir Prus
+diff --git a/src/boost/tools/build/test/project_test4.py b/src/boost/tools/build/test/project_test4.py
+index fc41150..352662c 100644
+--- a/src/boost/tools/build/test/project_test4.py
++++ b/src/boost/tools/build/test/project_test4.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2004 Vladimir Prus
+diff --git a/src/boost/tools/build/test/property_expansion.py b/src/boost/tools/build/test/property_expansion.py
+index 53fc136..5adf3aa 100644
+--- a/src/boost/tools/build/test/property_expansion.py
++++ b/src/boost/tools/build/test/property_expansion.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/qt4.py b/src/boost/tools/build/test/qt4.py
+index 170f607..4e8ba72 100755
+--- a/src/boost/tools/build/test/qt4.py
++++ b/src/boost/tools/build/test/qt4.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # (c) Copyright Juergen Hunold 2008
+ # Use, modification, and distribution are subject to the
+diff --git a/src/boost/tools/build/test/qt5.py b/src/boost/tools/build/test/qt5.py
+index d9e1226..bafdb60 100755
+--- a/src/boost/tools/build/test/qt5.py
++++ b/src/boost/tools/build/test/qt5.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # (c) Copyright Juergen Hunold 2012
+ # Use, modification, and distribution are subject to the
+diff --git a/src/boost/tools/build/test/railsys.py b/src/boost/tools/build/test/railsys.py
+index 7b7f8bd..1b71dc2 100644
+--- a/src/boost/tools/build/test/railsys.py
++++ b/src/boost/tools/build/test/railsys.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/rebuilds.py b/src/boost/tools/build/test/rebuilds.py
+index 89ad4d8..994c887 100644
+--- a/src/boost/tools/build/test/rebuilds.py
++++ b/src/boost/tools/build/test/rebuilds.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2005 Dave Abrahams
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/regression.py b/src/boost/tools/build/test/regression.py
+index dde4d81..a654f99 100644
+--- a/src/boost/tools/build/test/regression.py
++++ b/src/boost/tools/build/test/regression.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2003.
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/relative_sources.py b/src/boost/tools/build/test/relative_sources.py
+index f36e0b0..d58b37d 100644
+--- a/src/boost/tools/build/test/relative_sources.py
++++ b/src/boost/tools/build/test/relative_sources.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2006 Vladimir Prus
+diff --git a/src/boost/tools/build/test/remove_requirement.py b/src/boost/tools/build/test/remove_requirement.py
+index fa820c8..6f05cf9 100644
+--- a/src/boost/tools/build/test/remove_requirement.py
++++ b/src/boost/tools/build/test/remove_requirement.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/rescan_header.py b/src/boost/tools/build/test/rescan_header.py
+index 1f07aca..76cd5d5 100755
+--- a/src/boost/tools/build/test/rescan_header.py
++++ b/src/boost/tools/build/test/rescan_header.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/resolution.py b/src/boost/tools/build/test/resolution.py
+index a970857..49a5b67 100644
+--- a/src/boost/tools/build/test/resolution.py
++++ b/src/boost/tools/build/test/resolution.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2006.
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/scanner_causing_rebuilds.py b/src/boost/tools/build/test/scanner_causing_rebuilds.py
+index d1ff66b..8f6f7a4 100755
+--- a/src/boost/tools/build/test/scanner_causing_rebuilds.py
++++ b/src/boost/tools/build/test/scanner_causing_rebuilds.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/searched_lib.py b/src/boost/tools/build/test/searched_lib.py
+index c9ad585..20a927b 100644
+--- a/src/boost/tools/build/test/searched_lib.py
++++ b/src/boost/tools/build/test/searched_lib.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2003, 2004, 2005, 2006 Vladimir Prus
+diff --git a/src/boost/tools/build/test/skipping.py b/src/boost/tools/build/test/skipping.py
+index a187a4b..5ca9f32 100644
+--- a/src/boost/tools/build/test/skipping.py
++++ b/src/boost/tools/build/test/skipping.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/sort_rule.py b/src/boost/tools/build/test/sort_rule.py
+index 31db771..148c48a 100755
+--- a/src/boost/tools/build/test/sort_rule.py
++++ b/src/boost/tools/build/test/sort_rule.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2008. Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/source_locations.py b/src/boost/tools/build/test/source_locations.py
+index 8123a18..7908c4f 100644
+--- a/src/boost/tools/build/test/source_locations.py
++++ b/src/boost/tools/build/test/source_locations.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #  Copyright (C) Craig Rodrigues 2005.
+ #  Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/source_order.py b/src/boost/tools/build/test/source_order.py
+index af8fd54..7bbf826 100755
+--- a/src/boost/tools/build/test/source_order.py
++++ b/src/boost/tools/build/test/source_order.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2013 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/space_in_path.py b/src/boost/tools/build/test/space_in_path.py
+index 4cd320c..12b66ec 100755
+--- a/src/boost/tools/build/test/space_in_path.py
++++ b/src/boost/tools/build/test/space_in_path.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/stage.py b/src/boost/tools/build/test/stage.py
+index 4dd4e2f..209c87b 100644
+--- a/src/boost/tools/build/test/stage.py
++++ b/src/boost/tools/build/test/stage.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2004, 2005, 2006 Vladimir Prus
+diff --git a/src/boost/tools/build/test/standalone.py b/src/boost/tools/build/test/standalone.py
+index 6d9e9e8..9c226b3 100644
+--- a/src/boost/tools/build/test/standalone.py
++++ b/src/boost/tools/build/test/standalone.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/startup_v2.py b/src/boost/tools/build/test/startup_v2.py
+index 2dd867a..e2ae080 100644
+--- a/src/boost/tools/build/test/startup_v2.py
++++ b/src/boost/tools/build/test/startup_v2.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002 Dave Abrahams
+ # Copyright 2003, 2004 Vladimir Prus
+diff --git a/src/boost/tools/build/test/static_and_shared_library.py b/src/boost/tools/build/test/static_and_shared_library.py
+index ca50e26..07a079e 100755
+--- a/src/boost/tools/build/test/static_and_shared_library.py
++++ b/src/boost/tools/build/test/static_and_shared_library.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002, 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2005 Vladimir Prus
+diff --git a/src/boost/tools/build/test/suffix.py b/src/boost/tools/build/test/suffix.py
+index 386e36a..c6c5d94 100644
+--- a/src/boost/tools/build/test/suffix.py
++++ b/src/boost/tools/build/test/suffix.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003, 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/symlink.py b/src/boost/tools/build/test/symlink.py
+index a4a7f34..70fdd84 100644
+--- a/src/boost/tools/build/test/symlink.py
++++ b/src/boost/tools/build/test/symlink.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2003 Vladimir Prus
+diff --git a/src/boost/tools/build/test/tag.py b/src/boost/tools/build/test/tag.py
+index 09b4308..f7d3515 100644
+--- a/src/boost/tools/build/test/tag.py
++++ b/src/boost/tools/build/test/tag.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2003. Pedro Ferreira
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/template.py b/src/boost/tools/build/test/template.py
+index 1fbef07..0258379 100644
+--- a/src/boost/tools/build/test/template.py
++++ b/src/boost/tools/build/test/template.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) FILL SOMETHING HERE 2006.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/test1.py b/src/boost/tools/build/test/test1.py
+index 79d1422..00c63f1 100644
+--- a/src/boost/tools/build/test/test1.py
++++ b/src/boost/tools/build/test/test1.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/test2.py b/src/boost/tools/build/test/test2.py
+index 938b365..d3cac49 100644
+--- a/src/boost/tools/build/test/test2.py
++++ b/src/boost/tools/build/test/test2.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002, 2003 Dave Abrahams
+ # Copyright 2002, 2003 Vladimir Prus
+diff --git a/src/boost/tools/build/test/test_all.py b/src/boost/tools/build/test/test_all.py
+index 56bcf72..c028ea0 100644
+--- a/src/boost/tools/build/test/test_all.py
++++ b/src/boost/tools/build/test/test_all.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002-2005 Dave Abrahams.
+ # Copyright 2002-2006 Vladimir Prus.
+diff --git a/src/boost/tools/build/test/test_rc.py b/src/boost/tools/build/test/test_rc.py
+index 1ffac15..898e3b2 100755
+--- a/src/boost/tools/build/test/test_rc.py
++++ b/src/boost/tools/build/test/test_rc.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2012 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/test_result_dumping.py b/src/boost/tools/build/test/test_result_dumping.py
+index bdfc41e..c5cfd49 100755
+--- a/src/boost/tools/build/test/test_result_dumping.py
++++ b/src/boost/tools/build/test/test_result_dumping.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2008 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/testing_support.py b/src/boost/tools/build/test/testing_support.py
+index ad25b4a..7415109 100755
+--- a/src/boost/tools/build/test/testing_support.py
++++ b/src/boost/tools/build/test/testing_support.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2008 Jurko Gospodnetic
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/timedata.py b/src/boost/tools/build/test/timedata.py
+index 2bfc3ef..36ef335 100644
+--- a/src/boost/tools/build/test/timedata.py
++++ b/src/boost/tools/build/test/timedata.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2005 David Abrahams
+ # Copyright 2008, 2012 Jurko Gospodnetic
+diff --git a/src/boost/tools/build/test/toolset_requirements.py b/src/boost/tools/build/test/toolset_requirements.py
+index c9a8fa8..a80aff8 100644
+--- a/src/boost/tools/build/test/toolset_requirements.py
++++ b/src/boost/tools/build/test/toolset_requirements.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2014 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/unit_test.py b/src/boost/tools/build/test/unit_test.py
+index 5b2c5db..fab3afe 100644
+--- a/src/boost/tools/build/test/unit_test.py
++++ b/src/boost/tools/build/test/unit_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003, 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/unit_tests.py b/src/boost/tools/build/test/unit_tests.py
+index 705764b..c9537fa 100644
+--- a/src/boost/tools/build/test/unit_tests.py
++++ b/src/boost/tools/build/test/unit_tests.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2002, 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/unused.py b/src/boost/tools/build/test/unused.py
+index d759554..0ee2be4 100644
+--- a/src/boost/tools/build/test/unused.py
++++ b/src/boost/tools/build/test/unused.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/use_requirements.py b/src/boost/tools/build/test/use_requirements.py
+index 7fe829c..2c4227f 100644
+--- a/src/boost/tools/build/test/use_requirements.py
++++ b/src/boost/tools/build/test/use_requirements.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2003 Dave Abrahams
+ # Copyright 2002, 2003, 2004, 2006 Vladimir Prus
+diff --git a/src/boost/tools/build/test/using.py b/src/boost/tools/build/test/using.py
+index 31a07eb..242584b 100644
+--- a/src/boost/tools/build/test/using.py
++++ b/src/boost/tools/build/test/using.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) Vladimir Prus 2005.
+ # Distributed under the Boost Software License, Version 1.0. (See
+diff --git a/src/boost/tools/build/test/wrapper.py b/src/boost/tools/build/test/wrapper.py
+index 8501a73..53f719b 100644
+--- a/src/boost/tools/build/test/wrapper.py
++++ b/src/boost/tools/build/test/wrapper.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright 2004 Vladimir Prus
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/wrong_project.py b/src/boost/tools/build/test/wrong_project.py
+index 273ff5c..313ad08 100644
+--- a/src/boost/tools/build/test/wrong_project.py
++++ b/src/boost/tools/build/test/wrong_project.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright Vladimir Prus 2005.
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/boost/tools/build/test/zlib.py b/src/boost/tools/build/test/zlib.py
+index 0bb8269..65b3c76 100755
+--- a/src/boost/tools/build/test/zlib.py
++++ b/src/boost/tools/build/test/zlib.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # Copyright (C) 2013 Steven Watanabe
+ # Distributed under the Boost Software License, Version 1.0.
+diff --git a/src/civetweb/src/third_party/duktape-1.3.0/config/genconfig.py b/src/civetweb/src/third_party/duktape-1.3.0/config/genconfig.py
+index 778705e..4d26085 100644
+--- a/src/civetweb/src/third_party/duktape-1.3.0/config/genconfig.py
++++ b/src/civetweb/src/third_party/duktape-1.3.0/config/genconfig.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ #  Process Duktape option metadata and produce various useful outputs:
+ #
+diff --git a/src/civetweb/src/third_party/duktape-1.3.0/examples/alloc-logging/log2gnuplot.py b/src/civetweb/src/third_party/duktape-1.3.0/examples/alloc-logging/log2gnuplot.py
+index 7562814..816a8af 100644
+--- a/src/civetweb/src/third_party/duktape-1.3.0/examples/alloc-logging/log2gnuplot.py
++++ b/src/civetweb/src/third_party/duktape-1.3.0/examples/alloc-logging/log2gnuplot.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #
+ #  Analyze allocator logs and write total-bytes-in-use after every
+ #  operation to stdout.  The output can be gnuplotted as:
+diff --git a/src/dpdk/app/cmdline_test/cmdline_test.py b/src/dpdk/app/cmdline_test/cmdline_test.py
+index 8efc5ea..93de1fa 100755
+--- a/src/dpdk/app/cmdline_test/cmdline_test.py
++++ b/src/dpdk/app/cmdline_test/cmdline_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #   BSD LICENSE
+ #
+diff --git a/src/dpdk/app/cmdline_test/cmdline_test_data.py b/src/dpdk/app/cmdline_test/cmdline_test_data.py
+index b1945a5..bd0394f 100644
+--- a/src/dpdk/app/cmdline_test/cmdline_test_data.py
++++ b/src/dpdk/app/cmdline_test/cmdline_test_data.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #   BSD LICENSE
+ #
+diff --git a/src/dpdk/app/test/autotest.py b/src/dpdk/app/test/autotest.py
+index b9fd6b6..2d206d1 100644
+--- a/src/dpdk/app/test/autotest.py
++++ b/src/dpdk/app/test/autotest.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #   BSD LICENSE
+ #
+diff --git a/src/dpdk/app/test/autotest_data.py b/src/dpdk/app/test/autotest_data.py
+index 6f34d6b..67a4645 100644
+--- a/src/dpdk/app/test/autotest_data.py
++++ b/src/dpdk/app/test/autotest_data.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #   BSD LICENSE
+ #
+diff --git a/src/dpdk/app/test/autotest_runner.py b/src/dpdk/app/test/autotest_runner.py
+index eadfb7f..0d3fe91 100644
+--- a/src/dpdk/app/test/autotest_runner.py
++++ b/src/dpdk/app/test/autotest_runner.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #   BSD LICENSE
+ #
+diff --git a/src/dpdk/app/test/autotest_test_funcs.py b/src/dpdk/app/test/autotest_test_funcs.py
+index 0f012f6..f58a353 100644
+--- a/src/dpdk/app/test/autotest_test_funcs.py
++++ b/src/dpdk/app/test/autotest_test_funcs.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ #   BSD LICENSE
+ #
+diff --git a/src/dpdk/lib/librte_vhost/libvirt/qemu-wrap.py b/src/dpdk/lib/librte_vhost/libvirt/qemu-wrap.py
+index e6a2cc9..544a093 100755
+--- a/src/dpdk/lib/librte_vhost/libvirt/qemu-wrap.py
++++ b/src/dpdk/lib/librte_vhost/libvirt/qemu-wrap.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ #/*
+ # *   BSD LICENSE
+ # *
+diff --git a/src/dpdk/tools/cpu_layout.py b/src/dpdk/tools/cpu_layout.py
+index 20a409d..5b5e82c 100755
+--- a/src/dpdk/tools/cpu_layout.py
++++ b/src/dpdk/tools/cpu_layout.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/python2
+ #
+ #   BSD LICENSE
+ #
+diff --git a/src/dpdk/tools/dpdk_nic_bind.py b/src/dpdk/tools/dpdk_nic_bind.py
+index f02454e..9f80d62 100755
+--- a/src/dpdk/tools/dpdk_nic_bind.py
++++ b/src/dpdk/tools/dpdk_nic_bind.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/python
++#! /usr/bin/python2
+ #
+ #   BSD LICENSE
+ #
+diff --git a/src/powerdns/pdns-backend-rgw.py b/src/powerdns/pdns-backend-rgw.py
+index 6cb42d8..257ebc3 100755
+--- a/src/powerdns/pdns-backend-rgw.py
++++ b/src/powerdns/pdns-backend-rgw.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ '''
+ A backend for PowerDNS to direct RADOS Gateway bucket traffic to the correct regions.
+ 
+diff --git a/src/rocksdb/arcanist_util/cpp_linter/cpplint.py b/src/rocksdb/arcanist_util/cpp_linter/cpplint.py
+index 3d0c45a..b9f2eef 100755
+--- a/src/rocksdb/arcanist_util/cpp_linter/cpplint.py
++++ b/src/rocksdb/arcanist_util/cpp_linter/cpplint.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ # Copyright (c) 2011-present, Facebook, Inc.  All rights reserved.
+ # This source code is licensed under the BSD-style license found in the
+ # LICENSE file in the root directory of this source tree. An additional grant
+diff --git a/src/rocksdb/build_tools/amalgamate.py b/src/rocksdb/build_tools/amalgamate.py
+index 548b1e8..60710d1 100755
+--- a/src/rocksdb/build_tools/amalgamate.py
++++ b/src/rocksdb/build_tools/amalgamate.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ 
+ # amalgamate.py creates an amalgamation from a unity build.
+ # It can be run with either Python 2 or 3.
+diff --git a/src/test/librbd/test_notify.py b/src/test/librbd/test_notify.py
+index ecd8bd4..40be8a7 100755
+--- a/src/test/librbd/test_notify.py
++++ b/src/test/librbd/test_notify.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/python2
+ import os
+ import sys
+ import time
+-- 
+2.15.1
+

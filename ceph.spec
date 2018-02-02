@@ -70,6 +70,7 @@ Patch5: 0005-bash-completion.patch
 Patch6: 0006-os-release.patch
 Patch7: 0007-rocksdb-gcc7-fix.patch
 Patch8: 0008-Remove-Werror.patch
+Patch9: 0009-Force-usr-bin-python2.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -168,21 +169,22 @@ python3 components for the ceph package.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1509057483
+export SOURCE_DATE_EPOCH=1517605923
 mkdir clr-build
 pushd clr-build
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DCMAKE_MODULE_PATH="/usr/share/cmake/Modules:/usr/share/cmake-3.8/Modules"
-make VERBOSE=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1509057483
+export SOURCE_DATE_EPOCH=1517605923
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
