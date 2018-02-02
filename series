@@ -1,9 +1,8 @@
 0001-Ceph-sudoers-entry.patch
-0002-detect-clearlinux-init-system.patch
+0002-Add-Clear-Linux-init-detection.patch
 0003-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
-0004-systemd.patch
+0004-Update-systemd-install-path.patch
 0005-bash-completion.patch
 0006-os-release.patch
-0007-rocksdb-gcc7-fix.patch
-0008-Remove-Werror.patch
-0009-Force-usr-bin-python2.patch
+0007-Remove-Werror.patch
+0008-Force-usr-bin-python2.patch

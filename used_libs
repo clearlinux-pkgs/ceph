@@ -1,11 +1,12 @@
 ld-linux-x86-64.so.2
 libaio.so.1
+libbabeltrace-ctf.so.1
+libbabeltrace.so.1
 libblkid.so.1
 libc.so.6
 libcurl.so.4
 libdl.so.2
 libexpat.so.1
-libfcgi.so.0
 libgcc_s.so.1
 libkeyutils.so.1
 libldap-2.4.so.2

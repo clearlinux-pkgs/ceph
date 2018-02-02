@@ -1,22 +1,22 @@
-From fa566e42bd221b0899d1875ed15e5cacd5e69107 Mon Sep 17 00:00:00 2001
-From: Alberto Murillo <alberto.murillo.silva@intel.com>
-Date: Thu, 9 Mar 2017 17:50:14 -0600
-Subject: [PATCH 4/8] systemd
+From 74c0688600ff7aafc4bd40617b27397ab508b97f Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Fri, 2 Feb 2018 21:54:39 +0000
+Subject: [PATCH] Update systemd install path
 
 ---
  systemd/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/systemd/CMakeLists.txt b/systemd/CMakeLists.txt
-index 240a565d..fd10a29c 100644
+index 3b03b6e6..f9bf729c 100644
 --- a/systemd/CMakeLists.txt
 +++ b/systemd/CMakeLists.txt
-@@ -16,4 +16,4 @@ install(FILES
-   ceph-rbd-mirror@.service
+@@ -17,4 +17,4 @@ install(FILES
    ceph-disk@.service
+   ceph-volume@.service
    rbdmap.service
 -  DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/systemd/system)
 +  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/systemd/system)
 -- 
-2.13.1
+2.15.1
 

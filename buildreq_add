@@ -40,3 +40,4 @@ yasm
 zlib-dev
 googletest-dev
 gperftools-dev
+gperf
