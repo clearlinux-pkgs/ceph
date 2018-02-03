@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 12.2.2
-Release  : 50
+Release  : 51
 URL      : https://download.ceph.com/tarballs/ceph_12.2.2.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_12.2.2.orig.tar.gz
 Source1  : ceph.tmpfiles
