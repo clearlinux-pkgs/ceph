@@ -20,6 +20,7 @@ Requires: ceph-data
 Requires: ceph-doc
 Requires: ceph-python
 Requires: pecan
+Requires: prettytable
 Requires: requests
 Requires: setuptools
 BuildRequires : Cython
@@ -44,6 +45,7 @@ BuildRequires : openldap-dev
 BuildRequires : openssl-dev
 BuildRequires : pbr
 BuildRequires : pecan
+BuildRequires : prettytable
 BuildRequires : pip
 BuildRequires : pkgconfig(babeltrace)
 BuildRequires : pkgconfig(nss)
