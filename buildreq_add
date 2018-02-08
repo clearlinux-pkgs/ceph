@@ -20,6 +20,7 @@ pbr
 pecan
 pip
 pkgconfig(nss)
+prettytable
 python3-dev
 python-dev
 requests
