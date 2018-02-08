@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 12.2.2
-Release  : 52
+Release  : 53
 URL      : https://download.ceph.com/tarballs/ceph_12.2.2.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_12.2.2.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -45,10 +45,10 @@ BuildRequires : openldap-dev
 BuildRequires : openssl-dev
 BuildRequires : pbr
 BuildRequires : pecan
-BuildRequires : prettytable
 BuildRequires : pip
 BuildRequires : pkgconfig(babeltrace)
 BuildRequires : pkgconfig(nss)
+BuildRequires : prettytable
 BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : requests
@@ -178,7 +178,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1517612478
+export SOURCE_DATE_EPOCH=1518118598
 mkdir clr-build
 pushd clr-build
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR=OFF -DWITH_PYTHON3=ON -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DCMAKE_MODULE_PATH="/usr/share/cmake/Modules:/usr/share/cmake-3.8/Modules"
@@ -186,7 +186,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1517612478
+export SOURCE_DATE_EPOCH=1518118598
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
