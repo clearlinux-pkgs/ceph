@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 12.2.2
-Release  : 53
+Release  : 54
 URL      : https://download.ceph.com/tarballs/ceph_12.2.2.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_12.2.2.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -23,6 +23,7 @@ Requires: pecan
 Requires: prettytable
 Requires: requests
 Requires: setuptools
+Requires: pip-legacypython
 BuildRequires : Cython
 BuildRequires : Sphinx-python
 BuildRequires : boost-dev
