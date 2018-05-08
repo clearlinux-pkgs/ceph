@@ -1,7 +1,7 @@
-From f3193361b412211c7875d6fe699e0dd102907114 Mon Sep 17 00:00:00 2001
+From 55642ae46ec99a6839eb0eb96eac8e31e1fc7368 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Tue, 26 Jan 2016 09:59:29 -0600
-Subject: [PATCH 1/8] Ceph sudoers entry
+Subject: [PATCH 1/9] Ceph sudoers entry
 
 ---
  ceph.sudoers | 1 +
@@ -16,5 +16,5 @@ index 00000000..a1ff75a2
 @@ -0,0 +1 @@
 +ceph ALL = (root) NOPASSWD: ALL
 -- 
-2.13.1
+2.17.0
 

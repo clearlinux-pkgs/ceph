@@ -1,11 +1,11 @@
-From b72c3a1eac2c4312ea4e52510a1275131b0c1770 Mon Sep 17 00:00:00 2001
+From 3d51ff9376580a475bf1409d7c07e470b3a4818d Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Fri, 2 Feb 2018 21:39:42 +0000
-Subject: [PATCH] Add Clear Linux init detection
+Subject: [PATCH 2/9] Add Clear Linux init detection
 
 ---
- src/ceph-detect-init/ceph_detect_init/__init__.py            |  4 ++++
- src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py | 11 +++++++++++
+ src/ceph-detect-init/ceph_detect_init/__init__.py     |  4 ++++
+ .../ceph_detect_init/clearlinux/__init__.py           | 11 +++++++++++
  2 files changed, 15 insertions(+)
  create mode 100644 src/ceph-detect-init/ceph_detect_init/clearlinux/__init__.py
 
@@ -56,5 +56,5 @@ index 00000000..5009e914
 +    """
 +    return 'systemd'
 -- 
-2.15.1
+2.17.0
 

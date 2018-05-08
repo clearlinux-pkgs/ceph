@@ -5,4 +5,5 @@
 0005-bash-completion.patch
 0006-os-release.patch
 0007-Remove-Werror.patch
-0008-Force-usr-bin-python2.patch
+0008-Point-to-oath-library-cmake-variable-during-linking.patch
+0009-Fixes-for-gcc-8.patch

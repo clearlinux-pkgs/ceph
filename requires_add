@@ -2,3 +2,10 @@
 # picked up automatically. One name per line, no whitespace.
 prettytable
 pip-legacypython
+CUnit
+CUnit-dev
+oath-toolkit
+cherrypy
+Werkzeug
+influxdb
+tempora

@@ -1,22 +1,22 @@
-From 74c0688600ff7aafc4bd40617b27397ab508b97f Mon Sep 17 00:00:00 2001
+From dca2fffaaccf67ee21d13d058ae2872497cb1739 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Fri, 2 Feb 2018 21:54:39 +0000
-Subject: [PATCH] Update systemd install path
+Subject: [PATCH 4/9] Update systemd install path
 
 ---
  systemd/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/systemd/CMakeLists.txt b/systemd/CMakeLists.txt
-index 3b03b6e6..f9bf729c 100644
+index 37fb1d47..0dbcdb1e 100644
 --- a/systemd/CMakeLists.txt
 +++ b/systemd/CMakeLists.txt
-@@ -17,4 +17,4 @@ install(FILES
-   ceph-disk@.service
-   ceph-volume@.service
-   rbdmap.service
--  DESTINATION ${CMAKE_INSTALL_LIBEXECDIR}/systemd/system)
-+  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/systemd/system)
+@@ -1,4 +1,4 @@
+-set(CMAKE_INSTALL_SYSTEMD_SERVICEDIR "${CMAKE_INSTALL_LIBEXECDIR}/systemd/system"
++set(CMAKE_INSTALL_SYSTEMD_SERVICEDIR "${CMAKE_INSTALL_PREFIX}/lib/systemd/system"
+   CACHE PATH "Location for systemd service files")
+ set(CEPH_SYSTEMD_ENV_DIR "/etc/sysconfig"
+   CACHE PATH "Location for systemd service environmental variable settings files")
 -- 
-2.15.1
+2.17.0
 

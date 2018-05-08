@@ -1,0 +1,238 @@
+From 322c7acfb43b45ff40a2dc375c82eba1ee9f09eb Mon Sep 17 00:00:00 2001
+From: Kefu Chai <tchaikov@gmail.com>
+Date: Mon, 7 May 2018 10:31:31 +0800
+Subject: [PATCH 9/9] Fixes for gcc-8
+
+Cherry-picked from ceph repo 9df56dc509a6cbb7c1da8073e82fc1d2a284418d
+
+=======================================================
+Merge pull request #21837 from tchaikov/wip-gcc-8
+
+cmake,common,filestore: silence gcc-8 warnings/errors
+
+Reviewed-by: Brad Hubbard <bhubbard@redhat.com>
+---
+ cmake/modules/BuildDPDK.cmake    | 4 ++--
+ cmake/modules/patch-dpdk-conf.sh | 5 +++++
+ src/client/Inode.h               | 1 -
+ src/common/cmdparse.h            | 2 +-
+ src/messages/MClientReply.h      | 2 +-
+ src/messages/MMonSubscribeAck.h  | 1 -
+ src/mgr/DaemonState.h            | 2 +-
+ src/mon/LogMonitor.cc            | 1 -
+ src/mon/MonMap.h                 | 1 -
+ src/os/filestore/FileStore.cc    | 6 +++++-
+ src/os/filestore/HashIndex.h     | 4 ++--
+ src/os/filestore/LFNIndex.h      | 2 +-
+ src/osd/OSDMap.h                 | 2 --
+ 13 files changed, 18 insertions(+), 15 deletions(-)
+
+diff --git a/cmake/modules/BuildDPDK.cmake b/cmake/modules/BuildDPDK.cmake
+index 03d141ed..ea608577 100644
+--- a/cmake/modules/BuildDPDK.cmake
++++ b/cmake/modules/BuildDPDK.cmake
+@@ -71,7 +71,7 @@ function(do_build_dpdk dpdk_dir)
+     BUILD_IN_SOURCE 1
+     INSTALL_COMMAND "true")
+   ExternalProject_Add_Step(dpdk-ext patch-config
+-    COMMAND ${CMAKE_MODULE_PATH}/patch-dpdk-conf.sh ${dpdk_dir} ${machine}
++    COMMAND ${CMAKE_MODULE_PATH}/patch-dpdk-conf.sh ${dpdk_dir} ${machine} ${arch}
+     DEPENDEES configure
+     DEPENDERS build)
+   # easier to adjust the config
+@@ -86,7 +86,7 @@ macro(build_dpdk)
+   # target
+   file(MAKE_DIRECTORY ${DPDK_INCLUDE_DIR})
+   foreach(c
+-      pci bus_pci
++      bus_pci pci
+       eal
+       mempool mempool_ring mempool_stack ring)
+     add_library(dpdk::${c} STATIC IMPORTED)
+diff --git a/cmake/modules/patch-dpdk-conf.sh b/cmake/modules/patch-dpdk-conf.sh
+index 57c2da79..8da0ac29 100755
+--- a/cmake/modules/patch-dpdk-conf.sh
++++ b/cmake/modules/patch-dpdk-conf.sh
+@@ -15,8 +15,12 @@ conf=$1/.config
+ shift
+ machine=$1
+ shift
++arch=$1
++shift
+ 
+ setconf CONFIG_RTE_MACHINE "${machine}"
++setconf CONFIG_RTE_ARCH "${arch}"
++
+ # Disable experimental features
+ setconf CONFIG_RTE_NEXT_ABI n
+ setconf CONFIG_RTE_LIBRTE_MBUF_OFFLOAD n
+@@ -38,6 +42,7 @@ setconf CONFIG_RTE_LIBRTE_VHOST_NUMA n
+ setconf CONFIG_RTE_LIBRTE_VMXNET3_PMD n
+ setconf CONFIG_RTE_LIBRTE_PMD_VHOST n
+ setconf CONFIG_RTE_APP_EVENTDEV n
++setconf CONFIG_RTE_MAX_VFIO_GROUPS 64
+ 
+ # no test
+ setconf CONFIG_RTE_APP_TEST n
+diff --git a/src/client/Inode.h b/src/client/Inode.h
+index 7c25f8d5..ce7b1a6e 100644
+--- a/src/client/Inode.h
++++ b/src/client/Inode.h
+@@ -279,7 +279,6 @@ struct Inode {
+       _ref(0), ll_ref(0)
+   {
+     memset(&dir_layout, 0, sizeof(dir_layout));
+-    memset(&quota, 0, sizeof(quota));
+   }
+   ~Inode();
+ 
+diff --git a/src/common/cmdparse.h b/src/common/cmdparse.h
+index 80850138..bcd1943a 100644
+--- a/src/common/cmdparse.h
++++ b/src/common/cmdparse.h
+@@ -54,7 +54,7 @@ cmd_getval(CephContext *cct, const cmdmap_t& cmdmap, const std::string& k, T& va
+     try {
+       val = boost::get<T>(cmdmap.find(k)->second);
+       return true;
+-    } catch (boost::bad_get) {
++    } catch (boost::bad_get&) {
+       handle_bad_get(cct, k, typeid(T).name());
+     }
+   }
+diff --git a/src/messages/MClientReply.h b/src/messages/MClientReply.h
+index 3e979b3f..1562c583 100644
+--- a/src/messages/MClientReply.h
++++ b/src/messages/MClientReply.h
+@@ -187,7 +187,7 @@ struct InodeStat {
+     if (features & CEPH_FEATURE_MDS_QUOTA)
+       decode(quota, p);
+     else
+-      memset(&quota, 0, sizeof(quota));
++      quota = quota_info_t{};
+ 
+     if ((features & CEPH_FEATURE_FS_FILE_LAYOUT_V2))
+       decode(layout.pool_ns, p);
+diff --git a/src/messages/MMonSubscribeAck.h b/src/messages/MMonSubscribeAck.h
+index 6c36626a..3174517c 100644
+--- a/src/messages/MMonSubscribeAck.h
++++ b/src/messages/MMonSubscribeAck.h
+@@ -23,7 +23,6 @@ struct MMonSubscribeAck : public Message {
+   
+   MMonSubscribeAck() : Message(CEPH_MSG_MON_SUBSCRIBE_ACK),
+ 		       interval(0) {
+-    memset(&fsid, 0, sizeof(fsid));
+   }
+   MMonSubscribeAck(uuid_d& f, int i) : Message(CEPH_MSG_MON_SUBSCRIBE_ACK),
+ 				       interval(i), fsid(f) { }
+diff --git a/src/mgr/DaemonState.h b/src/mgr/DaemonState.h
+index 3cbf8e52..b2af6ec0 100644
+--- a/src/mgr/DaemonState.h
++++ b/src/mgr/DaemonState.h
+@@ -130,7 +130,7 @@ class DaemonState
+       auto p = config_defaults_bl.begin();
+       try {
+ 	decode(config_defaults, p);
+-      } catch (buffer::error e) {
++      } catch (buffer::error& e) {
+       }
+     }
+     return config_defaults;
+diff --git a/src/mon/LogMonitor.cc b/src/mon/LogMonitor.cc
+index 473b5322..881b3102 100644
+--- a/src/mon/LogMonitor.cc
++++ b/src/mon/LogMonitor.cc
+@@ -62,7 +62,6 @@ void LogMonitor::create_initial()
+ {
+   dout(10) << "create_initial -- creating initial map" << dendl;
+   LogEntry e;
+-  memset(&e.who, 0, sizeof(e.who));
+   e.name = g_conf->name;
+   e.stamp = ceph_clock_now();
+   e.prio = CLOG_INFO;
+diff --git a/src/mon/MonMap.h b/src/mon/MonMap.h
+index ffd2e8f8..5c50cee8 100644
+--- a/src/mon/MonMap.h
++++ b/src/mon/MonMap.h
+@@ -118,7 +118,6 @@ public:
+ 
+   MonMap()
+     : epoch(0) {
+-    memset(&fsid, 0, sizeof(fsid));
+   }
+ 
+   uuid_d& get_fsid() { return fsid; }
+diff --git a/src/os/filestore/FileStore.cc b/src/os/filestore/FileStore.cc
+index dd77fd72..5754075c 100644
+--- a/src/os/filestore/FileStore.cc
++++ b/src/os/filestore/FileStore.cc
+@@ -4892,7 +4892,11 @@ int FileStore::list_collections(vector<coll_t>& ls, bool include_temp)
+       // d_type not supported (non-ext[234], btrfs), must stat
+       struct stat sb;
+       char filename[PATH_MAX];
+-      snprintf(filename, sizeof(filename), "%s/%s", fn, de->d_name);
++      if (int n = snprintf(filename, sizeof(filename), "%s/%s", fn, de->d_name);
++	  n >= static_cast<int>(sizeof(filename))) {
++	derr << __func__ << " path length overrun: " << n << dendl;
++	assert(false);
++      }
+ 
+       r = ::stat(filename, &sb);
+       if (r < 0) {
+diff --git a/src/os/filestore/HashIndex.h b/src/os/filestore/HashIndex.h
+index e992b1aa..715be5dc 100644
+--- a/src/os/filestore/HashIndex.h
++++ b/src/os/filestore/HashIndex.h
+@@ -395,7 +395,7 @@ private:
+ 
+   struct CmpPairBitwise {
+     bool operator()(const pair<string, ghobject_t>& l,
+-		    const pair<string, ghobject_t>& r)
++		    const pair<string, ghobject_t>& r) const
+     {
+       if (l.first < r.first)
+ 	return true;
+@@ -408,7 +408,7 @@ private:
+   };
+ 
+   struct CmpHexdigitStringBitwise {
+-    bool operator()(const string& l, const string& r) {
++    bool operator()(const string& l, const string& r) const {
+       return reverse_hexdigit_bits_string(l) < reverse_hexdigit_bits_string(r);
+     }
+   };
+diff --git a/src/os/filestore/LFNIndex.h b/src/os/filestore/LFNIndex.h
+index bbab0d09..2f2d2e0f 100644
+--- a/src/os/filestore/LFNIndex.h
++++ b/src/os/filestore/LFNIndex.h
+@@ -63,7 +63,7 @@
+       out:					\
+       complete_inject_failure();		\
+       return r;					\
+-    } catch (RetryException) {			\
++    } catch (RetryException&) {			\
+       failed = true;				\
+     } catch (...) {				\
+       ceph_abort();				\
+diff --git a/src/osd/OSDMap.h b/src/osd/OSDMap.h
+index 5452dcf4..9faf9556 100644
+--- a/src/osd/OSDMap.h
++++ b/src/osd/OSDMap.h
+@@ -427,7 +427,6 @@ public:
+       encode_features(0),
+       epoch(e), new_pool_max(-1), new_flags(-1), new_max_osd(-1),
+       have_crc(false), full_crc(0), inc_crc(0) {
+-      memset(&fsid, 0, sizeof(fsid));
+     }
+     explicit Incremental(bufferlist &bl) {
+       bufferlist::iterator p = bl.begin();
+@@ -607,7 +606,6 @@ private:
+ 	     cached_up_osd_features(0),
+ 	     crc_defined(false), crc(0),
+ 	     crush(std::make_shared<CrushWrapper>()) {
+-    memset(&fsid, 0, sizeof(fsid));
+   }
+ 
+ private:
+-- 
+2.17.0
+

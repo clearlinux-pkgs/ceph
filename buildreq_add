@@ -2,6 +2,8 @@ boost-dev
 bzip2-dev
 cmake
 curl-dev
+CUnit
+CUnit-dev
 Cython
 expat-dev
 fcgi-dev
@@ -42,3 +44,5 @@ zlib-dev
 googletest-dev
 gperftools-dev
 gperf
+xmlsec1-dev
+oath-toolkit-dev

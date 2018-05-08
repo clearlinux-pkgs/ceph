@@ -1,17 +1,17 @@
-From ab1bd59e6e695a5793d31a259b34da7db49c3684 Mon Sep 17 00:00:00 2001
+From 4e5f40be0d88e28a3af1146a1cc8d764e6e25f6f Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Thu, 9 Mar 2017 18:03:41 -0600
-Subject: [PATCH 6/8] os-release
+Subject: [PATCH 6/9] os-release
 
 ---
  src/common/util.cc | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/src/common/util.cc b/src/common/util.cc
-index 73b457ff..97f2289a 100644
+index 10183507..82ae5b9b 100644
 --- a/src/common/util.cc
 +++ b/src/common/util.cc
-@@ -159,10 +159,10 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
+@@ -99,10 +99,10 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
      { "distro_version", "VERSION_ID=" }
    };
  
@@ -24,7 +24,7 @@ index 73b457ff..97f2289a 100644
      return false;
    }
  
-@@ -176,7 +176,7 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
+@@ -116,7 +116,7 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
  static void distro_detect(map<string, string> *m, CephContext *cct)
  {
    if (!os_release_parse(m, cct)) {
@@ -32,7 +32,7 @@ index 73b457ff..97f2289a 100644
 +    lderr(cct) << "distro_detect - /usr/lib/os-release is required" << dendl;
    }
  
-   for (const char* rk: {"distro", "distro_version"}) {
+   for (const char* rk: {"distro", "distro_description"}) {
 -- 
-2.13.1
+2.17.0
 
