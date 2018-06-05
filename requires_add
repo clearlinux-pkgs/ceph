@@ -9,3 +9,4 @@ cherrypy
 Werkzeug
 influxdb
 tempora
+pecan
