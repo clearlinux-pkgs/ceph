@@ -89,7 +89,7 @@ BuildRequires : pip
 BuildRequires : pkgconfig(babeltrace)
 BuildRequires : pkgconfig(nss)
 BuildRequires : prettytable
-BuildRequires : python-dev
+
 BuildRequires : python3
 BuildRequires : python3-dev
 BuildRequires : qtbase-dev
