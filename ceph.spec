@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.0
-Release  : 60
+Release  : 61
 URL      : https://download.ceph.com/tarballs/ceph_13.2.0.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -16,7 +16,8 @@ Requires: ceph-python3
 Requires: ceph-config
 Requires: ceph-lib
 Requires: ceph-data
-Requires: ceph-doc
+Requires: ceph-license
+Requires: ceph-man
 Requires: ceph-python
 Requires: CUnit
 Requires: CUnit-dev
@@ -39,7 +40,6 @@ Requires: more-itertools
 Requires: oath-toolkit
 Requires: pbr
 Requires: pecan
-Requires: pip-legacypython
 Requires: pluggy
 Requires: portend
 Requires: prettytable
@@ -47,15 +47,11 @@ Requires: py
 Requires: pycodestyle
 Requires: pycparser
 Requires: pylint
-Requires: pytest
-Requires: pytest-cov
-Requires: python-mock
 Requires: pytz
 Requires: requests
 Requires: setuptools
 Requires: six
 Requires: tempora
-Requires: tox
 Requires: virtualenv
 Requires: wrapt
 BuildRequires : CUnit
@@ -89,7 +85,7 @@ BuildRequires : pip
 BuildRequires : pkgconfig(babeltrace)
 BuildRequires : pkgconfig(nss)
 BuildRequires : prettytable
-
+BuildRequires : python-dev
 BuildRequires : python3
 BuildRequires : python3-dev
 BuildRequires : qtbase-dev
@@ -128,6 +124,8 @@ Summary: bin components for the ceph package.
 Group: Binaries
 Requires: ceph-data
 Requires: ceph-config
+Requires: ceph-license
+Requires: ceph-man
 
 %description bin
 bin components for the ceph package.
@@ -164,6 +162,7 @@ dev components for the ceph package.
 %package doc
 Summary: doc components for the ceph package.
 Group: Documentation
+Requires: ceph-man
 
 %description doc
 doc components for the ceph package.
@@ -173,9 +172,26 @@ doc components for the ceph package.
 Summary: lib components for the ceph package.
 Group: Libraries
 Requires: ceph-data
+Requires: ceph-license
 
 %description lib
 lib components for the ceph package.
+
+
+%package license
+Summary: license components for the ceph package.
+Group: Default
+
+%description license
+license components for the ceph package.
+
+
+%package man
+Summary: man components for the ceph package.
+Group: Default
+
+%description man
+man components for the ceph package.
 
 
 %package python
@@ -212,7 +228,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1528154406
+export SOURCE_DATE_EPOCH=1530240009
 mkdir clr-build
 pushd clr-build
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
@@ -220,8 +236,61 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1528154406
+export SOURCE_DATE_EPOCH=1530240009
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/ceph
+cp COPYING-LGPL2.1 %{buildroot}/usr/share/doc/ceph/COPYING-LGPL2.1
+cp COPYING-GPL2 %{buildroot}/usr/share/doc/ceph/COPYING-GPL2
+cp debian/copyright %{buildroot}/usr/share/doc/ceph/debian_copyright
+cp src/zstd/LICENSE %{buildroot}/usr/share/doc/ceph/src_zstd_LICENSE
+cp src/zstd/COPYING %{buildroot}/usr/share/doc/ceph/src_zstd_COPYING
+cp src/zstd/contrib/linux-kernel/COPYING %{buildroot}/usr/share/doc/ceph/src_zstd_contrib_linux-kernel_COPYING
+cp src/xxHash/LICENSE %{buildroot}/usr/share/doc/ceph/src_xxHash_LICENSE
+cp src/spdk/LICENSE %{buildroot}/usr/share/doc/ceph/src_spdk_LICENSE
+cp src/spdk/dpdk/LICENSE.LGPL %{buildroot}/usr/share/doc/ceph/src_spdk_dpdk_LICENSE.LGPL
+cp src/spdk/dpdk/LICENSE.GPL %{buildroot}/usr/share/doc/ceph/src_spdk_dpdk_LICENSE.GPL
+cp src/spdk/dpdk/drivers/net/qede/LICENSE.qede_pmd %{buildroot}/usr/share/doc/ceph/src_spdk_dpdk_drivers_net_qede_LICENSE.qede_pmd
+cp src/spdk/dpdk/drivers/net/enic/LICENSE %{buildroot}/usr/share/doc/ceph/src_spdk_dpdk_drivers_net_enic_LICENSE
+cp src/spdk/dpdk/drivers/net/bnx2x/LICENSE.bnx2x_pmd %{buildroot}/usr/share/doc/ceph/src_spdk_dpdk_drivers_net_bnx2x_LICENSE.bnx2x_pmd
+cp src/rocksdb/LICENSE.leveldb %{buildroot}/usr/share/doc/ceph/src_rocksdb_LICENSE.leveldb
+cp src/rocksdb/LICENSE.Apache %{buildroot}/usr/share/doc/ceph/src_rocksdb_LICENSE.Apache
+cp src/rocksdb/COPYING %{buildroot}/usr/share/doc/ceph/src_rocksdb_COPYING
+cp src/rocksdb/docs/LICENSE-DOCUMENTATION %{buildroot}/usr/share/doc/ceph/src_rocksdb_docs_LICENSE-DOCUMENTATION
+cp src/rapidjson/license.txt %{buildroot}/usr/share/doc/ceph/src_rapidjson_license.txt
+cp src/rapidjson/thirdparty/gtest/googletest/LICENSE %{buildroot}/usr/share/doc/ceph/src_rapidjson_thirdparty_gtest_googletest_LICENSE
+cp src/rapidjson/thirdparty/gtest/googlemock/LICENSE %{buildroot}/usr/share/doc/ceph/src_rapidjson_thirdparty_gtest_googlemock_LICENSE
+cp src/rapidjson/thirdparty/gtest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/doc/ceph/src_rapidjson_thirdparty_gtest_googlemock_scripts_generator_LICENSE
+cp src/rapidjson/bin/jsonschema/LICENSE %{buildroot}/usr/share/doc/ceph/src_rapidjson_bin_jsonschema_LICENSE
+cp src/isa-l/LICENSE %{buildroot}/usr/share/doc/ceph/src_isa-l_LICENSE
+cp src/googletest/googletest/LICENSE %{buildroot}/usr/share/doc/ceph/src_googletest_googletest_LICENSE
+cp src/googletest/googlemock/LICENSE %{buildroot}/usr/share/doc/ceph/src_googletest_googlemock_LICENSE
+cp src/googletest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/doc/ceph/src_googletest_googlemock_scripts_generator_LICENSE
+cp src/erasure-code/jerasure/jerasure/License.txt %{buildroot}/usr/share/doc/ceph/src_erasure-code_jerasure_jerasure_License.txt
+cp src/erasure-code/jerasure/jerasure/COPYING %{buildroot}/usr/share/doc/ceph/src_erasure-code_jerasure_jerasure_COPYING
+cp src/erasure-code/jerasure/gf-complete/License.txt %{buildroot}/usr/share/doc/ceph/src_erasure-code_jerasure_gf-complete_License.txt
+cp src/erasure-code/jerasure/gf-complete/COPYING %{buildroot}/usr/share/doc/ceph/src_erasure-code_jerasure_gf-complete_COPYING
+cp src/dmclock/COPYING-LGPL2.1 %{buildroot}/usr/share/doc/ceph/src_dmclock_COPYING-LGPL2.1
+cp src/dmclock/COPYING %{buildroot}/usr/share/doc/ceph/src_dmclock_COPYING
+cp src/crypto/isa-l/isa-l_crypto/LICENSE %{buildroot}/usr/share/doc/ceph/src_crypto_isa-l_isa-l_crypto_LICENSE
+cp src/civetweb/LICENSE.md %{buildroot}/usr/share/doc/ceph/src_civetweb_LICENSE.md
+cp src/civetweb/src/third_party/lua-5.1.5/COPYRIGHT %{buildroot}/usr/share/doc/ceph/src_civetweb_src_third_party_lua-5.1.5_COPYRIGHT
+cp src/civetweb/src/third_party/duktape-1.8.0/LICENSE.txt %{buildroot}/usr/share/doc/ceph/src_civetweb_src_third_party_duktape-1.8.0_LICENSE.txt
+cp src/civetweb/src/third_party/duktape-1.5.2/LICENSE.txt %{buildroot}/usr/share/doc/ceph/src_civetweb_src_third_party_duktape-1.5.2_LICENSE.txt
+cp src/blkin/COPYRIGHT %{buildroot}/usr/share/doc/ceph/src_blkin_COPYRIGHT
+cp src/boost/LICENSE_1_0.txt %{buildroot}/usr/share/doc/ceph/src_boost_LICENSE_1_0.txt
+cp src/boost/tools/build/src/engine/debian/copyright %{buildroot}/usr/share/doc/ceph/src_boost_tools_build_src_engine_debian_copyright
+cp src/boost/tools/boostbook/xsl/caramel/LICENSE %{buildroot}/usr/share/doc/ceph/src_boost_tools_boostbook_xsl_caramel_LICENSE
+cp src/boost/tools/bcp/licence_info.hpp %{buildroot}/usr/share/doc/ceph/src_boost_tools_bcp_licence_info.hpp
+cp src/boost/tools/bcp/licence_info.cpp %{buildroot}/usr/share/doc/ceph/src_boost_tools_bcp_licence_info.cpp
+cp src/boost/libs/date_time/xmldoc/license.xml %{buildroot}/usr/share/doc/ceph/src_boost_libs_date_time_xmldoc_license.xml
+cp src/boost/libs/beast/LICENSE_1_0.txt %{buildroot}/usr/share/doc/ceph/src_boost_libs_beast_LICENSE_1_0.txt
+cp src/boost/libs/beast/test/extern/zlib-1.2.11/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/doc/ceph/src_boost_libs_beast_test_extern_zlib-1.2.11_contrib_dotzlib_LICENSE_1_0.txt
+cp src/boost/libs/beast/test/bench/parser/nodejs-parser/LICENSE-MIT %{buildroot}/usr/share/doc/ceph/src_boost_libs_beast_test_bench_parser_nodejs-parser_LICENSE-MIT
+cp src/boost/libs/hana/LICENSE.md %{buildroot}/usr/share/doc/ceph/src_boost_libs_hana_LICENSE.md
+cp src/boost/libs/hof/LICENSE.md %{buildroot}/usr/share/doc/ceph/src_boost_libs_hof_LICENSE.md
+cp src/boost/libs/compute/LICENSE_1_0.txt %{buildroot}/usr/share/doc/ceph/src_boost_libs_compute_LICENSE_1_0.txt
+cp src/boost/libs/callable_traits/LICENSE.md %{buildroot}/usr/share/doc/ceph/src_boost_libs_callable_traits_LICENSE.md
+cp src/boost/libs/python/LICENSE_1_0.txt %{buildroot}/usr/share/doc/ceph/src_boost_libs_python_LICENSE_1_0.txt
 pushd clr-build
 %make_install
 popd
@@ -937,9 +1006,8 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 /usr/lib64/librgw.so
 
 %files doc
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 %doc /usr/share/doc/ceph/*
-%doc /usr/share/man/man8/*
 
 %files lib
 %defattr(-,root,root,-)
@@ -1034,6 +1102,93 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 /usr/lib64/rados-classes/libcls_version.so
 /usr/lib64/rados-classes/libcls_version.so.1
 /usr/lib64/rados-classes/libcls_version.so.1.0.0
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/ceph/COPYING-GPL2
+/usr/share/doc/ceph/COPYING-LGPL2.1
+/usr/share/doc/ceph/src_blkin_COPYRIGHT
+/usr/share/doc/ceph/src_boost_LICENSE_1_0.txt
+/usr/share/doc/ceph/src_boost_libs_beast_LICENSE_1_0.txt
+/usr/share/doc/ceph/src_boost_libs_beast_test_bench_parser_nodejs-parser_LICENSE-MIT
+/usr/share/doc/ceph/src_boost_libs_beast_test_extern_zlib-1.2.11_contrib_dotzlib_LICENSE_1_0.txt
+/usr/share/doc/ceph/src_boost_libs_callable_traits_LICENSE.md
+/usr/share/doc/ceph/src_boost_libs_compute_LICENSE_1_0.txt
+/usr/share/doc/ceph/src_boost_libs_date_time_xmldoc_license.xml
+/usr/share/doc/ceph/src_boost_libs_hana_LICENSE.md
+/usr/share/doc/ceph/src_boost_libs_hof_LICENSE.md
+/usr/share/doc/ceph/src_boost_libs_python_LICENSE_1_0.txt
+/usr/share/doc/ceph/src_boost_tools_boostbook_xsl_caramel_LICENSE
+/usr/share/doc/ceph/src_civetweb_LICENSE.md
+/usr/share/doc/ceph/src_civetweb_src_third_party_duktape-1.5.2_LICENSE.txt
+/usr/share/doc/ceph/src_civetweb_src_third_party_duktape-1.8.0_LICENSE.txt
+/usr/share/doc/ceph/src_civetweb_src_third_party_lua-5.1.5_COPYRIGHT
+/usr/share/doc/ceph/src_crypto_isa-l_isa-l_crypto_LICENSE
+/usr/share/doc/ceph/src_dmclock_COPYING
+/usr/share/doc/ceph/src_dmclock_COPYING-LGPL2.1
+/usr/share/doc/ceph/src_erasure-code_jerasure_gf-complete_COPYING
+/usr/share/doc/ceph/src_erasure-code_jerasure_jerasure_COPYING
+/usr/share/doc/ceph/src_googletest_googlemock_LICENSE
+/usr/share/doc/ceph/src_googletest_googlemock_scripts_generator_LICENSE
+/usr/share/doc/ceph/src_googletest_googletest_LICENSE
+/usr/share/doc/ceph/src_isa-l_LICENSE
+/usr/share/doc/ceph/src_rapidjson_bin_jsonschema_LICENSE
+/usr/share/doc/ceph/src_rapidjson_license.txt
+/usr/share/doc/ceph/src_rapidjson_thirdparty_gtest_googlemock_LICENSE
+/usr/share/doc/ceph/src_rapidjson_thirdparty_gtest_googlemock_scripts_generator_LICENSE
+/usr/share/doc/ceph/src_rapidjson_thirdparty_gtest_googletest_LICENSE
+/usr/share/doc/ceph/src_rocksdb_COPYING
+/usr/share/doc/ceph/src_rocksdb_LICENSE.Apache
+/usr/share/doc/ceph/src_rocksdb_LICENSE.leveldb
+/usr/share/doc/ceph/src_rocksdb_docs_LICENSE-DOCUMENTATION
+/usr/share/doc/ceph/src_spdk_LICENSE
+/usr/share/doc/ceph/src_spdk_dpdk_LICENSE.GPL
+/usr/share/doc/ceph/src_spdk_dpdk_LICENSE.LGPL
+/usr/share/doc/ceph/src_spdk_dpdk_drivers_net_bnx2x_LICENSE.bnx2x_pmd
+/usr/share/doc/ceph/src_spdk_dpdk_drivers_net_enic_LICENSE
+/usr/share/doc/ceph/src_spdk_dpdk_drivers_net_qede_LICENSE.qede_pmd
+/usr/share/doc/ceph/src_xxHash_LICENSE
+/usr/share/doc/ceph/src_zstd_COPYING
+/usr/share/doc/ceph/src_zstd_LICENSE
+/usr/share/doc/ceph/src_zstd_contrib_linux-kernel_COPYING
+
+%files man
+%defattr(-,root,root,-)
+/usr/share/man/man8/ceph-authtool.8
+/usr/share/man/man8/ceph-bluestore-tool.8
+/usr/share/man/man8/ceph-clsinfo.8
+/usr/share/man/man8/ceph-conf.8
+/usr/share/man/man8/ceph-create-keys.8
+/usr/share/man/man8/ceph-dencoder.8
+/usr/share/man/man8/ceph-deploy.8
+/usr/share/man/man8/ceph-detect-init.8
+/usr/share/man/man8/ceph-disk.8
+/usr/share/man/man8/ceph-kvstore-tool.8
+/usr/share/man/man8/ceph-mds.8
+/usr/share/man/man8/ceph-mon.8
+/usr/share/man/man8/ceph-osd.8
+/usr/share/man/man8/ceph-post-file.8
+/usr/share/man/man8/ceph-rbdnamer.8
+/usr/share/man/man8/ceph-run.8
+/usr/share/man/man8/ceph-syn.8
+/usr/share/man/man8/ceph-volume-systemd.8
+/usr/share/man/man8/ceph-volume.8
+/usr/share/man/man8/ceph.8
+/usr/share/man/man8/crushtool.8
+/usr/share/man/man8/librados-config.8
+/usr/share/man/man8/monmaptool.8
+/usr/share/man/man8/mount.ceph.8
+/usr/share/man/man8/osdmaptool.8
+/usr/share/man/man8/rados.8
+/usr/share/man/man8/radosgw-admin.8
+/usr/share/man/man8/radosgw.8
+/usr/share/man/man8/rbd-mirror.8
+/usr/share/man/man8/rbd-nbd.8
+/usr/share/man/man8/rbd-replay-many.8
+/usr/share/man/man8/rbd-replay-prep.8
+/usr/share/man/man8/rbd-replay.8
+/usr/share/man/man8/rbd.8
+/usr/share/man/man8/rbdmap.8
 
 %files python
 %defattr(-,root,root,-)
