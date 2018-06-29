@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.0
-Release  : 61
+Release  : 62
 URL      : https://download.ceph.com/tarballs/ceph_13.2.0.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -85,7 +85,6 @@ BuildRequires : pip
 BuildRequires : pkgconfig(babeltrace)
 BuildRequires : pkgconfig(nss)
 BuildRequires : prettytable
-BuildRequires : python-dev
 BuildRequires : python3
 BuildRequires : python3-dev
 BuildRequires : qtbase-dev
@@ -228,7 +227,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1530240009
+export SOURCE_DATE_EPOCH=1530277628
 mkdir clr-build
 pushd clr-build
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
@@ -236,7 +235,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1530240009
+export SOURCE_DATE_EPOCH=1530277628
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ceph
 cp COPYING-LGPL2.1 %{buildroot}/usr/share/doc/ceph/COPYING-LGPL2.1
