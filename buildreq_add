@@ -5,6 +5,7 @@ curl-dev
 CUnit
 CUnit-dev
 Cython
+Cython-legacypython
 expat-dev
 fcgi-dev
 googletest-dev
@@ -45,3 +46,4 @@ gperftools-dev
 gperf
 xmlsec1-dev
 oath-toolkit-dev
+numactl-dev

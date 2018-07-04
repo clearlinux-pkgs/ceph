@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.0
-Release  : 65
+Release  : 66
 URL      : https://download.ceph.com/tarballs/ceph_13.2.0.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.0.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -57,6 +57,7 @@ Requires: wrapt
 BuildRequires : CUnit
 BuildRequires : CUnit-dev
 BuildRequires : Cython
+BuildRequires : Cython-legacypython
 BuildRequires : Sphinx-python
 BuildRequires : boost-dev
 BuildRequires : bzip2-dev
@@ -76,6 +77,7 @@ BuildRequires : libatomic_ops-dev
 BuildRequires : lz4-dev
 BuildRequires : meson
 BuildRequires : ninja
+BuildRequires : numactl-dev
 BuildRequires : oath-toolkit-dev
 BuildRequires : openldap-dev
 BuildRequires : openssl-dev
@@ -113,6 +115,7 @@ Patch5: 0005-bash-completion.patch
 Patch6: 0006-os-release.patch
 Patch7: 0007-Remove-Werror.patch
 Patch8: 0008-Point-to-oath-library-cmake-variable-during-linking.patch
+Patch9: build.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -221,13 +224,14 @@ python3 components for the ceph package.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1530277628
+export SOURCE_DATE_EPOCH=1530722875
 mkdir clr-build
 pushd clr-build
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=/usr/lib64 -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
@@ -235,7 +239,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1530277628
+export SOURCE_DATE_EPOCH=1530722875
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ceph
 cp COPYING-LGPL2.1 %{buildroot}/usr/share/doc/ceph/COPYING-LGPL2.1
@@ -310,10 +314,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 %files
 %defattr(-,root,root,-)
 /usr/lib64/ceph/mgr/CMakeLists.txt
-/usr/lib64/ceph/mgr/__pycache__/mgr_module.cpython-36.pyc
 /usr/lib64/ceph/mgr/balancer/__init__.py
-/usr/lib64/ceph/mgr/balancer/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/balancer/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/balancer/module.py
 /usr/lib64/ceph/mgr/dashboard/.coveragerc
 /usr/lib64/ceph/mgr/dashboard/.editorconfig
@@ -322,32 +323,8 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 /usr/lib64/ceph/mgr/dashboard/HACKING.rst
 /usr/lib64/ceph/mgr/dashboard/README.rst
 /usr/lib64/ceph/mgr/dashboard/__init__.py
-/usr/lib64/ceph/mgr/dashboard/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/__pycache__/awsauth.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/__pycache__/exceptions.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/__pycache__/module.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/__pycache__/rest_client.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/__pycache__/settings.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/__pycache__/tools.cpython-36.pyc
 /usr/lib64/ceph/mgr/dashboard/awsauth.py
 /usr/lib64/ceph/mgr/dashboard/controllers/__init__.py
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/auth.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/cephfs.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/cluster_configuration.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/dashboard.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/erasure_code_profile.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/host.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/monitor.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/osd.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/perf_counters.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/pool.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/rbd.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/rbd_mirroring.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/rgw.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/summary.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/task.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/controllers/__pycache__/tcmu_iscsi.cpython-36.pyc
 /usr/lib64/ceph/mgr/dashboard/controllers/auth.py
 /usr/lib64/ceph/mgr/dashboard/controllers/cephfs.py
 /usr/lib64/ceph/mgr/dashboard/controllers/cluster_configuration.py
@@ -786,22 +763,10 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 /usr/lib64/ceph/mgr/dashboard/run-frontend-unittests.sh
 /usr/lib64/ceph/mgr/dashboard/run-tox.sh
 /usr/lib64/ceph/mgr/dashboard/services/__init__.py
-/usr/lib64/ceph/mgr/dashboard/services/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/services/__pycache__/ceph_service.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/services/__pycache__/rgw_client.cpython-36.pyc
 /usr/lib64/ceph/mgr/dashboard/services/ceph_service.py
 /usr/lib64/ceph/mgr/dashboard/services/rgw_client.py
 /usr/lib64/ceph/mgr/dashboard/settings.py
 /usr/lib64/ceph/mgr/dashboard/tests/__init__.py
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/helper.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/test_notification.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/test_rbd_mirroring.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/test_rest_tasks.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/test_settings.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/test_task.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/test_tcmu_iscsi.cpython-36.pyc
-/usr/lib64/ceph/mgr/dashboard/tests/__pycache__/test_tools.cpython-36.pyc
 /usr/lib64/ceph/mgr/dashboard/tests/helper.py
 /usr/lib64/ceph/mgr/dashboard/tests/test_notification.py
 /usr/lib64/ceph/mgr/dashboard/tests/test_rbd_mirroring.py
@@ -813,43 +778,18 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 /usr/lib64/ceph/mgr/dashboard/tools.py
 /usr/lib64/ceph/mgr/dashboard/tox.ini
 /usr/lib64/ceph/mgr/hello/__init__.py
-/usr/lib64/ceph/mgr/hello/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/hello/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/hello/module.py
 /usr/lib64/ceph/mgr/influx/__init__.py
-/usr/lib64/ceph/mgr/influx/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/influx/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/influx/module.py
 /usr/lib64/ceph/mgr/iostat/__init__.py
-/usr/lib64/ceph/mgr/iostat/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/iostat/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/iostat/module.py
 /usr/lib64/ceph/mgr/localpool/__init__.py
-/usr/lib64/ceph/mgr/localpool/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/localpool/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/localpool/module.py
 /usr/lib64/ceph/mgr/mgr_module.py
 /usr/lib64/ceph/mgr/prometheus/__init__.py
-/usr/lib64/ceph/mgr/prometheus/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/prometheus/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/prometheus/module.py
 /usr/lib64/ceph/mgr/restful/__init__.py
-/usr/lib64/ceph/mgr/restful/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/__pycache__/common.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/__pycache__/context.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/__pycache__/decorators.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/__pycache__/hooks.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/restful/api/__init__.py
-/usr/lib64/ceph/mgr/restful/api/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/api/__pycache__/config.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/api/__pycache__/crush.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/api/__pycache__/doc.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/api/__pycache__/mon.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/api/__pycache__/osd.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/api/__pycache__/pool.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/api/__pycache__/request.cpython-36.pyc
-/usr/lib64/ceph/mgr/restful/api/__pycache__/server.cpython-36.pyc
 /usr/lib64/ceph/mgr/restful/api/config.py
 /usr/lib64/ceph/mgr/restful/api/crush.py
 /usr/lib64/ceph/mgr/restful/api/doc.py
@@ -864,34 +804,19 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 /usr/lib64/ceph/mgr/restful/hooks.py
 /usr/lib64/ceph/mgr/restful/module.py
 /usr/lib64/ceph/mgr/selftest/__init__.py
-/usr/lib64/ceph/mgr/selftest/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/selftest/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/selftest/module.py
 /usr/lib64/ceph/mgr/smart/__init__.py
-/usr/lib64/ceph/mgr/smart/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/smart/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/smart/module.py
 /usr/lib64/ceph/mgr/status/__init__.py
-/usr/lib64/ceph/mgr/status/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/status/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/status/module.py
 /usr/lib64/ceph/mgr/telegraf/__init__.py
-/usr/lib64/ceph/mgr/telegraf/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/telegraf/__pycache__/basesocket.cpython-36.pyc
-/usr/lib64/ceph/mgr/telegraf/__pycache__/module.cpython-36.pyc
-/usr/lib64/ceph/mgr/telegraf/__pycache__/protocol.cpython-36.pyc
-/usr/lib64/ceph/mgr/telegraf/__pycache__/utils.cpython-36.pyc
 /usr/lib64/ceph/mgr/telegraf/basesocket.py
 /usr/lib64/ceph/mgr/telegraf/module.py
 /usr/lib64/ceph/mgr/telegraf/protocol.py
 /usr/lib64/ceph/mgr/telegraf/utils.py
 /usr/lib64/ceph/mgr/telemetry/__init__.py
-/usr/lib64/ceph/mgr/telemetry/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/telemetry/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/telemetry/module.py
 /usr/lib64/ceph/mgr/zabbix/__init__.py
-/usr/lib64/ceph/mgr/zabbix/__pycache__/__init__.cpython-36.pyc
-/usr/lib64/ceph/mgr/zabbix/__pycache__/module.cpython-36.pyc
 /usr/lib64/ceph/mgr/zabbix/module.py
 /usr/lib64/ceph/mgr/zabbix/zabbix_template.xml
 

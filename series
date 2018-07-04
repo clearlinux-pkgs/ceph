@@ -6,3 +6,4 @@
 0006-os-release.patch
 0007-Remove-Werror.patch
 0008-Point-to-oath-library-cmake-variable-during-linking.patch
+build.patch
