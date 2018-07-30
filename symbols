@@ -2117,6 +2117,7 @@ librgw.so.2:_Z14decode_xml_objRxP6XMLObj
 librgw.so.2:_Z14decode_xml_objRyP6XMLObj
 librgw.so.2:_Z14parse_mime_mapPKc
 librgw.so.2:_Z14pidfile_removev
+librgw.so.2:_Z14reopen_as_nullP11CephContexti
 librgw.so.2:_Z14rgw_init_ioctxPN8librados5RadosERK8rgw_poolRNS_5IoCtxEb
 librgw.so.2:_Z14rgw_perf_startP11CephContext
 librgw.so.2:_Z14rgw_to_asctimeB5cxx11RK7utime_t
@@ -4538,6 +4539,7 @@ librgw.so.2:_ZN9RGWBucket6unlinkER21RGWBucketAdminOpStatePNSt7__cxx1112basic_str
 librgw.so.2:_ZN9RGWBucket9set_quotaER21RGWBucketAdminOpStatePNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 librgw.so.2:_ZN9RGWGetObj11get_data_cbERN4ceph6buffer4listEll
 librgw.so.2:_ZN9RGWGetObj11init_commonEv
+librgw.so.2:_ZN9RGWGetObj11parse_rangeEv
 librgw.so.2:_ZN9RGWGetObj13prefetch_dataEv
 librgw.so.2:_ZN9RGWGetObj17verify_permissionEv
 librgw.so.2:_ZN9RGWGetObj19handle_slo_manifestERN4ceph6buffer4listE
