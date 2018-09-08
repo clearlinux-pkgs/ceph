@@ -5,7 +5,7 @@ pip-legacypython
 CUnit
 CUnit-dev
 oath-toolkit
-cherrypy
+CherryPy
 Werkzeug
 influxdb
 tempora

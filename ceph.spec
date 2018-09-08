@@ -27,7 +27,7 @@ Requires: astroid
 Requires: attrs
 Requires: bcrypt
 Requires: cheroot
-Requires: cherrypy
+Requires: CherryPy
 Requires: configparser
 Requires: coverage
 Requires: elasticsearch
