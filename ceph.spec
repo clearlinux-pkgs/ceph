@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.1
-Release  : 69
+Release  : 70
 URL      : https://download.ceph.com/tarballs/ceph_13.2.1.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.1.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -21,13 +21,13 @@ Requires: ceph-man
 Requires: ceph-python
 Requires: CUnit
 Requires: CUnit-dev
+Requires: CherryPy
 Requires: Routes
 Requires: Werkzeug
 Requires: astroid
 Requires: attrs
 Requires: bcrypt
 Requires: cheroot
-Requires: CherryPy
 Requires: configparser
 Requires: coverage
 Requires: elasticsearch
@@ -60,6 +60,7 @@ BuildRequires : CUnit-dev
 BuildRequires : Cython
 BuildRequires : Cython-legacypython
 BuildRequires : Sphinx-python
+BuildRequires : beignet-dev
 BuildRequires : boost-dev
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
@@ -68,8 +69,11 @@ BuildRequires : buildreq-qmake
 BuildRequires : bzip2-dev
 BuildRequires : cmake
 BuildRequires : curl-dev
+BuildRequires : doxygen
 BuildRequires : expat-dev
 BuildRequires : fcgi-dev
+BuildRequires : git
+BuildRequires : glibc-dev
 BuildRequires : googletest-dev
 BuildRequires : gperf
 BuildRequires : gperftools-dev
@@ -79,19 +83,26 @@ BuildRequires : keyutils-dev
 BuildRequires : leveldb-dev
 BuildRequires : libaio-dev
 BuildRequires : libatomic_ops-dev
+BuildRequires : lua-dev
 BuildRequires : lz4-dev
 BuildRequires : numactl-dev
 BuildRequires : oath-toolkit-dev
+BuildRequires : openjdk9
+BuildRequires : openjdk9-dev
 BuildRequires : openldap-dev
 BuildRequires : openssl-dev
 BuildRequires : pbr
 BuildRequires : pecan
 BuildRequires : pip
+BuildRequires : pkg-config
 BuildRequires : pkgconfig(babeltrace)
+BuildRequires : pkgconfig(nspr)
 BuildRequires : pkgconfig(nss)
 BuildRequires : prettytable
+BuildRequires : python3
 BuildRequires : python3-dev
 BuildRequires : requests
+BuildRequires : ruby
 BuildRequires : scons
 BuildRequires : sed
 BuildRequires : setuptools
@@ -105,6 +116,7 @@ BuildRequires : valgrind-dev
 BuildRequires : virtualenv
 BuildRequires : xfsprogs-dev
 BuildRequires : xmlsec1-dev
+BuildRequires : xz-dev
 BuildRequires : yasm
 BuildRequires : zlib-dev
 Patch1: 0001-Ceph-sudoers-entry.patch
@@ -231,15 +243,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1532913101
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1536868244
+mkdir -p clr-build
 pushd clr-build
 %cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1532913101
+export SOURCE_DATE_EPOCH=1536868244
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/doc/ceph/COPYING-GPL2
