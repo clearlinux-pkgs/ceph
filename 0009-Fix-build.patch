@@ -1,0 +1,40 @@
+From ebaa84625d9b503304404d536f9aae3b7233fd3e Mon Sep 17 00:00:00 2001
+From: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
+Date: Fri, 5 Oct 2018 03:16:39 +0000
+Subject: [PATCH 09/10] Fix build
+
+Signed-off-by: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
+---
+ src/boost/boost/python/detail/caller.hpp | 2 +-
+ src/mgr/PythonCompat.h                   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/boost/boost/python/detail/caller.hpp b/src/boost/boost/python/detail/caller.hpp
+index 1bd30bfb..bea36479 100644
+--- a/src/boost/boost/python/detail/caller.hpp
++++ b/src/boost/boost/python/detail/caller.hpp
+@@ -50,7 +50,7 @@ inline PyObject* get(mpl::int_<N>, PyObject* const& args_)
+ 
+ inline Py_ssize_t arity(PyObject* const& args_)
+ {
+-    return PyTuple_GET_SIZE(args_);
++    return Py_SIZE(args_);
+ }
+ 
+ // This "result converter" is really just used as
+diff --git a/src/mgr/PythonCompat.h b/src/mgr/PythonCompat.h
+index 745dad1a..7bbaf9c4 100644
+--- a/src/mgr/PythonCompat.h
++++ b/src/mgr/PythonCompat.h
+@@ -13,7 +13,7 @@
+ inline PyObject* PyString_FromString(const char *v) {
+   return PyUnicode_FromFormat("%s", v);
+ }
+-inline char* PyString_AsString(PyObject *string) {
++inline const char* PyString_AsString(PyObject *string) {
+   return PyUnicode_AsUTF8(string);
+ }
+ inline long PyInt_AsLong(PyObject *io) {
+-- 
+2.19.0
+

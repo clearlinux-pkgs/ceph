@@ -6,4 +6,5 @@
 0006-os-release.patch
 0007-Remove-Werror.patch
 0008-Point-to-oath-library-cmake-variable-during-linking.patch
-build.patch
+0009-Fix-build.patch
+0010-python-3.8-collections-package-change.patch
