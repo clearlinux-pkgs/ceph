@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.2
-Release  : 72
+Release  : 73
 URL      : https://download.ceph.com/tarballs/ceph_13.2.2.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.2.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -256,7 +256,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1538719684
+export SOURCE_DATE_EPOCH=1538781516
 mkdir -p clr-build
 pushd clr-build
 %cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
@@ -264,7 +264,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1538719684
+export SOURCE_DATE_EPOCH=1538781516
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
@@ -332,8 +332,6 @@ install -p -D -m 644 udev/50-rbd.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/60-ceph-by-parttypeuuid.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 rm -rf %{buildroot}/usr/etc
-rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
-rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 ## install_append end
 
 %files
@@ -896,8 +894,12 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-mgr*
 %files config
 %defattr(-,root,root,-)
 /usr/lib/systemd/system/ceph-disk@.service
+/usr/lib/systemd/system/ceph-fuse.target
+/usr/lib/systemd/system/ceph-fuse@.service
 /usr/lib/systemd/system/ceph-mds.target
 /usr/lib/systemd/system/ceph-mds@.service
+/usr/lib/systemd/system/ceph-mgr.target
+/usr/lib/systemd/system/ceph-mgr@.service
 /usr/lib/systemd/system/ceph-mon.target
 /usr/lib/systemd/system/ceph-mon@.service
 /usr/lib/systemd/system/ceph-osd.target
