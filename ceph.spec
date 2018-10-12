@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.2
-Release  : 73
+Release  : 74
 URL      : https://download.ceph.com/tarballs/ceph_13.2.2.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.2.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -199,6 +199,8 @@ lib components for the ceph package.
 %package libexec
 Summary: libexec components for the ceph package.
 Group: Default
+Requires: ceph-config = %{version}-%{release}
+Requires: ceph-license = %{version}-%{release}
 
 %description libexec
 libexec components for the ceph package.
@@ -256,15 +258,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1538781516
+export SOURCE_DATE_EPOCH=1539336127
 mkdir -p clr-build
 pushd clr-build
 %cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1538781516
+export SOURCE_DATE_EPOCH=1539336127
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
@@ -332,6 +334,7 @@ install -p -D -m 644 udev/50-rbd.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/60-ceph-by-parttypeuuid.rules %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
 rm -rf %{buildroot}/usr/etc
+rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 ## install_append end
 
 %files
@@ -894,8 +897,6 @@ rm -rf %{buildroot}/usr/etc
 %files config
 %defattr(-,root,root,-)
 /usr/lib/systemd/system/ceph-disk@.service
-/usr/lib/systemd/system/ceph-fuse.target
-/usr/lib/systemd/system/ceph-fuse@.service
 /usr/lib/systemd/system/ceph-mds.target
 /usr/lib/systemd/system/ceph-mds@.service
 /usr/lib/systemd/system/ceph-mgr.target
