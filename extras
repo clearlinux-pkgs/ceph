@@ -1,0 +1,16 @@
+/usr/lib/systemd/system/ceph-disk@.service
+/usr/lib/systemd/system/ceph-mds.target
+/usr/lib/systemd/system/ceph-mds@.service
+/usr/lib/systemd/system/ceph-mgr.target
+/usr/lib/systemd/system/ceph-mgr@.service
+/usr/lib/systemd/system/ceph-mon.target
+/usr/lib/systemd/system/ceph-mon@.service
+/usr/lib/systemd/system/ceph-osd.target
+/usr/lib/systemd/system/ceph-osd@.service
+/usr/lib/systemd/system/ceph-radosgw.target
+/usr/lib/systemd/system/ceph-radosgw@.service
+/usr/lib/systemd/system/ceph-rbd-mirror.target
+/usr/lib/systemd/system/ceph-rbd-mirror@.service
+/usr/lib/systemd/system/ceph-volume@.service
+/usr/lib/systemd/system/ceph.target
+/usr/lib/systemd/system/rbdmap.service
