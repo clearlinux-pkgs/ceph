@@ -6,6 +6,7 @@ CUnit
 CUnit-dev
 Cython
 Cython-legacypython
+compat-fuse-soname2-dev
 expat-dev
 fcgi-dev
 googletest-dev

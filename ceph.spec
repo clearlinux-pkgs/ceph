@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.2
-Release  : 75
+Release  : 76
 URL      : https://download.ceph.com/tarballs/ceph_13.2.2.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.2.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -20,6 +20,7 @@ Requires: ceph-license = %{version}-%{release}
 Requires: ceph-man = %{version}-%{release}
 Requires: ceph-python = %{version}-%{release}
 Requires: ceph-python3 = %{version}-%{release}
+Requires: ceph-services = %{version}-%{release}
 Requires: CUnit
 Requires: CUnit-dev
 Requires: CherryPy
@@ -69,6 +70,7 @@ BuildRequires : buildreq-meson
 BuildRequires : buildreq-qmake
 BuildRequires : bzip2-dev
 BuildRequires : cmake
+BuildRequires : compat-fuse-soname2-dev
 BuildRequires : curl-dev
 BuildRequires : doxygen
 BuildRequires : expat-dev
@@ -143,6 +145,7 @@ Requires: ceph-libexec = %{version}-%{release}
 Requires: ceph-config = %{version}-%{release}
 Requires: ceph-license = %{version}-%{release}
 Requires: ceph-man = %{version}-%{release}
+Requires: ceph-services = %{version}-%{release}
 
 %description bin
 bin components for the ceph package.
@@ -248,6 +251,14 @@ Requires: python3-core
 python3 components for the ceph package.
 
 
+%package services
+Summary: services components for the ceph package.
+Group: Systemd services
+
+%description services
+services components for the ceph package.
+
+
 %prep
 %setup -q -n ceph-13.2.2
 %patch1 -p1
@@ -266,15 +277,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1539641750
+export SOURCE_DATE_EPOCH=1541262935
 mkdir -p clr-build
 pushd clr-build
-%cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=OFF -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
+%cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=ON -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
 make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1539641750
+export SOURCE_DATE_EPOCH=1541262935
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
@@ -866,6 +877,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/bin/ceph-dencoder
 /usr/bin/ceph-detect-init
 /usr/bin/ceph-disk
+/usr/bin/ceph-fuse
 /usr/bin/ceph-kvstore-tool
 /usr/bin/ceph-mds
 /usr/bin/ceph-mgr
@@ -887,6 +899,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/bin/librados-config
 /usr/bin/monmaptool
 /usr/bin/mount.ceph
+/usr/bin/mount.fuse.ceph
 /usr/bin/osdmaptool
 /usr/bin/rados
 /usr/bin/radosgw
@@ -895,6 +908,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/bin/radosgw-object-expirer
 /usr/bin/radosgw-token
 /usr/bin/rbd
+/usr/bin/rbd-fuse
 /usr/bin/rbd-mirror
 /usr/bin/rbd-nbd
 /usr/bin/rbd-replay
@@ -904,22 +918,6 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 
 %files config
 %defattr(-,root,root,-)
-%exclude /usr/lib/systemd/system/ceph-disk@.service
-%exclude /usr/lib/systemd/system/ceph-mds.target
-%exclude /usr/lib/systemd/system/ceph-mds@.service
-%exclude /usr/lib/systemd/system/ceph-mgr.target
-%exclude /usr/lib/systemd/system/ceph-mgr@.service
-%exclude /usr/lib/systemd/system/ceph-mon.target
-%exclude /usr/lib/systemd/system/ceph-mon@.service
-%exclude /usr/lib/systemd/system/ceph-osd.target
-%exclude /usr/lib/systemd/system/ceph-osd@.service
-%exclude /usr/lib/systemd/system/ceph-radosgw.target
-%exclude /usr/lib/systemd/system/ceph-radosgw@.service
-%exclude /usr/lib/systemd/system/ceph-rbd-mirror.target
-%exclude /usr/lib/systemd/system/ceph-rbd-mirror@.service
-%exclude /usr/lib/systemd/system/ceph-volume@.service
-%exclude /usr/lib/systemd/system/ceph.target
-%exclude /usr/lib/systemd/system/rbdmap.service
 /usr/lib/tmpfiles.d/ceph.conf
 /usr/lib/udev/rules.d/50-rbd.rules
 /usr/lib/udev/rules.d/60-ceph-by-parttypeuuid.rules
@@ -927,6 +925,16 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/abi/libcephfs.so.2.0.0.abi
+/usr/share/abi/libcephfs.so.2.abi
+/usr/share/abi/librados.so.2.0.0.abi
+/usr/share/abi/librados.so.2.abi
+/usr/share/abi/libradosstriper.so.1.0.0.abi
+/usr/share/abi/libradosstriper.so.1.abi
+/usr/share/abi/librbd.so.1.12.0.abi
+/usr/share/abi/librbd.so.1.abi
+/usr/share/abi/librgw.so.2.0.0.abi
+/usr/share/abi/librgw.so.2.abi
 /usr/share/bash-completion/completions/ceph
 /usr/share/bash-completion/completions/rados
 /usr/share/bash-completion/completions/radosgw-admin
@@ -935,12 +943,6 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/ceph/id_rsa_drop.ceph.com.pub
 /usr/share/ceph/known_hosts_drop.ceph.com
 /usr/share/defaults/sudo/sudoers.d/ceph
-/usr/share/package-licenses/ceph/debian_copyright
-/usr/share/package-licenses/ceph/src_boost_tools_bcp_licence_info.cpp
-/usr/share/package-licenses/ceph/src_boost_tools_bcp_licence_info.hpp
-/usr/share/package-licenses/ceph/src_boost_tools_build_src_engine_debian_copyright
-/usr/share/package-licenses/ceph/src_erasure-code_jerasure_gf-complete_License.txt
-/usr/share/package-licenses/ceph/src_erasure-code_jerasure_jerasure_License.txt
 
 %files dev
 %defattr(-,root,root,-)
@@ -1096,6 +1098,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/ceph/COPYING-GPL2
 /usr/share/package-licenses/ceph/COPYING-LGPL2.1
+/usr/share/package-licenses/ceph/debian_copyright
 /usr/share/package-licenses/ceph/src_blkin_COPYRIGHT
 /usr/share/package-licenses/ceph/src_boost_LICENSE_1_0.txt
 /usr/share/package-licenses/ceph/src_boost_libs_beast_LICENSE_1_0.txt
@@ -1107,7 +1110,10 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/src_boost_libs_hana_LICENSE.md
 /usr/share/package-licenses/ceph/src_boost_libs_hof_LICENSE.md
 /usr/share/package-licenses/ceph/src_boost_libs_python_LICENSE_1_0.txt
+/usr/share/package-licenses/ceph/src_boost_tools_bcp_licence_info.cpp
+/usr/share/package-licenses/ceph/src_boost_tools_bcp_licence_info.hpp
 /usr/share/package-licenses/ceph/src_boost_tools_boostbook_xsl_caramel_LICENSE
+/usr/share/package-licenses/ceph/src_boost_tools_build_src_engine_debian_copyright
 /usr/share/package-licenses/ceph/src_civetweb_LICENSE.md
 /usr/share/package-licenses/ceph/src_civetweb_src_third_party_duktape-1.5.2_LICENSE.txt
 /usr/share/package-licenses/ceph/src_civetweb_src_third_party_duktape-1.8.0_LICENSE.txt
@@ -1116,7 +1122,9 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/src_dmclock_COPYING
 /usr/share/package-licenses/ceph/src_dmclock_COPYING-LGPL2.1
 /usr/share/package-licenses/ceph/src_erasure-code_jerasure_gf-complete_COPYING
+/usr/share/package-licenses/ceph/src_erasure-code_jerasure_gf-complete_License.txt
 /usr/share/package-licenses/ceph/src_erasure-code_jerasure_jerasure_COPYING
+/usr/share/package-licenses/ceph/src_erasure-code_jerasure_jerasure_License.txt
 /usr/share/package-licenses/ceph/src_googletest_googlemock_LICENSE
 /usr/share/package-licenses/ceph/src_googletest_googlemock_scripts_generator_LICENSE
 /usr/share/package-licenses/ceph/src_googletest_googletest_LICENSE
@@ -1152,6 +1160,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/man/man8/ceph-deploy.8
 /usr/share/man/man8/ceph-detect-init.8
 /usr/share/man/man8/ceph-disk.8
+/usr/share/man/man8/ceph-fuse.8
 /usr/share/man/man8/ceph-kvstore-tool.8
 /usr/share/man/man8/ceph-mds.8
 /usr/share/man/man8/ceph-mon.8
@@ -1171,6 +1180,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/man/man8/rados.8
 /usr/share/man/man8/radosgw-admin.8
 /usr/share/man/man8/radosgw.8
+/usr/share/man/man8/rbd-fuse.8
 /usr/share/man/man8/rbd-mirror.8
 /usr/share/man/man8/rbd-nbd.8
 /usr/share/man/man8/rbd-replay-many.8
@@ -1185,3 +1195,22 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 %files python3
 %defattr(-,root,root,-)
 /usr/lib/python3*/*
+
+%files services
+%defattr(-,root,root,-)
+%exclude /usr/lib/systemd/system/ceph-disk@.service
+%exclude /usr/lib/systemd/system/ceph-mds.target
+%exclude /usr/lib/systemd/system/ceph-mds@.service
+%exclude /usr/lib/systemd/system/ceph-mgr.target
+%exclude /usr/lib/systemd/system/ceph-mgr@.service
+%exclude /usr/lib/systemd/system/ceph-mon.target
+%exclude /usr/lib/systemd/system/ceph-mon@.service
+%exclude /usr/lib/systemd/system/ceph-osd.target
+%exclude /usr/lib/systemd/system/ceph-osd@.service
+%exclude /usr/lib/systemd/system/ceph-radosgw.target
+%exclude /usr/lib/systemd/system/ceph-radosgw@.service
+%exclude /usr/lib/systemd/system/ceph-rbd-mirror.target
+%exclude /usr/lib/systemd/system/ceph-rbd-mirror@.service
+%exclude /usr/lib/systemd/system/ceph-volume@.service
+%exclude /usr/lib/systemd/system/ceph.target
+%exclude /usr/lib/systemd/system/rbdmap.service
