@@ -4,7 +4,7 @@ libbabeltrace-ctf.so.1
 libbabeltrace.so.1
 libblkid.so.1
 libc.so.6
-libcrypto.so.1.0.0
+libcrypto.so.1.1
 libcurl.so.4
 libdl.so.2
 libexpat.so.1
@@ -24,7 +24,7 @@ libresolv.so.2
 librt.so.1
 libsmime3.so
 libsnappy.so.1
-libssl.so.1.0.0
+libssl.so.1.1
 libstdc++.so.6
 libtcmalloc.so.4
 libudev.so.1
