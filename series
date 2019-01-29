@@ -8,3 +8,4 @@
 0008-Point-to-oath-library-cmake-variable-during-linking.patch
 0009-Fix-build.patch
 0010-python-3.8-collections-package-change.patch
+CVE-2018-16889.patch

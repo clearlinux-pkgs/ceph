@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.4
-Release  : 3
+Release  : 4
 URL      : https://download.ceph.com/tarballs/ceph_13.2.4.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.4.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -133,6 +133,7 @@ Patch7: 0007-Remove-Werror.patch
 Patch8: 0008-Point-to-oath-library-cmake-variable-during-linking.patch
 Patch9: 0009-Fix-build.patch
 Patch10: 0010-python-3.8-collections-package-change.patch
+Patch11: CVE-2018-16889.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -272,21 +273,26 @@ services components for the ceph package.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1546981640
+export SOURCE_DATE_EPOCH=1548791013
 mkdir -p clr-build
 pushd clr-build
+export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 %cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=ON -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
 make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1546981640
+export SOURCE_DATE_EPOCH=1548791013
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
