@@ -31,6 +31,7 @@ scons
 sed
 setuptools
 snappy-dev
+Sphinx
 Sphinx-python
 systemd-dev
 tox
