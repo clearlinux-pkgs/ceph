@@ -5,7 +5,7 @@ curl-dev
 CUnit
 CUnit-dev
 Cython
-Cython-legacypython
+deprecated-Cython-legacypython
 compat-fuse-soname2-dev
 expat-dev
 fcgi-dev

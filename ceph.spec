@@ -4,11 +4,11 @@
 #
 Name     : ceph
 Version  : 13.2.5
-Release  : 6
+Release  : 7
 URL      : https://download.ceph.com/tarballs/ceph_13.2.5.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.5.orig.tar.gz
 Source1  : ceph.tmpfiles
-Summary  : Ceph Base Package
+Summary  : Distributed, fault-tolerant storage platform delivering object, block, and file system
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 CC-BY-4.0 CC-BY-SA-3.0 GPL-2.0 LGPL-2.0 LGPL-2.1 MIT MTLL NTP
 Requires: ceph-bin = %{version}-%{release}
@@ -61,7 +61,6 @@ Requires: wrapt
 BuildRequires : CUnit
 BuildRequires : CUnit-dev
 BuildRequires : Cython
-BuildRequires : Cython-legacypython
 BuildRequires : Sphinx
 BuildRequires : Sphinx-python
 BuildRequires : beignet-dev
@@ -74,6 +73,7 @@ BuildRequires : bzip2-dev
 BuildRequires : cmake
 BuildRequires : compat-fuse-soname2-dev
 BuildRequires : curl-dev
+BuildRequires : deprecated-Cython-legacypython
 BuildRequires : doxygen
 BuildRequires : expat-dev
 BuildRequires : fcgi-dev
@@ -175,6 +175,7 @@ Requires: ceph-lib = %{version}-%{release}
 Requires: ceph-bin = %{version}-%{release}
 Requires: ceph-data = %{version}-%{release}
 Provides: ceph-devel = %{version}-%{release}
+Requires: ceph = %{version}-%{release}
 
 %description dev
 dev components for the ceph package.
@@ -278,20 +279,19 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553021097
+export SOURCE_DATE_EPOCH=1554318918
 mkdir -p clr-build
 pushd clr-build
-export LDFLAGS="${LDFLAGS} -fno-lto"
 export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
 %cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=ON -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
-make  %{?_smp_mflags} VERBOSE=1
+make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1553021097
+export SOURCE_DATE_EPOCH=1554318918
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
