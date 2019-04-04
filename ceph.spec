@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.5
-Release  : 7
+Release  : 8
 URL      : https://download.ceph.com/tarballs/ceph_13.2.5.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.5.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -73,7 +73,6 @@ BuildRequires : bzip2-dev
 BuildRequires : cmake
 BuildRequires : compat-fuse-soname2-dev
 BuildRequires : curl-dev
-BuildRequires : deprecated-Cython-legacypython
 BuildRequires : doxygen
 BuildRequires : expat-dev
 BuildRequires : fcgi-dev
@@ -279,7 +278,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554318918
+export SOURCE_DATE_EPOCH=1554389072
 mkdir -p clr-build
 pushd clr-build
 export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
@@ -291,7 +290,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1554318918
+export SOURCE_DATE_EPOCH=1554389072
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
