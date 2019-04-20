@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 13.2.5
-Release  : 8
+Release  : 9
 URL      : https://download.ceph.com/tarballs/ceph_13.2.5.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_13.2.5.orig.tar.gz
 Source1  : ceph.tmpfiles
