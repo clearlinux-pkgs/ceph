@@ -1,14 +1,14 @@
-From dca2fffaaccf67ee21d13d058ae2872497cb1739 Mon Sep 17 00:00:00 2001
+From e938c53caca80956ca6e2d7e458c8ba50eff7ada Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Fri, 2 Feb 2018 21:54:39 +0000
-Subject: [PATCH 4/9] Update systemd install path
+Subject: [PATCH 3/7] Update systemd install path
 
 ---
  systemd/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/systemd/CMakeLists.txt b/systemd/CMakeLists.txt
-index 37fb1d47..0dbcdb1e 100644
+index 56be619d..41fdd3de 100644
 --- a/systemd/CMakeLists.txt
 +++ b/systemd/CMakeLists.txt
 @@ -1,4 +1,4 @@
@@ -18,5 +18,5 @@ index 37fb1d47..0dbcdb1e 100644
  set(CEPH_SYSTEMD_ENV_DIR "/etc/sysconfig"
    CACHE PATH "Location for systemd service environmental variable settings files")
 -- 
-2.17.0
+2.21.0
 

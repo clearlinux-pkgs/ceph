@@ -3,8 +3,10 @@ install -p -D -m 440 ceph.sudoers %{buildroot}/usr/share/defaults/sudo/sudoers.d
 
 install -d -m 755 %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/50-rbd.rules %{buildroot}/usr/lib/udev/rules.d
-install -p -D -m 644 udev/60-ceph-by-parttypeuuid.rules %{buildroot}/usr/lib/udev/rules.d
-install -p -D -m 644 udev/95-ceph-osd.rules %{buildroot}/usr/lib/udev/rules.d
+
+install -d -m 755 %{buildroot}/usr/lib64
+install -p -D -m 644 clr-build/lib/libcrc32.so %{buildroot}/usr/lib64
+chmod a+x %{buildroot}/usr/lib64/libcrc32.so
 
 rm -rf %{buildroot}/usr/etc
 rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*

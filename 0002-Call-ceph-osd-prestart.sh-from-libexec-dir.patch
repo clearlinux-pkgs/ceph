@@ -1,14 +1,15 @@
-From 04e20f4d871bc6490c4bc7ae285b385e6ca2cfdb Mon Sep 17 00:00:00 2001
-From: Alberto Murillo <alberto.murillo.silva@intel.com>
-Date: Tue, 28 Jun 2016 12:35:10 -0500
-Subject: [PATCH 3/9] Call ceph-osd-prestart.sh from libexec dir
+From 1c2b3de9254e23e9fa469f9f7cad986033794b4f Mon Sep 17 00:00:00 2001
+From: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
+Date: Wed, 22 May 2019 20:46:33 +0000
+Subject: [PATCH 2/7] Call ceph-osd-prestart.sh from libexec dir
 
+Signed-off-by: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
 ---
  systemd/ceph-osd@.service.in | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/systemd/ceph-osd@.service.in b/systemd/ceph-osd@.service.in
-index 672a10b1..1d2bbbc4 100644
+index 1b5c9c82..c75a7c6b 100644
 --- a/systemd/ceph-osd@.service.in
 +++ b/systemd/ceph-osd@.service.in
 @@ -10,7 +10,7 @@ LimitNPROC=1048576
@@ -18,8 +19,8 @@ index 672a10b1..1d2bbbc4 100644
 -ExecStartPre=/usr/lib/ceph/ceph-osd-prestart.sh --cluster ${CLUSTER} --id %i
 +ExecStartPre=/usr/libexec/ceph/ceph-osd-prestart.sh --cluster ${CLUSTER} --id %i
  ExecReload=/bin/kill -HUP $MAINPID
- ProtectHome=true
- ProtectSystem=full
+ LockPersonality=true
+ MemoryDenyWriteExecute=true
 -- 
-2.17.0
+2.21.0
 

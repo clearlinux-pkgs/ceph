@@ -1,10 +1,7 @@
 0001-Ceph-sudoers-entry.patch
-0002-Add-Clear-Linux-init-detection.patch
-0003-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
-0004-Update-systemd-install-path.patch
-0005-bash-completion.patch
-0006-os-release.patch
-0007-Remove-Werror.patch
-0008-Point-to-oath-library-cmake-variable-during-linking.patch
-0009-Fix-build.patch
-0010-python-3.8-collections-package-change.patch
+0002-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
+0003-Update-systemd-install-path.patch
+0004-bash-completion.patch
+0005-os-release.patch
+0006-Remove-Werror.patch
+0007-Fix-build.patch

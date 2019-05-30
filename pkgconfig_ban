@@ -5,3 +5,5 @@ libzfs
 rocksdb
 zfs
 lttng-ust
+libdpdk
+libibverbs

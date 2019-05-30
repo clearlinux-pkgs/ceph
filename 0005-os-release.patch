@@ -1,17 +1,17 @@
-From 4e5f40be0d88e28a3af1146a1cc8d764e6e25f6f Mon Sep 17 00:00:00 2001
+From 4229c0ef9dd91448ecc2dd0c8760c875aae6289f Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Thu, 9 Mar 2017 18:03:41 -0600
-Subject: [PATCH 6/9] os-release
+Subject: [PATCH 5/7] os-release
 
 ---
  src/common/util.cc | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/src/common/util.cc b/src/common/util.cc
-index 10183507..82ae5b9b 100644
+index fea63e95..bf9911e9 100644
 --- a/src/common/util.cc
 +++ b/src/common/util.cc
-@@ -99,10 +99,10 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
+@@ -100,10 +100,10 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
      { "distro_version", "VERSION_ID=" }
    };
  
@@ -24,7 +24,7 @@ index 10183507..82ae5b9b 100644
      return false;
    }
  
-@@ -116,7 +116,7 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
+@@ -126,7 +126,7 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
  static void distro_detect(map<string, string> *m, CephContext *cct)
  {
    if (!os_release_parse(m, cct)) {
@@ -34,5 +34,5 @@ index 10183507..82ae5b9b 100644
  
    for (const char* rk: {"distro", "distro_description"}) {
 -- 
-2.17.0
+2.21.0
 

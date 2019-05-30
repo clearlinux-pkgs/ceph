@@ -2,3 +2,4 @@
 # undesirable. One entry per line, no whitespace.
 libibverbs-dev
 tbb-dev
+cephfs

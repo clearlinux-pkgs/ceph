@@ -1,7 +1,7 @@
-From 0f91fcde7b4f08e778394d64e719332f4b21e0d2 Mon Sep 17 00:00:00 2001
+From 3fd576f8598f54c91532ae6e08d4aca6638d67e3 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Thu, 9 Mar 2017 17:59:44 -0600
-Subject: [PATCH 5/9] bash-completion
+Subject: [PATCH 4/7] bash-completion
 
 ---
  src/bash_completion/CMakeLists.txt | 2 +-
@@ -19,5 +19,5 @@ index 8d834774..7c27c277 100644
 +  DESTINATION ${CMAKE_INSTALL_PREFIX}/share/bash-completion/completions)
  
 -- 
-2.17.0
+2.21.0
 
