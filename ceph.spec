@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 14.2.1
-Release  : 11
+Release  : 12
 URL      : https://download.ceph.com/tarballs/ceph_14.2.1.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_14.2.1.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -24,6 +24,7 @@ Requires: ceph-services = %{version}-%{release}
 Requires: CUnit
 Requires: CUnit-dev
 Requires: CherryPy
+Requires: Flask
 Requires: PyJWT
 Requires: Routes
 Requires: Werkzeug
@@ -67,10 +68,16 @@ Requires: virtualenv
 Requires: wrapt
 BuildRequires : CUnit
 BuildRequires : CUnit-dev
+BuildRequires : CherryPy
 BuildRequires : Cython
+BuildRequires : Flask
+BuildRequires : PyJWT
+BuildRequires : Routes
 BuildRequires : Sphinx
 BuildRequires : Sphinx-python
-BuildRequires : beignet-dev
+BuildRequires : Werkzeug
+BuildRequires : attrs
+BuildRequires : bcrypt
 BuildRequires : boost-dev
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
@@ -78,30 +85,48 @@ BuildRequires : buildreq-golang
 BuildRequires : buildreq-meson
 BuildRequires : buildreq-qmake
 BuildRequires : bzip2-dev
+BuildRequires : cheroot
 BuildRequires : cmake
 BuildRequires : cmd2
 BuildRequires : colorama
 BuildRequires : compat-fuse-soname2-dev
+BuildRequires : configparser
+BuildRequires : coverage
 BuildRequires : curl-dev
 BuildRequires : doxygen
 BuildRequires : dpdk-dev
+BuildRequires : elasticsearch
+BuildRequires : enum34
 BuildRequires : expat-dev
 BuildRequires : fcgi-dev
+BuildRequires : funcsigs
 BuildRequires : git
 BuildRequires : glibc-dev
+BuildRequires : google-api-python-client
+BuildRequires : google-auth
+BuildRequires : google-auth-httplib2
 BuildRequires : googletest-dev
 BuildRequires : gperf
 BuildRequires : gperftools-dev
+BuildRequires : grpcio
 BuildRequires : imagesize
+BuildRequires : influxdb
 BuildRequires : isa-l-dev
+BuildRequires : isort
 BuildRequires : keyutils-dev
+BuildRequires : lazy-object-proxy
 BuildRequires : leveldb-dev
 BuildRequires : libaio-dev
 BuildRequires : libatomic_ops-dev
 BuildRequires : lua-dev
 BuildRequires : lz4-dev
+BuildRequires : mccabe
+BuildRequires : more-itertools
 BuildRequires : numactl-dev
+BuildRequires : numpy
+BuildRequires : oath-toolkit
 BuildRequires : oath-toolkit-dev
+BuildRequires : opencl-headers-dev
 BuildRequires : openjdk9
 BuildRequires : openjdk9-dev
 BuildRequires : openldap-dev
@@ -114,24 +139,36 @@ BuildRequires : pkgconfig(babeltrace)
 BuildRequires : pkgconfig(ncursesw)
 BuildRequires : pkgconfig(nspr)
 BuildRequires : pkgconfig(nss)
+BuildRequires : pluggy
+BuildRequires : portend
 BuildRequires : prettytable
+BuildRequires : py
+BuildRequires : pycodestyle
+BuildRequires : pycparser
 BuildRequires : python3
 BuildRequires : python3-dev
+BuildRequires : pytz
 BuildRequires : rabbitmq-c-dev
 BuildRequires : rdma-core-dev
 BuildRequires : requests
 BuildRequires : ruby
+BuildRequires : scikit-learn
+BuildRequires : scipy
 BuildRequires : scons
 BuildRequires : sed
 BuildRequires : setuptools
+BuildRequires : singledispatch
+BuildRequires : six
 BuildRequires : snappy-dev
 BuildRequires : systemd-dev
+BuildRequires : tempora
 BuildRequires : tox
 BuildRequires : tox-python
 BuildRequires : util-linux-dev
 BuildRequires : valgrind
 BuildRequires : valgrind-dev
 BuildRequires : virtualenv
+BuildRequires : wrapt
 BuildRequires : xfsprogs-dev
 BuildRequires : xmlsec1-dev
 BuildRequires : xz-dev
@@ -285,22 +322,21 @@ services components for the ceph package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1559190427
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1564529828
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
-export LDFLAGS="${LDFLAGS} -fno-lto"
-export CFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 %cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=ON -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF
 make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1559190427
+export SOURCE_DATE_EPOCH=1564529828
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
@@ -325,6 +361,7 @@ cp src/c-ares/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/src_c-ares
 cp src/c-ares/test/gmock-1.7.0/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_c-ares_test_gmock-1.7.0_LICENSE
 cp src/c-ares/test/gmock-1.7.0/gtest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_c-ares_test_gmock-1.7.0_gtest_LICENSE
 cp src/c-ares/test/gmock-1.7.0/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_c-ares_test_gmock-1.7.0_scripts_generator_LICENSE
+cp src/ceph-volume/plugin/zfs/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_ceph-volume_plugin_zfs_LICENSE
 cp src/civetweb/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/src_civetweb_LICENSE.md
 cp src/civetweb/src/third_party/duktape-1.5.2/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/src_civetweb_src_third_party_duktape-1.5.2_LICENSE.txt
 cp src/civetweb/src/third_party/duktape-1.8.0/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/src_civetweb_src_third_party_duktape-1.8.0_LICENSE.txt
@@ -355,6 +392,7 @@ cp src/seastar/dpdk/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/ceph/sr
 cp src/seastar/dpdk/drivers/net/bnx2x/LICENSE.bnx2x_pmd %{buildroot}/usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_bnx2x_LICENSE.bnx2x_pmd
 cp src/seastar/dpdk/drivers/net/enic/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_enic_LICENSE
 cp src/seastar/dpdk/drivers/net/qede/LICENSE.qede_pmd %{buildroot}/usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_qede_LICENSE.qede_pmd
+cp src/seastar/fmt/LICENSE.rst %{buildroot}/usr/share/package-licenses/ceph/src_seastar_fmt_LICENSE.rst
 cp src/spdk/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_spdk_LICENSE
 cp src/spdk/intel-ipsec-mb/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_spdk_intel-ipsec-mb_LICENSE
 cp src/xxHash/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_xxHash_LICENSE
@@ -1756,6 +1794,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/src_c-ares_test_gmock-1.7.0_LICENSE
 /usr/share/package-licenses/ceph/src_c-ares_test_gmock-1.7.0_gtest_LICENSE
 /usr/share/package-licenses/ceph/src_c-ares_test_gmock-1.7.0_scripts_generator_LICENSE
+/usr/share/package-licenses/ceph/src_ceph-volume_plugin_zfs_LICENSE
 /usr/share/package-licenses/ceph/src_civetweb_LICENSE.md
 /usr/share/package-licenses/ceph/src_civetweb_src_third_party_duktape-1.5.2_LICENSE.txt
 /usr/share/package-licenses/ceph/src_civetweb_src_third_party_duktape-1.8.0_LICENSE.txt
@@ -1786,6 +1825,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_bnx2x_LICENSE.bnx2x_pmd
 /usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_enic_LICENSE
 /usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_qede_LICENSE.qede_pmd
+/usr/share/package-licenses/ceph/src_seastar_fmt_LICENSE.rst
 /usr/share/package-licenses/ceph/src_spdk_LICENSE
 /usr/share/package-licenses/ceph/src_spdk_intel-ipsec-mb_LICENSE
 /usr/share/package-licenses/ceph/src_xxHash_LICENSE

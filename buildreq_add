@@ -51,3 +51,4 @@ gperf
 xmlsec1-dev
 oath-toolkit-dev
 numactl-dev
+opencl-headers-dev
