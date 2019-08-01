@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 14.2.1
-Release  : 12
+Release  : 13
 URL      : https://download.ceph.com/tarballs/ceph_14.2.1.orig.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph_14.2.1.orig.tar.gz
 Source1  : ceph.tmpfiles
@@ -76,6 +76,7 @@ BuildRequires : Routes
 BuildRequires : Sphinx
 BuildRequires : Sphinx-python
 BuildRequires : Werkzeug
+BuildRequires : apache-ant
 BuildRequires : attrs
 BuildRequires : bcrypt
 BuildRequires : boost-dev
@@ -83,6 +84,7 @@ BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
 BuildRequires : buildreq-golang
 BuildRequires : buildreq-meson
+BuildRequires : buildreq-mvn
 BuildRequires : buildreq-qmake
 BuildRequires : bzip2-dev
 BuildRequires : cheroot
@@ -127,8 +129,8 @@ BuildRequires : numpy
 BuildRequires : oath-toolkit
 BuildRequires : oath-toolkit-dev
 BuildRequires : opencl-headers-dev
-BuildRequires : openjdk9
-BuildRequires : openjdk9-dev
+BuildRequires : openjdk11
+BuildRequires : openjdk11-dev
 BuildRequires : openldap-dev
 BuildRequires : openssl-dev
 BuildRequires : pbr
@@ -323,7 +325,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1564529828
+export SOURCE_DATE_EPOCH=1564695493
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -336,7 +338,7 @@ make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1564529828
+export SOURCE_DATE_EPOCH=1564695493
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
@@ -1880,19 +1882,4 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 
 %files services
 %defattr(-,root,root,-)
-%exclude /usr/lib/systemd/system/ceph-mds.target
-%exclude /usr/lib/systemd/system/ceph-mds@.service
-%exclude /usr/lib/systemd/system/ceph-mgr.target
-%exclude /usr/lib/systemd/system/ceph-mgr@.service
-%exclude /usr/lib/systemd/system/ceph-mon.target
-%exclude /usr/lib/systemd/system/ceph-mon@.service
-%exclude /usr/lib/systemd/system/ceph-osd.target
-%exclude /usr/lib/systemd/system/ceph-osd@.service
-%exclude /usr/lib/systemd/system/ceph-radosgw.target
-%exclude /usr/lib/systemd/system/ceph-radosgw@.service
-%exclude /usr/lib/systemd/system/ceph-rbd-mirror.target
-%exclude /usr/lib/systemd/system/ceph-rbd-mirror@.service
-%exclude /usr/lib/systemd/system/ceph-volume@.service
-%exclude /usr/lib/systemd/system/ceph.target
-%exclude /usr/lib/systemd/system/rbdmap.service
 /usr/lib/systemd/system/ceph-crash.service
