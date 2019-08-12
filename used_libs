@@ -26,7 +26,6 @@ libpython3.7m.so.1.0
 librabbitmq.so.4
 librdmacm.so.1
 libresolv.so.2
-librt.so.1
 libsmime3.so
 libsnappy.so.1
 libssl.so.1.1
