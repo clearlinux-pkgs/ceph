@@ -29,7 +29,6 @@ python3-dev
 rabbitmq-c-dev
 rdma-core-dev
 requests
-scons
 sed
 setuptools
 snappy-dev

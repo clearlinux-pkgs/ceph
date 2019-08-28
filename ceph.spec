@@ -4,13 +4,13 @@
 #
 Name     : ceph
 Version  : 14.2.2
-Release  : 15
+Release  : 17
 URL      : https://download.ceph.com/tarballs/ceph-14.2.2.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-14.2.2.tar.gz
 Source1  : ceph.tmpfiles
 Summary  : Ceph Base Package
 Group    : Development/Tools
-License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 CC-BY-4.0 CC-BY-SA-3.0 GPL-2.0 LGPL-2.0 LGPL-2.1 MIT MTLL NTP
+License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 CC-BY-4.0 CC-BY-SA-3.0 GPL-2.0 Intel LGPL-2.0 LGPL-2.1 MIT MTLL NTP Python-2.0
 Requires: ceph-bin = %{version}-%{release}
 Requires: ceph-config = %{version}-%{release}
 Requires: ceph-data = %{version}-%{release}
@@ -156,7 +156,6 @@ BuildRequires : requests
 BuildRequires : ruby
 BuildRequires : scikit-learn
 BuildRequires : scipy
-BuildRequires : scons
 BuildRequires : sed
 BuildRequires : setuptools
 BuildRequires : singledispatch
@@ -325,7 +324,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565658741
+export SOURCE_DATE_EPOCH=1567020327
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -338,9 +337,10 @@ make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1565658741
+export SOURCE_DATE_EPOCH=1567020327
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
+cp COPYING %{buildroot}/usr/share/package-licenses/ceph/COPYING
 cp COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/COPYING-GPL2
 cp COPYING-LGPL2.1 %{buildroot}/usr/share/package-licenses/ceph/COPYING-LGPL2.1
 cp debian/copyright %{buildroot}/usr/share/package-licenses/ceph/debian_copyright
@@ -389,12 +389,14 @@ cp src/rocksdb/LICENSE.Apache %{buildroot}/usr/share/package-licenses/ceph/src_r
 cp src/rocksdb/LICENSE.leveldb %{buildroot}/usr/share/package-licenses/ceph/src_rocksdb_LICENSE.leveldb
 cp src/rocksdb/docs/LICENSE-DOCUMENTATION %{buildroot}/usr/share/package-licenses/ceph/src_rocksdb_docs_LICENSE-DOCUMENTATION
 cp src/seastar/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_seastar_LICENSE
+cp src/seastar/NOTICE %{buildroot}/usr/share/package-licenses/ceph/src_seastar_NOTICE
 cp src/seastar/dpdk/LICENSE.GPL %{buildroot}/usr/share/package-licenses/ceph/src_seastar_dpdk_LICENSE.GPL
 cp src/seastar/dpdk/LICENSE.LGPL %{buildroot}/usr/share/package-licenses/ceph/src_seastar_dpdk_LICENSE.LGPL
 cp src/seastar/dpdk/drivers/net/bnx2x/LICENSE.bnx2x_pmd %{buildroot}/usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_bnx2x_LICENSE.bnx2x_pmd
 cp src/seastar/dpdk/drivers/net/enic/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_enic_LICENSE
 cp src/seastar/dpdk/drivers/net/qede/LICENSE.qede_pmd %{buildroot}/usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_qede_LICENSE.qede_pmd
 cp src/seastar/fmt/LICENSE.rst %{buildroot}/usr/share/package-licenses/ceph/src_seastar_fmt_LICENSE.rst
+cp src/seastar/fmt/doc/python-license.txt %{buildroot}/usr/share/package-licenses/ceph/src_seastar_fmt_doc_python-license.txt
 cp src/spdk/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_spdk_LICENSE
 cp src/spdk/intel-ipsec-mb/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_spdk_intel-ipsec-mb_LICENSE
 cp src/xxHash/LICENSE %{buildroot}/usr/share/package-licenses/ceph/src_xxHash_LICENSE
@@ -1790,6 +1792,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/ceph/COPYING
 /usr/share/package-licenses/ceph/COPYING-GPL2
 /usr/share/package-licenses/ceph/COPYING-LGPL2.1
 /usr/share/package-licenses/ceph/debian_copyright
@@ -1838,12 +1841,14 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/src_rocksdb_LICENSE.leveldb
 /usr/share/package-licenses/ceph/src_rocksdb_docs_LICENSE-DOCUMENTATION
 /usr/share/package-licenses/ceph/src_seastar_LICENSE
+/usr/share/package-licenses/ceph/src_seastar_NOTICE
 /usr/share/package-licenses/ceph/src_seastar_dpdk_LICENSE.GPL
 /usr/share/package-licenses/ceph/src_seastar_dpdk_LICENSE.LGPL
 /usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_bnx2x_LICENSE.bnx2x_pmd
 /usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_enic_LICENSE
 /usr/share/package-licenses/ceph/src_seastar_dpdk_drivers_net_qede_LICENSE.qede_pmd
 /usr/share/package-licenses/ceph/src_seastar_fmt_LICENSE.rst
+/usr/share/package-licenses/ceph/src_seastar_fmt_doc_python-license.txt
 /usr/share/package-licenses/ceph/src_spdk_LICENSE
 /usr/share/package-licenses/ceph/src_spdk_intel-ipsec-mb_LICENSE
 /usr/share/package-licenses/ceph/src_xxHash_LICENSE
