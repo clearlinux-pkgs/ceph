@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 14.2.4
-Release  : 22
+Release  : 23
 URL      : https://download.ceph.com/tarballs/ceph-14.2.4.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-14.2.4.tar.gz
 Source1  : ceph.tmpfiles
@@ -33,7 +33,6 @@ Requires: bcrypt
 Requires: cheroot
 Requires: cmd2
 Requires: colorama
-Requires: configparser
 Requires: coverage
 Requires: elasticsearch
 Requires: funcsigs
@@ -93,7 +92,6 @@ BuildRequires : cmake
 BuildRequires : cmd2
 BuildRequires : colorama
 BuildRequires : compat-fuse-soname2-dev
-BuildRequires : configparser
 BuildRequires : coverage
 BuildRequires : curl-dev
 BuildRequires : doxygen
@@ -327,7 +325,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573760257
+export SOURCE_DATE_EPOCH=1573843371
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -340,7 +338,7 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1573760257
+export SOURCE_DATE_EPOCH=1573843371
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-14.2.4/COPYING %{buildroot}/usr/share/package-licenses/ceph/c2c269b4c65cb0eb331287573ac3b64d5908363d
