@@ -4,11 +4,11 @@
 #
 Name     : ceph
 Version  : 14.2.4
-Release  : 29
+Release  : 30
 URL      : https://download.ceph.com/tarballs/ceph-14.2.4.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-14.2.4.tar.gz
 Source1  : ceph.tmpfiles
-Summary  : Distributed, fault-tolerant storage platform delivering object, block, and file system
+Summary  : Ceph Base Package
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 CC-BY-4.0 CC-BY-SA-3.0 GPL-2.0 Intel LGPL-2.0 LGPL-2.1 MIT MTLL NTP Python-2.0
 Requires: ceph-bin = %{version}-%{release}
@@ -76,7 +76,6 @@ BuildRequires : Sphinx
 BuildRequires : Sphinx-python
 BuildRequires : Werkzeug
 BuildRequires : apache-ant
-BuildRequires : apache-maven
 BuildRequires : attrs
 BuildRequires : bcrypt
 BuildRequires : boost-dev
@@ -84,7 +83,6 @@ BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
 BuildRequires : buildreq-golang
 BuildRequires : buildreq-meson
-BuildRequires : buildreq-mvn
 BuildRequires : buildreq-qmake
 BuildRequires : bzip2-dev
 BuildRequires : cheroot
@@ -108,7 +106,6 @@ BuildRequires : google-auth-httplib2
 BuildRequires : googletest-dev
 BuildRequires : gperf
 BuildRequires : gperftools-dev
-BuildRequires : gradle
 BuildRequires : grpc
 BuildRequires : grpcio
 BuildRequires : imagesize
@@ -224,7 +221,6 @@ Requires: ceph-bin = %{version}-%{release}
 Requires: ceph-data = %{version}-%{release}
 Provides: ceph-devel = %{version}-%{release}
 Requires: ceph = %{version}-%{release}
-Requires: ceph = %{version}-%{release}
 
 %description dev
 dev components for the ceph package.
@@ -326,21 +322,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1575583941
+export SOURCE_DATE_EPOCH=1582136045
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -fcf-protection=full -fno-lto -fstack-protector-strong "
-export FCFLAGS="$CFLAGS -fcf-protection=full -fno-lto -fstack-protector-strong "
-export FFLAGS="$CFLAGS -fcf-protection=full -fno-lto -fstack-protector-strong "
-export CXXFLAGS="$CXXFLAGS -fcf-protection=full -fno-lto -fstack-protector-strong "
+export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 %cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=ON -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DWITH_SYSTEM_BOOST=ON
 make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1575583941
+export SOURCE_DATE_EPOCH=1582136045
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-14.2.4/COPYING %{buildroot}/usr/share/package-licenses/ceph/c2c269b4c65cb0eb331287573ac3b64d5908363d
