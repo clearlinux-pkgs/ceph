@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 14.2.8
-Release  : 32
+Release  : 33
 URL      : https://download.ceph.com/tarballs/ceph-14.2.8.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-14.2.8.tar.gz
 Source1  : ceph.tmpfiles
@@ -34,7 +34,6 @@ Requires: cheroot
 Requires: cmd2
 Requires: colorama
 Requires: coverage
-Requires: elasticsearch
 Requires: funcsigs
 Requires: google-api-python-client
 Requires: google-auth
@@ -94,7 +93,6 @@ BuildRequires : coverage
 BuildRequires : curl-dev
 BuildRequires : doxygen
 BuildRequires : dpdk-dev
-BuildRequires : elasticsearch
 BuildRequires : expat-dev
 BuildRequires : fcgi-dev
 BuildRequires : funcsigs
@@ -328,7 +326,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583991896
+export SOURCE_DATE_EPOCH=1585592052
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -341,7 +339,7 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1583991896
+export SOURCE_DATE_EPOCH=1585592052
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-14.2.8/COPYING %{buildroot}/usr/share/package-licenses/ceph/c2c269b4c65cb0eb331287573ac3b64d5908363d
@@ -1804,12 +1802,8 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/lib64/ceph/compressor/libceph_zstd.so
 /usr/lib64/ceph/compressor/libceph_zstd.so.2
 /usr/lib64/ceph/compressor/libceph_zstd.so.2.0.0
-/usr/lib64/ceph/crypto/libceph_crypto_isal.so
-/usr/lib64/ceph/crypto/libceph_crypto_isal.so.1
-/usr/lib64/ceph/crypto/libceph_crypto_isal.so.1.0.0
 /usr/lib64/ceph/crypto/libceph_crypto_openssl.so
 /usr/lib64/ceph/erasure-code/libec_clay.so
-/usr/lib64/ceph/erasure-code/libec_isa.so
 /usr/lib64/ceph/erasure-code/libec_jerasure.so
 /usr/lib64/ceph/erasure-code/libec_jerasure_generic.so
 /usr/lib64/ceph/erasure-code/libec_jerasure_sse3.so

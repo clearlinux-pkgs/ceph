@@ -1,5 +1,6 @@
 # This file contains runtime requirements that get picked up but are
 # undesirable. One entry per line, no whitespace.
+elasticsearch
 enum34
 werkzeug
 tox
