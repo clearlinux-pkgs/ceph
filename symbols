@@ -190,6 +190,8 @@ libcrc32.so:ceph_crc32c_intel_fast
 libcrc32.so:ceph_crc32c_intel_fast_exists
 libcrc32.so:ceph_crc32c_sctp
 libcrc32.so:ceph_crc32c_zeros
+libcrc32.so:crc32_iscsi_00
+libcrc32.so:crc32_iscsi_zero_00
 librados.so.2:LIBRADOS_14.2.0
 librados.so.2:LIBRADOS_PRIVATE
 librados.so.2:_ZN4ceph6buffer7v14_2_010claim_charEjPc
