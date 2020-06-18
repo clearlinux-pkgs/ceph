@@ -4,13 +4,13 @@
 #
 Name     : ceph
 Version  : 15.2.1
-Release  : 35
+Release  : 36
 URL      : https://download.ceph.com/tarballs/ceph-15.2.1.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-15.2.1.tar.gz
 Source1  : ceph.tmpfiles
 Summary  : Ceph Base Package
 Group    : Development/Tools
-License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 CC-BY-4.0 CC-BY-SA-3.0 GPL-2.0 LGPL-2.1 LGPL-3.0 MIT MTLL NTP Python-2.0 bzip2-1.0.6
+License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSD-3-Clause-Clear BSL-1.0 CC-BY-4.0 CC-BY-SA-3.0 GPL-2.0 LGPL-2.1 LGPL-3.0 MIT MTLL NTP Python-2.0 bzip2-1.0.6
 Requires: ceph-bin = %{version}-%{release}
 Requires: ceph-config = %{version}-%{release}
 Requires: ceph-data = %{version}-%{release}
@@ -311,7 +311,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1589916360
+export SOURCE_DATE_EPOCH=1592451948
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -324,12 +324,14 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1589916360
+export SOURCE_DATE_EPOCH=1592451948
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
+cp %{_builddir}/ceph-15.2.1/COPYING %{buildroot}/usr/share/package-licenses/ceph/42e6b359f99b0ba08c547bd42d26cc2bab83dda7
 cp %{_builddir}/ceph-15.2.1/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
 cp %{_builddir}/ceph-15.2.1/COPYING-LGPL2.1 %{buildroot}/usr/share/package-licenses/ceph/caeb68c46fa36651acf592771d09de7937926bb3
 cp %{_builddir}/ceph-15.2.1/COPYING-LGPL3 %{buildroot}/usr/share/package-licenses/ceph/a8a12e6867d7ee39c21d9b11a984066099b6fb6b
+cp %{_builddir}/ceph-15.2.1/debian/copyright %{buildroot}/usr/share/package-licenses/ceph/d60426231a22144bc090160bc58fb441bd233f34
 cp %{_builddir}/ceph-15.2.1/src/blkin/COPYRIGHT %{buildroot}/usr/share/package-licenses/ceph/16b1ef1d04f4370f699e99d9ff49dfbca6352282
 cp %{_builddir}/ceph-15.2.1/src/boost/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
 cp %{_builddir}/ceph-15.2.1/src/boost/libs/assign/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
@@ -388,6 +390,7 @@ cp %{_builddir}/ceph-15.2.1/src/erasure-code/jerasure/gf-complete/COPYING %{buil
 cp %{_builddir}/ceph-15.2.1/src/erasure-code/jerasure/gf-complete/License.txt %{buildroot}/usr/share/package-licenses/ceph/ec19f1e6705fcea4664666f56ede7d1912a3ef6e
 cp %{_builddir}/ceph-15.2.1/src/erasure-code/jerasure/jerasure/COPYING %{buildroot}/usr/share/package-licenses/ceph/fa80c8171863d48faf0e62c5f8a0984f4af0f77b
 cp %{_builddir}/ceph-15.2.1/src/erasure-code/jerasure/jerasure/License.txt %{buildroot}/usr/share/package-licenses/ceph/fa80c8171863d48faf0e62c5f8a0984f4af0f77b
+cp %{_builddir}/ceph-15.2.1/src/fmt/LICENSE.rst %{buildroot}/usr/share/package-licenses/ceph/d3b6786cbf36e5bcbc796075f9f34d8ac355980a
 cp %{_builddir}/ceph-15.2.1/src/fmt/doc/python-license.txt %{buildroot}/usr/share/package-licenses/ceph/f19fa3302647d3061306ffb9ef072a777c166e0b
 cp %{_builddir}/ceph-15.2.1/src/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
 cp %{_builddir}/ceph-15.2.1/src/googletest/googlemock/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
@@ -413,6 +416,7 @@ cp %{_builddir}/ceph-15.2.1/src/spawn/test/dependency/googletest/googletest/LICE
 cp %{_builddir}/ceph-15.2.1/src/spdk/LICENSE %{buildroot}/usr/share/package-licenses/ceph/e604286c4a9762865225521b509c6cbad3e6797f
 cp %{_builddir}/ceph-15.2.1/src/spdk/intel-ipsec-mb/LICENSE %{buildroot}/usr/share/package-licenses/ceph/cd9af0d54701d3074f46ea541747e29338caa243
 cp %{_builddir}/ceph-15.2.1/src/spdk/isa-l/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c41999097043083c4213a15101a122f1401e41df
+cp %{_builddir}/ceph-15.2.1/src/spdk/ocf/LICENSE %{buildroot}/usr/share/package-licenses/ceph/7eb960b032ff94747e1100a7411daeb85dcdc72e
 cp %{_builddir}/ceph-15.2.1/src/xxHash/LICENSE %{buildroot}/usr/share/package-licenses/ceph/390f8904578d05817ab7cafe1f470cd283bcfe93
 cp %{_builddir}/ceph-15.2.1/src/zstd/COPYING %{buildroot}/usr/share/package-licenses/ceph/1d8c93712cbc9117a9e55a7ff86cebd066c8bfd8
 cp %{_builddir}/ceph-15.2.1/src/zstd/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c4130945ca3d1f8ea4a3e8af36d3c18b2232116c
@@ -2055,6 +2059,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
 /usr/share/package-licenses/ceph/3f317fbb3e08fd99169d2e77105d562ea0e482c7
 /usr/share/package-licenses/ceph/420cc096d9ce8dfabee4082196acb0383377f202
+/usr/share/package-licenses/ceph/42e6b359f99b0ba08c547bd42d26cc2bab83dda7
 /usr/share/package-licenses/ceph/47ab05791f28173ad2b82f25c2b5c7fc06252b4d
 /usr/share/package-licenses/ceph/4bd41102f7c7b486f863067637fe3395b3d00331
 /usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
@@ -2068,6 +2073,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/66317fe148c4366d08a4f95e918ddcd784c1060f
 /usr/share/package-licenses/ceph/6808b97edf6d2c189571af702b95916168ff7db8
 /usr/share/package-licenses/ceph/6d6808aad49f3cee360717827a76f9896afb5f49
+/usr/share/package-licenses/ceph/7eb960b032ff94747e1100a7411daeb85dcdc72e
 /usr/share/package-licenses/ceph/8efce722739e8c4eb87bfc9df01718d9c6e8409c
 /usr/share/package-licenses/ceph/9107fddeefd2c1631a1b3535a9f934d5a09e44d7
 /usr/share/package-licenses/ceph/9134c3850a5a45b28c87ec6522083e5e5114cece
@@ -2081,6 +2087,8 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/c41999097043083c4213a15101a122f1401e41df
 /usr/share/package-licenses/ceph/caeb68c46fa36651acf592771d09de7937926bb3
 /usr/share/package-licenses/ceph/cd9af0d54701d3074f46ea541747e29338caa243
+/usr/share/package-licenses/ceph/d3b6786cbf36e5bcbc796075f9f34d8ac355980a
+/usr/share/package-licenses/ceph/d60426231a22144bc090160bc58fb441bd233f34
 /usr/share/package-licenses/ceph/d7d282609a551cd74bba985bf9f93c2bbffea35b
 /usr/share/package-licenses/ceph/e604286c4a9762865225521b509c6cbad3e6797f
 /usr/share/package-licenses/ceph/ec19f1e6705fcea4664666f56ede7d1912a3ef6e
