@@ -5,6 +5,7 @@ Sphinx
 Sphinx-python
 boost-dev
 bzip2-dev
+certifi
 cmake
 compat-fuse-soname2-dev
 curl-dev
