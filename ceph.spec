@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 15.2.5
-Release  : 39
+Release  : 40
 URL      : https://download.ceph.com/tarballs/ceph-15.2.5.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-15.2.5.tar.gz
 Source1  : ceph.tmpfiles
@@ -176,6 +176,7 @@ Patch5: 0005-os-release.patch
 Patch6: 0006-Remove-Werror.patch
 Patch7: 0007-Fix-build.patch
 Patch8: 0008-Fix-build-when-atomic-include-is-not-implied.patch
+Patch9: civetweb-CVE-2018-12684.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -314,6 +315,7 @@ cd %{_builddir}/ceph-15.2.5
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
