@@ -1,0 +1,25 @@
+From 2fd3a8f1efcec46b59272575708dccae49139ff0 Mon Sep 17 00:00:00 2001
+From: Mark D Horn <mark.d.horn@intel.com>
+Date: Tue, 20 Oct 2020 14:18:20 -0700
+Subject: [PATCH] Fix build when atomic include is not implied
+
+Signed-off-by: Mark D Horn <mark.d.horn@intel.com>
+---
+ src/tools/rbd/action/Bench.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/tools/rbd/action/Bench.cc b/src/tools/rbd/action/Bench.cc
+index aa6edbc18b80..90c551c17996 100644
+--- a/src/tools/rbd/action/Bench.cc
++++ b/src/tools/rbd/action/Bench.cc
+@@ -9,6 +9,7 @@
+ #include "common/ceph_mutex.h"
+ #include "include/types.h"
+ #include "global/signal_handler.h"
++#include <atomic>
+ #include <iostream>
+ #include <boost/accumulators/accumulators.hpp>
+ #include <boost/accumulators/statistics/stats.hpp>
+-- 
+2.29.0
+

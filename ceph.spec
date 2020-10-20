@@ -175,6 +175,7 @@ Patch4: 0004-bash-completion.patch
 Patch5: 0005-os-release.patch
 Patch6: 0006-Remove-Werror.patch
 Patch7: 0007-Fix-build.patch
+Patch8: 0008-Fix-build-when-atomic-include-is-not-implied.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -312,6 +313,7 @@ cd %{_builddir}/ceph-15.2.5
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
