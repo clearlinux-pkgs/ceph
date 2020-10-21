@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 15.2.5
-Release  : 40
+Release  : 41
 URL      : https://download.ceph.com/tarballs/ceph-15.2.5.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-15.2.5.tar.gz
 Source1  : ceph.tmpfiles
@@ -322,7 +322,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1600476380
+export SOURCE_DATE_EPOCH=1603310947
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -335,7 +335,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1600476380
+export SOURCE_DATE_EPOCH=1603310947
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-15.2.5/COPYING %{buildroot}/usr/share/package-licenses/ceph/42e6b359f99b0ba08c547bd42d26cc2bab83dda7
