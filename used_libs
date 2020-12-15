@@ -6,7 +6,7 @@ libblkid.so.1
 libboost_context.so.1.74.0
 libboost_iostreams.so.1.74.0
 libboost_program_options.so.1.74.0
-libboost_python38.so.1.74.0
+libboost_python39.so.1.74.0
 libboost_thread.so.1.74.0
 libc.so.6
 libcap-ng.so.0
@@ -29,7 +29,7 @@ libnl-3.so.200
 libnl-genl-3.so.200
 liboath.so.0
 libpthread.so.0
-libpython3.8.so.1.0
+libpython3.9.so.1.0
 librabbitmq.so.4
 librdkafka.so.1
 librdmacm.so.1

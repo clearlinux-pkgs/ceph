@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 15.2.7
-Release  : 48
+Release  : 49
 URL      : https://download.ceph.com/tarballs/ceph-15.2.7.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-15.2.7.tar.gz
 Source1  : ceph.tmpfiles
@@ -322,7 +322,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1607025205
+export SOURCE_DATE_EPOCH=1608065368
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -330,12 +330,19 @@ export CFLAGS="$CFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-reg
 export FCFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 export FFLAGS="$FFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -mzero-caller-saved-regs=used "
-%cmake .. -DWITH_LTTNG=OFF -DWITH_FUSE=ON -DWITH_SYSTEMD=ON -DWITH_MGR_DASHBOARD_FRONTEND=OFF -DWITH_PYTHON3=ON -DMGR_PYTHON_VERSION=3 -DWITH_TESTS=OFF -DHAVE_BABELTRACE=OFF -DWITH_SYSTEM_BOOST=ON
+%cmake .. -DWITH_LTTNG=OFF \
+-DWITH_FUSE=ON \
+-DWITH_SYSTEMD=ON \
+-DWITH_PYTHON3=3.9 \
+-DWITH_MGR_DASHBOARD_FRONTEND=OFF \
+-DWITH_TESTS=OFF \
+-DHAVE_BABELTRACE=OFF \
+-DWITH_SYSTEM_BOOST=ON
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1607025205
+export SOURCE_DATE_EPOCH=1608065368
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-15.2.7/COPYING %{buildroot}/usr/share/package-licenses/ceph/42e6b359f99b0ba08c547bd42d26cc2bab83dda7
