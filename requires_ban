@@ -2,9 +2,9 @@
 # undesirable. One entry per line, no whitespace.
 elasticsearch
 enum34
-werkzeug
-tox
-python-mock
+pip-legacypython
 pytest
 pytest-cov
-pip-legacypython
+python-mock
+tox
+werkzeug

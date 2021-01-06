@@ -6,4 +6,4 @@
 0006-Remove-Werror.patch
 0007-Fix-build.patch
 0008-Fix-build-when-atomic-include-is-not-implied.patch
-civetweb-CVE-2018-12684.patch
+CVE-2018-12684.patch

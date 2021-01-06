@@ -1,12 +1,12 @@
 # This file contains additional runtime requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-prettytable
-pip-legacypython
 CUnit
 CUnit-dev
-oath-toolkit
 CherryPy
 Werkzeug
 influxdb
-tempora
+oath-toolkit
 pecan
+pip-legacypython
+prettytable
+tempora

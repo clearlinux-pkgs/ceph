@@ -1,9 +1,9 @@
 # This file contains pkgconfig build requirements that get picked up
 # but are undesirable. One entry per line, no whitespace.
 libcrypto++
-libzfs
-rocksdb
-zfs
-lttng-ust
 libdpdk
 libibverbs
+libzfs
+lttng-ust
+rocksdb
+zfs

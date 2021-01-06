@@ -13,9 +13,7 @@ dpdk-dev
 expat-dev
 fcgi-dev
 googletest-dev
-googletest-dev
 gperf
-gperftools-dev
 gperftools-dev
 imagesize
 isa-l-dev
@@ -34,7 +32,6 @@ openssl-dev
 pbr
 pecan
 pip
-pkgconfig(nss)
 prettytable
 python3-dev
 rabbitmq-c-dev

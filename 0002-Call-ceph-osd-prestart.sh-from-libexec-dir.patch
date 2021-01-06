@@ -1,7 +1,7 @@
-From 1c2b3de9254e23e9fa469f9f7cad986033794b4f Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
 Date: Wed, 22 May 2019 20:46:33 +0000
-Subject: [PATCH 2/7] Call ceph-osd-prestart.sh from libexec dir
+Subject: [PATCH] Call ceph-osd-prestart.sh from libexec dir
 
 Signed-off-by: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
 ---
@@ -9,10 +9,10 @@ Signed-off-by: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/systemd/ceph-osd@.service.in b/systemd/ceph-osd@.service.in
-index 1b5c9c82..c75a7c6b 100644
+index 130c7c91..39caa287 100644
 --- a/systemd/ceph-osd@.service.in
 +++ b/systemd/ceph-osd@.service.in
-@@ -10,7 +10,7 @@ LimitNPROC=1048576
+@@ -11,7 +11,7 @@ LimitNPROC=1048576
  EnvironmentFile=-@SYSTEMD_ENV_FILE@
  Environment=CLUSTER=ceph
  ExecStart=/usr/bin/ceph-osd -f --cluster ${CLUSTER} --id %i --setuser ceph --setgroup ceph
@@ -21,6 +21,3 @@ index 1b5c9c82..c75a7c6b 100644
  ExecReload=/bin/kill -HUP $MAINPID
  LockPersonality=true
  MemoryDenyWriteExecute=true
--- 
-2.21.0
-
