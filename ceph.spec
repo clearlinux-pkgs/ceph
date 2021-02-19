@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 15.2.8
-Release  : 50
+Release  : 51
 URL      : https://download.ceph.com/tarballs/ceph-15.2.8.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-15.2.8.tar.gz
 Source1  : ceph.tmpfiles
@@ -116,7 +116,6 @@ BuildRequires : libjpeg-turbo-dev
 BuildRequires : libnl-dev
 BuildRequires : libpng-dev
 BuildRequires : librdkafka-dev
-BuildRequires : lua-dev
 BuildRequires : lz4-dev
 BuildRequires : more-itertools
 BuildRequires : mypy
@@ -322,7 +321,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609917025
+export SOURCE_DATE_EPOCH=1613693595
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -342,14 +341,12 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1609917025
+export SOURCE_DATE_EPOCH=1613693595
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
-cp %{_builddir}/ceph-15.2.8/COPYING %{buildroot}/usr/share/package-licenses/ceph/42e6b359f99b0ba08c547bd42d26cc2bab83dda7
 cp %{_builddir}/ceph-15.2.8/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
 cp %{_builddir}/ceph-15.2.8/COPYING-LGPL2.1 %{buildroot}/usr/share/package-licenses/ceph/caeb68c46fa36651acf592771d09de7937926bb3
 cp %{_builddir}/ceph-15.2.8/COPYING-LGPL3 %{buildroot}/usr/share/package-licenses/ceph/a8a12e6867d7ee39c21d9b11a984066099b6fb6b
-cp %{_builddir}/ceph-15.2.8/debian/copyright %{buildroot}/usr/share/package-licenses/ceph/d60426231a22144bc090160bc58fb441bd233f34
 cp %{_builddir}/ceph-15.2.8/src/blkin/COPYRIGHT %{buildroot}/usr/share/package-licenses/ceph/16b1ef1d04f4370f699e99d9ff49dfbca6352282
 cp %{_builddir}/ceph-15.2.8/src/boost/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
 cp %{_builddir}/ceph-15.2.8/src/boost/libs/assign/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
@@ -2137,7 +2134,6 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
 /usr/share/package-licenses/ceph/3f317fbb3e08fd99169d2e77105d562ea0e482c7
 /usr/share/package-licenses/ceph/420cc096d9ce8dfabee4082196acb0383377f202
-/usr/share/package-licenses/ceph/42e6b359f99b0ba08c547bd42d26cc2bab83dda7
 /usr/share/package-licenses/ceph/47ab05791f28173ad2b82f25c2b5c7fc06252b4d
 /usr/share/package-licenses/ceph/4bd41102f7c7b486f863067637fe3395b3d00331
 /usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
@@ -2167,7 +2163,6 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/cd9af0d54701d3074f46ea541747e29338caa243
 /usr/share/package-licenses/ceph/d0ba74c5f4aee0f52e27c777397602871dc5fbe6
 /usr/share/package-licenses/ceph/d3b6786cbf36e5bcbc796075f9f34d8ac355980a
-/usr/share/package-licenses/ceph/d60426231a22144bc090160bc58fb441bd233f34
 /usr/share/package-licenses/ceph/d7d282609a551cd74bba985bf9f93c2bbffea35b
 /usr/share/package-licenses/ceph/e604286c4a9762865225521b509c6cbad3e6797f
 /usr/share/package-licenses/ceph/ec19f1e6705fcea4664666f56ede7d1912a3ef6e
