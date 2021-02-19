@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 15.2.8
-Release  : 51
+Release  : 52
 URL      : https://download.ceph.com/tarballs/ceph-15.2.8.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-15.2.8.tar.gz
 Source1  : ceph.tmpfiles
