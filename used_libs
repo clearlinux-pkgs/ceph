@@ -15,7 +15,7 @@ libcrypto.so.1.1
 libcurl.so.4
 libdl.so.2
 libexpat.so.1
-libfmt.so.6
+libfmt.so.7
 libfuse.so.2
 libgcc_s.so.1
 libibverbs.so.1
