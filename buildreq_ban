@@ -1,10 +1,10 @@
 # This file contains build requirements that get picked up but are
 # undesirable. One entry per line, no whitespace.
+beignet-dev
+cephfs
 elasticsearch
 enum34
 libibverbs-dev
-tbb-dev
-cephfs
-beignet-dev
-scons
 lua-dev
+scons
+tbb-dev
