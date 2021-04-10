@@ -1,9 +1,7 @@
 0001-Ceph-sudoers-entry.patch
-0002-Call-ceph-osd-prestart.sh-from-libexec-dir.patch
-0003-Update-systemd-install-path.patch
-0004-bash-completion.patch
-0005-os-release.patch
-0006-Remove-Werror.patch
-0007-Fix-build.patch
-0008-Fix-build-when-atomic-include-is-not-implied.patch
+0002-Update-systemd-install-path.patch
+0003-bash-completion.patch
+0004-os-release.patch
+0005-Remove-Werror.patch
+0006-Fix-build.patch
 CVE-2018-12684.patch

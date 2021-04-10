@@ -10,7 +10,7 @@ Subject: [PATCH] Ceph sudoers entry
 
 diff --git a/ceph.sudoers b/ceph.sudoers
 new file mode 100644
-index 00000000..a1ff75a2
+index 000000000..a1ff75a2a
 --- /dev/null
 +++ b/ceph.sudoers
 @@ -0,0 +1 @@

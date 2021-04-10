@@ -8,7 +8,7 @@ Subject: [PATCH] bash-completion
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/bash_completion/CMakeLists.txt b/src/bash_completion/CMakeLists.txt
-index 8d834774..7c27c277 100644
+index 8d834774d..7c27c277c 100644
 --- a/src/bash_completion/CMakeLists.txt
 +++ b/src/bash_completion/CMakeLists.txt
 @@ -11,5 +11,5 @@ if(WITH_RADOSGW)

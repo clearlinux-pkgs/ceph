@@ -8,10 +8,10 @@ Subject: [PATCH] os-release
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/src/common/util.cc b/src/common/util.cc
-index f816ff41..60707f07 100644
+index 6cb1f0273..6e37eef57 100644
 --- a/src/common/util.cc
 +++ b/src/common/util.cc
-@@ -101,10 +101,10 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
+@@ -130,10 +130,10 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
      { "distro_version", "VERSION_ID=" }
    };
  
@@ -24,7 +24,7 @@ index f816ff41..60707f07 100644
      return false;
    }
  
-@@ -127,7 +127,7 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
+@@ -156,7 +156,7 @@ static bool os_release_parse(map<string, string> *m, CephContext *cct)
  static void distro_detect(map<string, string> *m, CephContext *cct)
  {
    if (!os_release_parse(m, cct)) {

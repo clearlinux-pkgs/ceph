@@ -8,10 +8,10 @@ Subject: [PATCH] Remove -Werror
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/rocksdb/CMakeLists.txt b/src/rocksdb/CMakeLists.txt
-index fb8067d2..213f607f 100644
+index 4c0d5f2b3..791f1fdb4 100644
 --- a/src/rocksdb/CMakeLists.txt
 +++ b/src/rocksdb/CMakeLists.txt
-@@ -260,7 +260,7 @@ if(FAIL_ON_WARNINGS)
+@@ -282,7 +282,7 @@ if(FAIL_ON_WARNINGS)
    if(MSVC)
      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
    else() # assume GCC

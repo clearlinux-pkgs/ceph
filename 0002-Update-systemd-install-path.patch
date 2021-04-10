@@ -8,7 +8,7 @@ Subject: [PATCH] Update systemd install path
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/systemd/CMakeLists.txt b/systemd/CMakeLists.txt
-index 43adf7be..32fe968a 100644
+index 499b5d190..9f8ff1f66 100644
 --- a/systemd/CMakeLists.txt
 +++ b/systemd/CMakeLists.txt
 @@ -1,4 +1,4 @@
