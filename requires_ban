@@ -6,5 +6,6 @@ pip-legacypython
 pytest
 pytest-cov
 python-mock
+rados
 tox
 werkzeug

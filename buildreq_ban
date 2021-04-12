@@ -5,6 +5,6 @@ cephfs
 elasticsearch
 enum34
 libibverbs-dev
-lua-dev
+rados
 scons
 tbb-dev

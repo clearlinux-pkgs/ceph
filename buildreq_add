@@ -23,6 +23,7 @@ libaio-dev
 libatomic_ops-dev
 libnl-dev
 librdkafka-dev
+lua-dev
 lz4-dev
 numactl-dev
 oath-toolkit-dev
