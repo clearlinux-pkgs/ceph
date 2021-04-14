@@ -5,3 +5,4 @@
 0005-Remove-Werror.patch
 0006-Fix-build.patch
 CVE-2018-12684.patch
+0008-cmake-build-static-libs-if-they-are-internal-ones.patch

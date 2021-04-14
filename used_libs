@@ -2,7 +2,6 @@ ld-linux-x86-64.so.2
 libaio.so.1
 libbabeltrace-ctf.so.1
 libbabeltrace.so.1
-libblk.so
 libblkid.so.1
 libboost_context.so.1.74.0
 libboost_filesystem.so.1.74.0

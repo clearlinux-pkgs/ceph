@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 16.2.0
-Release  : 55
+Release  : 56
 URL      : https://download.ceph.com/tarballs/ceph-16.2.0.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-16.2.0.tar.gz
 Source1  : ceph.tmpfiles
@@ -178,6 +178,7 @@ Patch4: 0004-os-release.patch
 Patch5: 0005-Remove-Werror.patch
 Patch6: 0006-Fix-build.patch
 Patch7: CVE-2018-12684.patch
+Patch8: 0008-cmake-build-static-libs-if-they-are-internal-ones.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -315,13 +316,14 @@ cd %{_builddir}/ceph-16.2.0
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1618248704
+export SOURCE_DATE_EPOCH=1618442940
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -341,7 +343,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1618248704
+export SOURCE_DATE_EPOCH=1618442940
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-16.2.0/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
@@ -469,10 +471,6 @@ install -p -D -m 440 ceph.sudoers %{buildroot}/usr/share/defaults/sudo/sudoers.d
 
 install -d -m 755 %{buildroot}/usr/lib/udev/rules.d
 install -p -D -m 644 udev/50-rbd.rules %{buildroot}/usr/lib/udev/rules.d
-
-install -d -m 755 %{buildroot}/usr/lib64
-install -p -D -m 644 clr-build/lib/libcrc32.so %{buildroot}/usr/lib64
-chmod a+x %{buildroot}/usr/lib64/libcrc32.so
 
 rm -rf %{buildroot}/usr/etc
 rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
@@ -2138,7 +2136,6 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/lib64/libcephfs.so.2
 /usr/lib64/libcephfs.so.2.0.0
 /usr/lib64/libcephsqlite.so
-/usr/lib64/libcrc32.so
 /usr/lib64/librados.so
 /usr/lib64/librados.so.2
 /usr/lib64/librados.so.2.0.0
