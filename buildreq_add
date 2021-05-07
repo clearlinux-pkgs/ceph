@@ -52,3 +52,5 @@ xfsprogs-dev
 xmlsec1-dev
 yasm
 zlib-dev
+cryptsetup-dev
+sqlite-autoconf-dev
