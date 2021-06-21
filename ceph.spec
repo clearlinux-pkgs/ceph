@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 16.2.4
-Release  : 62
+Release  : 63
 URL      : https://download.ceph.com/tarballs/ceph-16.2.4.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-16.2.4.tar.gz
 Source1  : ceph.tmpfiles
