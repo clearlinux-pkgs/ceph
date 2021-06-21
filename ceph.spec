@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 16.2.4
-Release  : 63
+Release  : 64
 URL      : https://download.ceph.com/tarballs/ceph-16.2.4.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-16.2.4.tar.gz
 Source1  : ceph.tmpfiles
@@ -178,6 +178,7 @@ Patch5: 0005-Remove-Werror.patch
 Patch6: 0006-Fix-build.patch
 Patch7: CVE-2018-12684.patch
 Patch8: 0008-cmake-build-static-libs-if-they-are-internal-ones.patch
+Patch9: 0009-common-Formatter-include-used-header.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -316,13 +317,14 @@ cd %{_builddir}/ceph-16.2.4
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621262678
+export SOURCE_DATE_EPOCH=1624295223
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -342,7 +344,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1621262678
+export SOURCE_DATE_EPOCH=1624295223
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-16.2.4/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
