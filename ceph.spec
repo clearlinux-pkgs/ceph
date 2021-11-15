@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 16.2.6
-Release  : 73
+Release  : 74
 URL      : https://download.ceph.com/tarballs/ceph-16.2.6.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-16.2.6.tar.gz
 Source1  : ceph.tmpfiles
@@ -176,7 +176,9 @@ Patch3: 0003-bash-completion.patch
 Patch4: 0004-os-release.patch
 Patch5: 0005-Remove-Werror.patch
 Patch6: 0006-Fix-build.patch
-Patch7: CVE-2018-12684.patch
+Patch7: 0007-Add-support-for-python-3.10.patch
+Patch8: 0008-Fix-missing-include.patch
+Patch9: CVE-2018-12684.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -314,13 +316,15 @@ cd %{_builddir}/ceph-16.2.6
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
+%patch9 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1631825760
+export SOURCE_DATE_EPOCH=1637017865
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -331,7 +335,6 @@ export CXXFLAGS="$CXXFLAGS -fno-lto -fstack-protector-strong -fzero-call-used-re
 %cmake .. -DWITH_LTTNG=OFF \
 -DWITH_FUSE=ON \
 -DWITH_SYSTEMD=ON \
--DWITH_PYTHON3=3.9 \
 -DWITH_MGR_DASHBOARD_FRONTEND=OFF \
 -DWITH_TESTS=OFF \
 -DHAVE_BABELTRACE=OFF \
@@ -340,7 +343,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1631825760
+export SOURCE_DATE_EPOCH=1637017865
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-16.2.6/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
