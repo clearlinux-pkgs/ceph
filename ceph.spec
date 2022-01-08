@@ -22,19 +22,17 @@ Requires: ceph-python = %{version}-%{release}
 Requires: ceph-python3 = %{version}-%{release}
 Requires: ceph-services = %{version}-%{release}
 Requires: CUnit
-Requires: CUnit-dev
-Requires: CherryPy
-Requires: Werkzeug
-Requires: influxdb
+Requires: pypi(cherrypy)
+Requires: pypi(werkzeug)
+Requires: pypi(influxdb)
 Requires: oath-toolkit
-Requires: pecan
-Requires: prettytable
-Requires: tempora
+Requires: pypi(pecan)
+Requires: pypi(prettytable)
+Requires: pypi(tempora)
 BuildRequires : CUnit
 BuildRequires : CUnit-dev
 BuildRequires : Cython
-BuildRequires : Sphinx
-BuildRequires : Sphinx-python
+BuildRequires : pypi-sphinx
 BuildRequires : VTK-dev
 BuildRequires : bison-dev
 BuildRequires : boost-dev
@@ -86,9 +84,9 @@ BuildRequires : openjdk11
 BuildRequires : openjdk11-dev
 BuildRequires : openldap-dev
 BuildRequires : openssl-dev
-BuildRequires : pbr
-BuildRequires : pecan
-BuildRequires : pip
+BuildRequires : pypi(pbr)
+BuildRequires : pypi(pecan)
+BuildRequires : pypi(pip)
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(Qt5Core)
 BuildRequires : pkgconfig(babeltrace)
@@ -97,7 +95,7 @@ BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(gobject-2.0)
 BuildRequires : pkgconfig(libcap-ng)
 BuildRequires : pkgconfig(nss)
-BuildRequires : prettytable
+BuildRequires : pypi(prettytable)
 BuildRequires : pypi(bcrypt)
 BuildRequires : pypi(cherrypy)
 BuildRequires : pypi(cmd2)
@@ -141,12 +139,11 @@ BuildRequires : snappy-dev
 BuildRequires : sqlite-autoconf-dev
 BuildRequires : systemd-dev
 BuildRequires : tiff-dev
-BuildRequires : tox
-BuildRequires : tox-python
+BuildRequires : pypi-tox
 BuildRequires : util-linux-dev
 BuildRequires : valgrind
 BuildRequires : valgrind-dev
-BuildRequires : virtualenv
+BuildRequires : pypi(virtualenv)
 BuildRequires : xfsprogs-dev
 BuildRequires : xmlsec1-dev
 BuildRequires : xz-dev
