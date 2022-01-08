@@ -6,6 +6,5 @@ pypi(werkzeug)
 pypi(influxdb)
 oath-toolkit
 pypi(pecan)
-pypy(pip_legacypython)
 pypi(prettytable)
 pypi(tempora)
