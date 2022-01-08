@@ -29,7 +29,6 @@ Requires: pypi(pecan)
 Requires: pypi(prettytable)
 Requires: pypi(tempora)
 Requires: pypi(werkzeug)
-Requires: pypy(pip_legacypython)
 BuildRequires : CUnit
 BuildRequires : CUnit-dev
 BuildRequires : Cython
