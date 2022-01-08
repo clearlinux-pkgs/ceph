@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 16.2.6
-Release  : 76
+Release  : 77
 URL      : https://download.ceph.com/tarballs/ceph-16.2.6.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-16.2.6.tar.gz
 Source1  : ceph.tmpfiles
@@ -22,17 +22,17 @@ Requires: ceph-python = %{version}-%{release}
 Requires: ceph-python3 = %{version}-%{release}
 Requires: ceph-services = %{version}-%{release}
 Requires: CUnit
-Requires: pypi(cherrypy)
-Requires: pypi(werkzeug)
-Requires: pypi(influxdb)
 Requires: oath-toolkit
+Requires: pypi(cherrypy)
+Requires: pypi(influxdb)
 Requires: pypi(pecan)
 Requires: pypi(prettytable)
 Requires: pypi(tempora)
+Requires: pypi(werkzeug)
+Requires: pypy(pip_legacypython)
 BuildRequires : CUnit
 BuildRequires : CUnit-dev
 BuildRequires : Cython
-BuildRequires : pypi-sphinx
 BuildRequires : VTK-dev
 BuildRequires : bison-dev
 BuildRequires : boost-dev
@@ -43,7 +43,6 @@ BuildRequires : buildreq-golang
 BuildRequires : buildreq-meson
 BuildRequires : buildreq-qmake
 BuildRequires : bzip2-dev
-BuildRequires : certifi
 BuildRequires : cmake
 BuildRequires : compat-fuse-soname2-dev
 BuildRequires : cryptsetup-dev
@@ -84,9 +83,6 @@ BuildRequires : openjdk11
 BuildRequires : openjdk11-dev
 BuildRequires : openldap-dev
 BuildRequires : openssl-dev
-BuildRequires : pypi(pbr)
-BuildRequires : pypi(pecan)
-BuildRequires : pypi(pip)
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(Qt5Core)
 BuildRequires : pkgconfig(babeltrace)
@@ -95,8 +91,8 @@ BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(gobject-2.0)
 BuildRequires : pkgconfig(libcap-ng)
 BuildRequires : pkgconfig(nss)
-BuildRequires : pypi(prettytable)
 BuildRequires : pypi(bcrypt)
+BuildRequires : pypi(certifi)
 BuildRequires : pypi(cherrypy)
 BuildRequires : pypi(cmd2)
 BuildRequires : pypi(colorama)
@@ -111,6 +107,9 @@ BuildRequires : pypi(mock)
 BuildRequires : pypi(more_itertools)
 BuildRequires : pypi(mypy)
 BuildRequires : pypi(numpy)
+BuildRequires : pypi(pbr)
+BuildRequires : pypi(pecan)
+BuildRequires : pypi(pip)
 BuildRequires : pypi(prettytable)
 BuildRequires : pypi(pyfakefs)
 BuildRequires : pypi(pyjwt)
@@ -122,28 +121,28 @@ BuildRequires : pypi(requests_mock)
 BuildRequires : pypi(routes)
 BuildRequires : pypi(scikit_learn)
 BuildRequires : pypi(scipy)
+BuildRequires : pypi(setuptools)
 BuildRequires : pypi(six)
+BuildRequires : pypi(sphinx)
 BuildRequires : pypi(tox)
 BuildRequires : pypi(typing_extensions)
+BuildRequires : pypi(virtualenv)
+BuildRequires : pypi-sphinx
 BuildRequires : python3
 BuildRequires : python3-dev
 BuildRequires : qtbase-dev
 BuildRequires : qtbase-dev mesa-dev
 BuildRequires : rabbitmq-c-dev
 BuildRequires : rdma-core-dev
-BuildRequires : requests
 BuildRequires : ruby
 BuildRequires : sed
-BuildRequires : setuptools
 BuildRequires : snappy-dev
 BuildRequires : sqlite-autoconf-dev
 BuildRequires : systemd-dev
 BuildRequires : tiff-dev
-BuildRequires : pypi-tox
 BuildRequires : util-linux-dev
 BuildRequires : valgrind
 BuildRequires : valgrind-dev
-BuildRequires : pypi(virtualenv)
 BuildRequires : xfsprogs-dev
 BuildRequires : xmlsec1-dev
 BuildRequires : xz-dev
@@ -272,35 +271,9 @@ python components for the ceph package.
 Summary: python3 components for the ceph package.
 Group: Default
 Requires: python3-core
-Requires: pypi(bcrypt)
-Requires: pypi(cherrypy)
 Requires: pypi(cmd2)
 Requires: pypi(colorama)
-Requires: pypi(docopt)
-Requires: pypi(enum34)
-Requires: pypi(execnet)
-Requires: pypi(jinja2)
-Requires: pypi(jsonpatch)
-Requires: pypi(kubernetes)
-Requires: pypi(markdown)
-Requires: pypi(mock)
-Requires: pypi(more_itertools)
-Requires: pypi(mypy)
-Requires: pypi(numpy)
-Requires: pypi(prettytable)
-Requires: pypi(pyfakefs)
-Requires: pypi(pyjwt)
-Requires: pypi(pyopenssl)
-Requires: pypi(pyyaml)
-Requires: pypi(remoto)
-Requires: pypi(requests)
-Requires: pypi(requests_mock)
-Requires: pypi(routes)
-Requires: pypi(scikit_learn)
-Requires: pypi(scipy)
 Requires: pypi(six)
-Requires: pypi(tox)
-Requires: pypi(typing_extensions)
 
 %description python3
 python3 components for the ceph package.
@@ -332,7 +305,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1639785739
+export SOURCE_DATE_EPOCH=1641666172
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -351,7 +324,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1639785739
+export SOURCE_DATE_EPOCH=1641666172
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-16.2.6/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
