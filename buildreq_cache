@@ -1,4 +1,4 @@
-16.2.6
+16.2.7
 nasm-bin
 pypi(bcrypt)
 pypi(cherrypy)
@@ -13,16 +13,13 @@ pypi(mock)
 pypi(more_itertools)
 pypi(mypy)
 pypi(numpy)
-pypi(prettytable)
 pypi(pyfakefs)
 pypi(pyjwt)
 pypi(pyopenssl)
 pypi(pyyaml)
 pypi(remoto)
-pypi(requests)
 pypi(requests_mock)
 pypi(routes)
 pypi(scikit_learn)
 pypi(scipy)
-pypi(tox)
 pypi(typing_extensions)
