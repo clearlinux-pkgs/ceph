@@ -31,7 +31,7 @@ Requires: pypi(tempora)
 Requires: pypi(werkzeug)
 BuildRequires : CUnit
 BuildRequires : CUnit-dev
-BuildRequires : Cython
+BuildRequires : pypi-cython
 BuildRequires : VTK-dev
 BuildRequires : bison-dev
 BuildRequires : boost-dev

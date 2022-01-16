@@ -1,6 +1,6 @@
 CUnit
 CUnit-dev
-Cython
+pypi-cython
 pypi(sphinx)
 boost-dev
 bzip2-dev
