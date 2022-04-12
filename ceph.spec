@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 16.2.7
-Release  : 82
+Release  : 83
 URL      : https://download.ceph.com/tarballs/ceph-16.2.7.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-16.2.7.tar.gz
 Source1  : ceph.tmpfiles
@@ -31,7 +31,6 @@ Requires: pypi(tempora)
 Requires: pypi(werkzeug)
 BuildRequires : CUnit
 BuildRequires : CUnit-dev
-BuildRequires : pypi-cython
 BuildRequires : VTK-dev
 BuildRequires : bison-dev
 BuildRequires : boost-dev
@@ -60,7 +59,6 @@ BuildRequires : gperf
 BuildRequires : gperftools-dev
 BuildRequires : gsl-dev
 BuildRequires : icu4c-dev
-BuildRequires : imagesize
 BuildRequires : isa-l-dev
 BuildRequires : keyutils-dev
 BuildRequires : leveldb-dev
@@ -126,6 +124,8 @@ BuildRequires : pypi(sphinx)
 BuildRequires : pypi(tox)
 BuildRequires : pypi(typing_extensions)
 BuildRequires : pypi(virtualenv)
+BuildRequires : pypi-cython
+BuildRequires : pypi-imagesize
 BuildRequires : pypi-sphinx
 BuildRequires : python3
 BuildRequires : python3-dev
@@ -155,7 +155,8 @@ Patch5: 0005-Remove-Werror.patch
 Patch6: 0006-Fix-build.patch
 Patch7: 0007-Add-support-for-python-3.10.patch
 Patch8: 0008-Fix-missing-include.patch
-Patch9: CVE-2018-12684.patch
+Patch9: 0009-Enable-build-for-gcc-12.patch
+Patch10: CVE-2018-12684.patch
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -270,32 +271,9 @@ python components for the ceph package.
 Summary: python3 components for the ceph package.
 Group: Default
 Requires: python3-core
-Requires: pypi(bcrypt)
-Requires: pypi(cherrypy)
 Requires: pypi(cmd2)
 Requires: pypi(colorama)
-Requires: pypi(docopt)
-Requires: pypi(enum34)
-Requires: pypi(execnet)
-Requires: pypi(jinja2)
-Requires: pypi(jsonpatch)
-Requires: pypi(kubernetes)
-Requires: pypi(markdown)
-Requires: pypi(mock)
-Requires: pypi(more_itertools)
-Requires: pypi(mypy)
-Requires: pypi(numpy)
-Requires: pypi(pyfakefs)
-Requires: pypi(pyjwt)
-Requires: pypi(pyopenssl)
-Requires: pypi(pyyaml)
-Requires: pypi(remoto)
-Requires: pypi(requests_mock)
-Requires: pypi(routes)
-Requires: pypi(scikit_learn)
-Requires: pypi(scipy)
 Requires: pypi(six)
-Requires: pypi(typing_extensions)
 
 %description python3
 python3 components for the ceph package.
@@ -321,13 +299,14 @@ cd %{_builddir}/ceph-16.2.7
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1641852363
+export SOURCE_DATE_EPOCH=1649784794
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -346,7 +325,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1641852363
+export SOURCE_DATE_EPOCH=1649784794
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-16.2.7/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
@@ -452,12 +431,18 @@ cp %{_builddir}/ceph-16.2.7/src/rocksdb/LICENSE.leveldb %{buildroot}/usr/share/p
 cp %{_builddir}/ceph-16.2.7/src/rocksdb/docs/LICENSE-DOCUMENTATION %{buildroot}/usr/share/package-licenses/ceph/420cc096d9ce8dfabee4082196acb0383377f202
 cp %{_builddir}/ceph-16.2.7/src/seastar/LICENSE %{buildroot}/usr/share/package-licenses/ceph/598f87f072f66e2269dd6919292b2934dbb20492
 cp %{_builddir}/ceph-16.2.7/src/seastar/NOTICE %{buildroot}/usr/share/package-licenses/ceph/611bf4484a5c29cb62a9cae600bdbf9d15ed1cc9
+cp %{_builddir}/ceph-16.2.7/src/seastar/dpdk/license/bsd-3-clause.txt %{buildroot}/usr/share/package-licenses/ceph/7d9185af9b499d91e113fe752af7d9d53b9e5c6a
+cp %{_builddir}/ceph-16.2.7/src/seastar/dpdk/license/gpl-2.0.txt %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/ceph-16.2.7/src/seastar/dpdk/license/lgpl-2.1.txt %{buildroot}/usr/share/package-licenses/ceph/3704f4680301a60004b20f94e0b5b8c7ff1484a9
 cp %{_builddir}/ceph-16.2.7/src/spawn/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
 cp %{_builddir}/ceph-16.2.7/src/spawn/test/dependency/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
 cp %{_builddir}/ceph-16.2.7/src/spawn/test/dependency/googletest/googlemock/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
 cp %{_builddir}/ceph-16.2.7/src/spawn/test/dependency/googletest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e
 cp %{_builddir}/ceph-16.2.7/src/spawn/test/dependency/googletest/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
 cp %{_builddir}/ceph-16.2.7/src/spdk/LICENSE %{buildroot}/usr/share/package-licenses/ceph/e604286c4a9762865225521b509c6cbad3e6797f
+cp %{_builddir}/ceph-16.2.7/src/spdk/dpdk/license/bsd-3-clause.txt %{buildroot}/usr/share/package-licenses/ceph/7d9185af9b499d91e113fe752af7d9d53b9e5c6a
+cp %{_builddir}/ceph-16.2.7/src/spdk/dpdk/license/gpl-2.0.txt %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/ceph-16.2.7/src/spdk/dpdk/license/lgpl-2.1.txt %{buildroot}/usr/share/package-licenses/ceph/3704f4680301a60004b20f94e0b5b8c7ff1484a9
 cp %{_builddir}/ceph-16.2.7/src/spdk/intel-ipsec-mb/LICENSE %{buildroot}/usr/share/package-licenses/ceph/cd9af0d54701d3074f46ea541747e29338caa243
 cp %{_builddir}/ceph-16.2.7/src/spdk/isa-l/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c41999097043083c4213a15101a122f1401e41df
 cp %{_builddir}/ceph-16.2.7/src/spdk/ocf/LICENSE %{buildroot}/usr/share/package-licenses/ceph/7eb960b032ff94747e1100a7411daeb85dcdc72e
@@ -2242,6 +2227,7 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/66317fe148c4366d08a4f95e918ddcd784c1060f
 /usr/share/package-licenses/ceph/6808b97edf6d2c189571af702b95916168ff7db8
 /usr/share/package-licenses/ceph/6d6808aad49f3cee360717827a76f9896afb5f49
+/usr/share/package-licenses/ceph/7d9185af9b499d91e113fe752af7d9d53b9e5c6a
 /usr/share/package-licenses/ceph/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
 /usr/share/package-licenses/ceph/7eb960b032ff94747e1100a7411daeb85dcdc72e
 /usr/share/package-licenses/ceph/8efce722739e8c4eb87bfc9df01718d9c6e8409c

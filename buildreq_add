@@ -14,7 +14,7 @@ fcgi-dev
 googletest-dev
 gperf
 gperftools-dev
-imagesize
+pypi-imagesize
 isa-l-dev
 keyutils-dev
 leveldb-dev
