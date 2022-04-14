@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 16.2.7
-Release  : 83
+Release  : 84
 URL      : https://download.ceph.com/tarballs/ceph-16.2.7.tar.gz
 Source0  : https://download.ceph.com/tarballs/ceph-16.2.7.tar.gz
 Source1  : ceph.tmpfiles
@@ -27,6 +27,7 @@ Requires: pypi(cherrypy)
 Requires: pypi(influxdb)
 Requires: pypi(pecan)
 Requires: pypi(prettytable)
+Requires: pypi(pyyaml)
 Requires: pypi(tempora)
 Requires: pypi(werkzeug)
 BuildRequires : CUnit
@@ -306,7 +307,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1649784794
+export SOURCE_DATE_EPOCH=1649957728
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -325,7 +326,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1649784794
+export SOURCE_DATE_EPOCH=1649957728
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
 cp %{_builddir}/ceph-16.2.7/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c

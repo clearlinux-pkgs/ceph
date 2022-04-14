@@ -1,10 +1,11 @@
 # This file contains additional runtime requirements that did not get
 # picked up automatically. One name per line, no whitespace.
 CUnit
-pypi(cherrypy) 
+pypi(cherrypy)
 pypi(werkzeug)
 pypi(influxdb)
 oath-toolkit
 pypi(pecan)
 pypi(prettytable)
 pypi(tempora)
+pypi(pyyaml)
