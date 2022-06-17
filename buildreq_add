@@ -52,4 +52,7 @@ yasm
 zlib-dev
 cryptsetup-dev
 sqlite-autoconf-dev
+sqlite-autoconf-staticdev
 pypi-sphinx
+utf8proc
+utf8proc-dev
