@@ -4,5 +4,7 @@
 0004-os-release.patch
 0005-Remove-Werror.patch
 0006-Fix-build.patch
+0007-Add-support-for-python-3.11.patch
+0008-Fix-missing-include.patch
 0009-Enable-build-for-gcc-12.patch
-fedora-build-fix.patch
+CVE-2018-12684.patch
