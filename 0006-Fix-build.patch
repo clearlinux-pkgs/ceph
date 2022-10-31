@@ -1,7 +1,7 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From d4ebd9a1aa18d6f40a06eb71806a50dae15a3406 Mon Sep 17 00:00:00 2001
 From: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
 Date: Wed, 22 May 2019 20:51:44 +0000
-Subject: [PATCH] Fix build
+Subject: [PATCH 06/10] Fix build
 
 Signed-off-by: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: Ganesh Maharaj Mahalingam <ganesh.mahalingam@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/boost/boost/python/detail/caller.hpp b/src/boost/boost/python/detail/caller.hpp
-index 557359f5f..c3efc74fc 100644
+index 2834d6da9..1b59b6eee 100644
 --- a/src/boost/boost/python/detail/caller.hpp
 +++ b/src/boost/boost/python/detail/caller.hpp
 @@ -50,7 +50,7 @@ inline PyObject* get(mpl::int_<N>, PyObject* const& args_)
@@ -21,3 +21,6 @@ index 557359f5f..c3efc74fc 100644
  }
  
  // This "result converter" is really just used as
+-- 
+2.38.1
+

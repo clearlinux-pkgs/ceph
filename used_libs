@@ -22,7 +22,6 @@ libibverbs.so.1
 libicuuc.so.70
 libkeyutils.so.1
 libldap-2.4.so.2
-libleveldb.so.1
 liblua.so.5.4
 liblz4.so.1
 libm.so.6
@@ -36,9 +35,11 @@ librdkafka.so.1
 librdmacm.so.1
 libresolv.so.2
 libsnappy.so.1
+libsqlite3.so.0
 libssl.so.3
 libstdc++.so.6
 libtcmalloc.so.4
+libthrift-0.16.0.so
 libtinfo.so.6
 libudev.so.1
 libz.so.1

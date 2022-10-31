@@ -1,0 +1,2 @@
+mkdir -p clr-build/src/arrow/cpp/src/
+cp %{_sourcedir}/*.tar.gz clr-build/src/arrow/cpp/src/

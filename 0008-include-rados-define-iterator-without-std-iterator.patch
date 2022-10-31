@@ -1,0 +1,35 @@
+From 3948b2b255df829c401f38de00ad93221887fc1d Mon Sep 17 00:00:00 2001
+From: Kefu Chai <tchaikov@gmail.com>
+Date: Mon, 28 Feb 2022 23:01:27 +0800
+Subject: [PATCH 08/10] include/rados: define iterator without std::iterator<>
+
+std::iterator<> is deprecated in C++17, so let's just
+define the required traits directly.
+
+Signed-off-by: Kefu Chai <tchaikov@gmail.com>
+---
+ src/include/rados/librados.hpp | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/include/rados/librados.hpp b/src/include/rados/librados.hpp
+index b40d7bf9a..712a5da82 100644
+--- a/src/include/rados/librados.hpp
++++ b/src/include/rados/librados.hpp
+@@ -104,8 +104,13 @@ inline namespace v14_2_0 {
+   };
+   CEPH_RADOS_API std::ostream& operator<<(std::ostream& os, const librados::ObjectCursor& oc);
+ 
+-  class CEPH_RADOS_API NObjectIterator : public std::iterator <std::forward_iterator_tag, ListObject> {
++  class CEPH_RADOS_API NObjectIterator {
+   public:
++    using iterator_category = std::forward_iterator_tag;
++    using value_type = ListObject;
++    using difference_type = std::ptrdiff_t;
++    using pointer = ListObject*;
++    using reference = ListObject&;
+     static const NObjectIterator __EndObjectIterator;
+     NObjectIterator(): impl(NULL) {}
+     ~NObjectIterator();
+-- 
+2.38.1
+

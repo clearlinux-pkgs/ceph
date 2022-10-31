@@ -1,0 +1,35 @@
+From c771c168a9c9c274011b5b8f846e7e40d9ff14f6 Mon Sep 17 00:00:00 2001
+From: "Adam C. Emerson" <aemerson@redhat.com>
+Date: Mon, 7 Mar 2022 17:58:38 -0500
+Subject: [PATCH 09/10] include: Remove deprecated std::iterator from xlist
+
+Signed-off-by: Adam C. Emerson <aemerson@redhat.com>
+---
+ src/include/xlist.h | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/include/xlist.h b/src/include/xlist.h
+index 733a318a9..49510a7f1 100644
+--- a/src/include/xlist.h
++++ b/src/include/xlist.h
+@@ -183,10 +183,16 @@ public:
+   iterator begin() { return iterator(_front); }
+   iterator end() { return iterator(NULL); }
+ 
+-  class const_iterator: std::iterator<std::forward_iterator_tag, T> {
++  class const_iterator {
+   private:
+     item *cur;
+   public:
++    using iterator_category = std::forward_iterator_tag;
++    using value_type = T;
++    using difference_type = std::ptrdiff_t;
++    using pointer = const T*;
++    using reference = const T&;
++
+     const_iterator(item *i = 0) : cur(i) {}
+     const T operator*() { return static_cast<const T>(cur->_item); }
+     const_iterator& operator++() {
+-- 
+2.38.1
+

@@ -1,17 +1,17 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From 3ce4b8d8ea03a2b7216e0413ca41ae906cb3bef7 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Mon, 12 Jun 2017 15:45:36 +0000
-Subject: [PATCH] Remove -Werror
+Subject: [PATCH 05/10] Remove -Werror
 
 ---
  src/rocksdb/CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/rocksdb/CMakeLists.txt b/src/rocksdb/CMakeLists.txt
-index 4c0d5f2b3..791f1fdb4 100644
+index fdc894734..a7558dd1f 100644
 --- a/src/rocksdb/CMakeLists.txt
 +++ b/src/rocksdb/CMakeLists.txt
-@@ -282,7 +282,7 @@ if(FAIL_ON_WARNINGS)
+@@ -330,7 +330,7 @@ if(FAIL_ON_WARNINGS)
    if(MSVC)
      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
    else() # assume GCC
@@ -20,3 +20,6 @@ index 4c0d5f2b3..791f1fdb4 100644
    endif()
  endif()
  
+-- 
+2.38.1
+
