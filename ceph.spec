@@ -4,7 +4,7 @@
 #
 Name     : ceph
 Version  : 17.2.5
-Release  : 92
+Release  : 93
 URL      : http://download.ceph.com/tarballs/ceph-17.2.5.tar.gz
 Source0  : http://download.ceph.com/tarballs/ceph-17.2.5.tar.gz
 Source1  : ceph.tmpfiles
@@ -37,7 +37,6 @@ BuildRequires : VTK-dev
 BuildRequires : boost-dev
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
-BuildRequires : buildreq-golang
 BuildRequires : buildreq-meson
 BuildRequires : buildreq-qmake
 BuildRequires : bzip2-dev
@@ -162,6 +161,9 @@ BuildRequires : xmlsec1-dev
 BuildRequires : xz-dev
 BuildRequires : yasm
 BuildRequires : zlib-dev
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 Patch1: 0001-Ceph-sudoers-entry.patch
 Patch2: 0002-Update-systemd-install-path.patch
 Patch3: 0003-bash-completion.patch
@@ -357,17 +359,17 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1667244300
+export SOURCE_DATE_EPOCH=1677180085
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
 %cmake .. -DWITH_LTTNG=OFF \
 -DWITH_FUSE=ON \
 -DWITH_SYSTEMD=ON \
@@ -387,140 +389,136 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 cd clr-build; make test
 
 %install
-export SOURCE_DATE_EPOCH=1667244300
+export SOURCE_DATE_EPOCH=1677180085
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/ceph
-cp %{_builddir}/ceph-%{version}/COPYING %{buildroot}/usr/share/package-licenses/ceph/84fc3cb42ef0fb414ff8daf2483b24b54c95d9a9
-cp %{_builddir}/ceph-%{version}/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/ceph-%{version}/COPYING-LGPL2.1 %{buildroot}/usr/share/package-licenses/ceph/caeb68c46fa36651acf592771d09de7937926bb3
-cp %{_builddir}/ceph-%{version}/COPYING-LGPL3 %{buildroot}/usr/share/package-licenses/ceph/a8a12e6867d7ee39c21d9b11a984066099b6fb6b
-cp %{_builddir}/ceph-%{version}/src/arrow/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/77ea6a9f79fb4910cad49029aa6419d54bcd7237
-cp %{_builddir}/ceph-%{version}/src/arrow/cpp/submodules/parquet-testing/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/arrow/dev/tasks/conda-recipes/arrow-cpp/LLVM_LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/835debc425f3db6a5922d7f1b7af45b6833e92f8
-cp %{_builddir}/ceph-%{version}/src/arrow/dev/tasks/linux-packages/apache-arrow-apt-source/debian/copyright %{buildroot}/usr/share/package-licenses/ceph/586da3df733cd5a5baa2445ea28d0238a1ae17eb
-cp %{_builddir}/ceph-%{version}/src/arrow/dev/tasks/linux-packages/apache-arrow/debian/copyright %{buildroot}/usr/share/package-licenses/ceph/f80c737ae94d813116d7c6098da413c09a7495b6
-cp %{_builddir}/ceph-%{version}/src/arrow/go/arrow/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/8305ce97b1d1d40105e78bd9d820190b4a9cad9d
-cp %{_builddir}/ceph-%{version}/src/arrow/go/parquet/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/8305ce97b1d1d40105e78bd9d820190b4a9cad9d
-cp %{_builddir}/ceph-%{version}/src/arrow/java/dev/checkstyle/checkstyle.license %{buildroot}/usr/share/package-licenses/ceph/b942b73d483e9ab678103eaebc7e0ddc4646a924
-cp %{_builddir}/ceph-%{version}/src/arrow/java/vector/src/main/codegen/includes/license.ftl %{buildroot}/usr/share/package-licenses/ceph/dd239078602e993fcbe894c2f223192b719923d9
-cp %{_builddir}/ceph-%{version}/src/arrow/julia/Arrow/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/cee80fb4ee3acaf3a359783f6d96c389e452858c
-cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-arrow-cuda/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-arrow-dataset/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-arrow-flight/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-arrow/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-gandiva/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-parquet/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-plasma/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/arrow/testing/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/blkin/COPYRIGHT %{buildroot}/usr/share/package-licenses/ceph/16b1ef1d04f4370f699e99d9ff49dfbca6352282
-cp %{_builddir}/ceph-%{version}/src/boost/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/assign/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/beast/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/beast/test/bench/parser/nodejs-parser/LICENSE-MIT %{buildroot}/usr/share/package-licenses/ceph/1a00a507fb89bb0018c092d6835077d541e76dc2
-cp %{_builddir}/ceph-%{version}/src/boost/libs/beast/test/extern/zlib-1.2.11/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3f317fbb3e08fd99169d2e77105d562ea0e482c7
-cp %{_builddir}/ceph-%{version}/src/boost/libs/callable_traits/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/66317fe148c4366d08a4f95e918ddcd784c1060f
-cp %{_builddir}/ceph-%{version}/src/boost/libs/compute/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/concept_check/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/contract/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/date_time/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/date_time/xmldoc/license.xml %{buildroot}/usr/share/package-licenses/ceph/9107fddeefd2c1631a1b3535a9f934d5a09e44d7
-cp %{_builddir}/ceph-%{version}/src/boost/libs/dynamic_bitset/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/format/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/gil/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/hana/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/5d328cba13e05c884a7bea2308a1c328841aa991
-cp %{_builddir}/ceph-%{version}/src/boost/libs/histogram/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/hof/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/a9764b2e291c651aa57f90e74824d3885638978f
-cp %{_builddir}/ceph-%{version}/src/boost/libs/iostreams/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/json/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/leaf/LICENSE %{buildroot}/usr/share/package-licenses/ceph/bc3c4d41d4cc7753bea8e7a77fdb7cd384adbb59
-cp %{_builddir}/ceph-%{version}/src/boost/libs/logic/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/move/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/mpl/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/nowide/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/numeric/interval/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/pfr/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/pool/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/property_map/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/ptr_container/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/python/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/rational/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/safe_numerics/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/signals2/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/static_string/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/stl_interfaces/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/test/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/tokenizer/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/uuid/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/yap/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/libs/yap/example/autodiff_library/LICENSE %{buildroot}/usr/share/package-licenses/ceph/9da495f2115031f0a479e482a9e9c16077dae3b0
-cp %{_builddir}/ceph-%{version}/src/boost/tools/bcp/licence_info.cpp %{buildroot}/usr/share/package-licenses/ceph/51bfbe8d163e9cb950899bfd0b9a77b4d3c260c3
-cp %{_builddir}/ceph-%{version}/src/boost/tools/bcp/licence_info.hpp %{buildroot}/usr/share/package-licenses/ceph/d7d282609a551cd74bba985bf9f93c2bbffea35b
-cp %{_builddir}/ceph-%{version}/src/boost/tools/boost_install/test/iostreams/bzip2-1.0.8/LICENSE %{buildroot}/usr/share/package-licenses/ceph/ddf157bc55ed6dec9541e4af796294d666cd0926
-cp %{_builddir}/ceph-%{version}/src/boost/tools/boost_install/test/iostreams/zlib-1.2.11/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3f317fbb3e08fd99169d2e77105d562ea0e482c7
-cp %{_builddir}/ceph-%{version}/src/boost/tools/boostbook/xsl/caramel/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5d255ffbd5cf8345e097e98119feb5e17b1cd276
-cp %{_builddir}/ceph-%{version}/src/boost/tools/build/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/boost/tools/build/src/engine/debian/copyright %{buildroot}/usr/share/package-licenses/ceph/91367cdb429a2ecf03f07f332c27a3588aa8915e
-cp %{_builddir}/ceph-%{version}/src/boost/tools/docca/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/c-ares/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/0034dce2dd5993aa7b86b085171c9bbad1d886b7
-cp %{_builddir}/ceph-%{version}/src/c-ares/test/gmock-1.7.0/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/c-ares/test/gmock-1.7.0/gtest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/c-ares/test/gmock-1.7.0/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e
-cp %{_builddir}/ceph-%{version}/src/ceph-volume/plugin/zfs/LICENSE %{buildroot}/usr/share/package-licenses/ceph/8efce722739e8c4eb87bfc9df01718d9c6e8409c
-cp %{_builddir}/ceph-%{version}/src/cephadm/containers/keepalived/LICENSE %{buildroot}/usr/share/package-licenses/ceph/dbba91eac37e87bf8e6c041b5e528bcd8eb83784
-cp %{_builddir}/ceph-%{version}/src/crypto/isa-l/isa-l_crypto/LICENSE %{buildroot}/usr/share/package-licenses/ceph/6d6808aad49f3cee360717827a76f9896afb5f49
-cp %{_builddir}/ceph-%{version}/src/dmclock/COPYING %{buildroot}/usr/share/package-licenses/ceph/4bd41102f7c7b486f863067637fe3395b3d00331
-cp %{_builddir}/ceph-%{version}/src/dmclock/COPYING-LGPL2.1 %{buildroot}/usr/share/package-licenses/ceph/caeb68c46fa36651acf592771d09de7937926bb3
-cp %{_builddir}/ceph-%{version}/src/erasure-code/jerasure/gf-complete/COPYING %{buildroot}/usr/share/package-licenses/ceph/ec19f1e6705fcea4664666f56ede7d1912a3ef6e
-cp %{_builddir}/ceph-%{version}/src/erasure-code/jerasure/gf-complete/License.txt %{buildroot}/usr/share/package-licenses/ceph/ec19f1e6705fcea4664666f56ede7d1912a3ef6e
-cp %{_builddir}/ceph-%{version}/src/erasure-code/jerasure/jerasure/COPYING %{buildroot}/usr/share/package-licenses/ceph/fa80c8171863d48faf0e62c5f8a0984f4af0f77b
-cp %{_builddir}/ceph-%{version}/src/erasure-code/jerasure/jerasure/License.txt %{buildroot}/usr/share/package-licenses/ceph/fa80c8171863d48faf0e62c5f8a0984f4af0f77b
-cp %{_builddir}/ceph-%{version}/src/fmt/LICENSE.rst %{buildroot}/usr/share/package-licenses/ceph/a6571b819c2fb290e2bb182e92a7a20d7d42318d
-cp %{_builddir}/ceph-%{version}/src/fmt/doc/python-license.txt %{buildroot}/usr/share/package-licenses/ceph/f19fa3302647d3061306ffb9ef072a777c166e0b
-cp %{_builddir}/ceph-%{version}/src/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/googletest/googlemock/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/googletest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e
-cp %{_builddir}/ceph-%{version}/src/googletest/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/isa-l/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c41999097043083c4213a15101a122f1401e41df
-cp %{_builddir}/ceph-%{version}/src/libkmip/LICENSE.APACHE %{buildroot}/usr/share/package-licenses/ceph/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
-cp %{_builddir}/ceph-%{version}/src/libkmip/LICENSE.BSD %{buildroot}/usr/share/package-licenses/ceph/28a297b22a605bcbc70e08add957b93b023791ea
-cp %{_builddir}/ceph-%{version}/src/liburing/COPYING %{buildroot}/usr/share/package-licenses/ceph/3704f4680301a60004b20f94e0b5b8c7ff1484a9
-cp %{_builddir}/ceph-%{version}/src/liburing/COPYING.GPL %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/ceph-%{version}/src/liburing/LICENSE %{buildroot}/usr/share/package-licenses/ceph/36710809dd93101a87fab97bd7e5e34d7bd3615e
-cp %{_builddir}/ceph-%{version}/src/pmdk/LICENSE %{buildroot}/usr/share/package-licenses/ceph/b48875b7bd3b98eb2fa647f56236abfafd6505b7
-cp %{_builddir}/ceph-%{version}/src/pmdk/src/windows/getopt/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/b37189216d7244b1bfd4a8c1e73085469c2ba9a6
-cp %{_builddir}/ceph-%{version}/src/pybind/mgr/rook/rook-client-python/LICENSE %{buildroot}/usr/share/package-licenses/ceph/75c22aba8ef866c2540d79c04236b052f9590f18
-cp %{_builddir}/ceph-%{version}/src/rapidjson/bin/jsonschema/LICENSE %{buildroot}/usr/share/package-licenses/ceph/6808b97edf6d2c189571af702b95916168ff7db8
-cp %{_builddir}/ceph-%{version}/src/rapidjson/license.txt %{buildroot}/usr/share/package-licenses/ceph/47ab05791f28173ad2b82f25c2b5c7fc06252b4d
-cp %{_builddir}/ceph-%{version}/src/rapidjson/thirdparty/gtest/googlemock/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/rapidjson/thirdparty/gtest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e
-cp %{_builddir}/ceph-%{version}/src/rapidjson/thirdparty/gtest/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/rocksdb/COPYING %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/ceph-%{version}/src/rocksdb/LICENSE.Apache %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890
-cp %{_builddir}/ceph-%{version}/src/rocksdb/LICENSE.leveldb %{buildroot}/usr/share/package-licenses/ceph/59f297dcc2fbc8f9f3a966fd5290d72837fd6455
-cp %{_builddir}/ceph-%{version}/src/rocksdb/docs/LICENSE-DOCUMENTATION %{buildroot}/usr/share/package-licenses/ceph/420cc096d9ce8dfabee4082196acb0383377f202
-cp %{_builddir}/ceph-%{version}/src/seastar/LICENSE %{buildroot}/usr/share/package-licenses/ceph/598f87f072f66e2269dd6919292b2934dbb20492
-cp %{_builddir}/ceph-%{version}/src/seastar/NOTICE %{buildroot}/usr/share/package-licenses/ceph/611bf4484a5c29cb62a9cae600bdbf9d15ed1cc9
-cp %{_builddir}/ceph-%{version}/src/seastar/dpdk/license/bsd-3-clause.txt %{buildroot}/usr/share/package-licenses/ceph/7d9185af9b499d91e113fe752af7d9d53b9e5c6a
-cp %{_builddir}/ceph-%{version}/src/seastar/dpdk/license/gpl-2.0.txt %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/ceph-%{version}/src/seastar/dpdk/license/lgpl-2.1.txt %{buildroot}/usr/share/package-licenses/ceph/3704f4680301a60004b20f94e0b5b8c7ff1484a9
-cp %{_builddir}/ceph-%{version}/src/spawn/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90
-cp %{_builddir}/ceph-%{version}/src/spawn/test/dependency/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/spawn/test/dependency/googletest/googlemock/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/spawn/test/dependency/googletest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e
-cp %{_builddir}/ceph-%{version}/src/spawn/test/dependency/googletest/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304
-cp %{_builddir}/ceph-%{version}/src/spdk/LICENSE %{buildroot}/usr/share/package-licenses/ceph/e604286c4a9762865225521b509c6cbad3e6797f
-cp %{_builddir}/ceph-%{version}/src/spdk/dpdk/license/bsd-3-clause.txt %{buildroot}/usr/share/package-licenses/ceph/7d9185af9b499d91e113fe752af7d9d53b9e5c6a
-cp %{_builddir}/ceph-%{version}/src/spdk/dpdk/license/gpl-2.0.txt %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/ceph-%{version}/src/spdk/dpdk/license/lgpl-2.1.txt %{buildroot}/usr/share/package-licenses/ceph/3704f4680301a60004b20f94e0b5b8c7ff1484a9
-cp %{_builddir}/ceph-%{version}/src/spdk/intel-ipsec-mb/LICENSE %{buildroot}/usr/share/package-licenses/ceph/cd9af0d54701d3074f46ea541747e29338caa243
-cp %{_builddir}/ceph-%{version}/src/spdk/isa-l/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c41999097043083c4213a15101a122f1401e41df
-cp %{_builddir}/ceph-%{version}/src/spdk/ocf/LICENSE %{buildroot}/usr/share/package-licenses/ceph/7eb960b032ff94747e1100a7411daeb85dcdc72e
-cp %{_builddir}/ceph-%{version}/src/utf8proc/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/14ba10d7397533d3c7369265e8ec5e446ffee488
-cp %{_builddir}/ceph-%{version}/src/xxHash/LICENSE %{buildroot}/usr/share/package-licenses/ceph/390f8904578d05817ab7cafe1f470cd283bcfe93
-cp %{_builddir}/ceph-%{version}/src/zstd/COPYING %{buildroot}/usr/share/package-licenses/ceph/1d8c93712cbc9117a9e55a7ff86cebd066c8bfd8
-cp %{_builddir}/ceph-%{version}/src/zstd/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c4130945ca3d1f8ea4a3e8af36d3c18b2232116c
-cp %{_builddir}/ceph-%{version}/src/zstd/contrib/linux-kernel/COPYING %{buildroot}/usr/share/package-licenses/ceph/1d8c93712cbc9117a9e55a7ff86cebd066c8bfd8
-cp %{_builddir}/xsimd-aeec9c872c8b475dedd7781336710f2dd2666cb2/LICENSE %{buildroot}/usr/share/package-licenses/ceph/943c3add156aec3fbaea1e5f484f0959138a74fa
+cp %{_builddir}/ceph-%{version}/COPYING-GPL2 %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c || :
+cp %{_builddir}/ceph-%{version}/COPYING-LGPL2.1 %{buildroot}/usr/share/package-licenses/ceph/caeb68c46fa36651acf592771d09de7937926bb3 || :
+cp %{_builddir}/ceph-%{version}/COPYING-LGPL3 %{buildroot}/usr/share/package-licenses/ceph/a8a12e6867d7ee39c21d9b11a984066099b6fb6b || :
+cp %{_builddir}/ceph-%{version}/src/arrow/cpp/submodules/parquet-testing/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/dev/tasks/conda-recipes/arrow-cpp/LLVM_LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/835debc425f3db6a5922d7f1b7af45b6833e92f8 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/dev/tasks/linux-packages/apache-arrow-apt-source/debian/copyright %{buildroot}/usr/share/package-licenses/ceph/586da3df733cd5a5baa2445ea28d0238a1ae17eb || :
+cp %{_builddir}/ceph-%{version}/src/arrow/dev/tasks/linux-packages/apache-arrow/debian/copyright %{buildroot}/usr/share/package-licenses/ceph/f80c737ae94d813116d7c6098da413c09a7495b6 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/java/dev/checkstyle/checkstyle.license %{buildroot}/usr/share/package-licenses/ceph/b942b73d483e9ab678103eaebc7e0ddc4646a924 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/java/vector/src/main/codegen/includes/license.ftl %{buildroot}/usr/share/package-licenses/ceph/dd239078602e993fcbe894c2f223192b719923d9 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/julia/Arrow/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/cee80fb4ee3acaf3a359783f6d96c389e452858c || :
+cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-arrow-cuda/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-arrow-dataset/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-arrow-flight/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-arrow/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-gandiva/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-parquet/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/ruby/red-plasma/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/arrow/testing/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/blkin/COPYRIGHT %{buildroot}/usr/share/package-licenses/ceph/16b1ef1d04f4370f699e99d9ff49dfbca6352282 || :
+cp %{_builddir}/ceph-%{version}/src/boost/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/assign/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/beast/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/beast/test/bench/parser/nodejs-parser/LICENSE-MIT %{buildroot}/usr/share/package-licenses/ceph/1a00a507fb89bb0018c092d6835077d541e76dc2 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/beast/test/extern/zlib-1.2.11/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3f317fbb3e08fd99169d2e77105d562ea0e482c7 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/callable_traits/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/66317fe148c4366d08a4f95e918ddcd784c1060f || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/compute/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/concept_check/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/contract/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/date_time/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/date_time/xmldoc/license.xml %{buildroot}/usr/share/package-licenses/ceph/9107fddeefd2c1631a1b3535a9f934d5a09e44d7 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/dynamic_bitset/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/format/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/gil/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/hana/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/5d328cba13e05c884a7bea2308a1c328841aa991 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/histogram/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/hof/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/a9764b2e291c651aa57f90e74824d3885638978f || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/iostreams/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/json/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/leaf/LICENSE %{buildroot}/usr/share/package-licenses/ceph/bc3c4d41d4cc7753bea8e7a77fdb7cd384adbb59 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/logic/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/move/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/mpl/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/nowide/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/numeric/interval/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/pfr/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/pool/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/property_map/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/ptr_container/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/python/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/rational/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/safe_numerics/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/signals2/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/static_string/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/stl_interfaces/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/test/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/tokenizer/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/uuid/LICENSE %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/yap/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/libs/yap/example/autodiff_library/LICENSE %{buildroot}/usr/share/package-licenses/ceph/9da495f2115031f0a479e482a9e9c16077dae3b0 || :
+cp %{_builddir}/ceph-%{version}/src/boost/tools/bcp/licence_info.cpp %{buildroot}/usr/share/package-licenses/ceph/51bfbe8d163e9cb950899bfd0b9a77b4d3c260c3 || :
+cp %{_builddir}/ceph-%{version}/src/boost/tools/bcp/licence_info.hpp %{buildroot}/usr/share/package-licenses/ceph/d7d282609a551cd74bba985bf9f93c2bbffea35b || :
+cp %{_builddir}/ceph-%{version}/src/boost/tools/boost_install/test/iostreams/bzip2-1.0.8/LICENSE %{buildroot}/usr/share/package-licenses/ceph/ddf157bc55ed6dec9541e4af796294d666cd0926 || :
+cp %{_builddir}/ceph-%{version}/src/boost/tools/boost_install/test/iostreams/zlib-1.2.11/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3f317fbb3e08fd99169d2e77105d562ea0e482c7 || :
+cp %{_builddir}/ceph-%{version}/src/boost/tools/boostbook/xsl/caramel/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5d255ffbd5cf8345e097e98119feb5e17b1cd276 || :
+cp %{_builddir}/ceph-%{version}/src/boost/tools/build/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/boost/tools/build/src/engine/debian/copyright %{buildroot}/usr/share/package-licenses/ceph/91367cdb429a2ecf03f07f332c27a3588aa8915e || :
+cp %{_builddir}/ceph-%{version}/src/boost/tools/docca/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/c-ares/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/0034dce2dd5993aa7b86b085171c9bbad1d886b7 || :
+cp %{_builddir}/ceph-%{version}/src/c-ares/test/gmock-1.7.0/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/c-ares/test/gmock-1.7.0/gtest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/c-ares/test/gmock-1.7.0/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e || :
+cp %{_builddir}/ceph-%{version}/src/ceph-volume/plugin/zfs/LICENSE %{buildroot}/usr/share/package-licenses/ceph/8efce722739e8c4eb87bfc9df01718d9c6e8409c || :
+cp %{_builddir}/ceph-%{version}/src/cephadm/containers/keepalived/LICENSE %{buildroot}/usr/share/package-licenses/ceph/dbba91eac37e87bf8e6c041b5e528bcd8eb83784 || :
+cp %{_builddir}/ceph-%{version}/src/crypto/isa-l/isa-l_crypto/LICENSE %{buildroot}/usr/share/package-licenses/ceph/6d6808aad49f3cee360717827a76f9896afb5f49 || :
+cp %{_builddir}/ceph-%{version}/src/dmclock/COPYING %{buildroot}/usr/share/package-licenses/ceph/4bd41102f7c7b486f863067637fe3395b3d00331 || :
+cp %{_builddir}/ceph-%{version}/src/dmclock/COPYING-LGPL2.1 %{buildroot}/usr/share/package-licenses/ceph/caeb68c46fa36651acf592771d09de7937926bb3 || :
+cp %{_builddir}/ceph-%{version}/src/erasure-code/jerasure/gf-complete/COPYING %{buildroot}/usr/share/package-licenses/ceph/ec19f1e6705fcea4664666f56ede7d1912a3ef6e || :
+cp %{_builddir}/ceph-%{version}/src/erasure-code/jerasure/gf-complete/License.txt %{buildroot}/usr/share/package-licenses/ceph/ec19f1e6705fcea4664666f56ede7d1912a3ef6e || :
+cp %{_builddir}/ceph-%{version}/src/erasure-code/jerasure/jerasure/COPYING %{buildroot}/usr/share/package-licenses/ceph/fa80c8171863d48faf0e62c5f8a0984f4af0f77b || :
+cp %{_builddir}/ceph-%{version}/src/erasure-code/jerasure/jerasure/License.txt %{buildroot}/usr/share/package-licenses/ceph/fa80c8171863d48faf0e62c5f8a0984f4af0f77b || :
+cp %{_builddir}/ceph-%{version}/src/fmt/LICENSE.rst %{buildroot}/usr/share/package-licenses/ceph/a6571b819c2fb290e2bb182e92a7a20d7d42318d || :
+cp %{_builddir}/ceph-%{version}/src/fmt/doc/python-license.txt %{buildroot}/usr/share/package-licenses/ceph/f19fa3302647d3061306ffb9ef072a777c166e0b || :
+cp %{_builddir}/ceph-%{version}/src/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/googletest/googlemock/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/googletest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e || :
+cp %{_builddir}/ceph-%{version}/src/googletest/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/isa-l/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c41999097043083c4213a15101a122f1401e41df || :
+cp %{_builddir}/ceph-%{version}/src/libkmip/LICENSE.APACHE %{buildroot}/usr/share/package-licenses/ceph/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
+cp %{_builddir}/ceph-%{version}/src/libkmip/LICENSE.BSD %{buildroot}/usr/share/package-licenses/ceph/28a297b22a605bcbc70e08add957b93b023791ea || :
+cp %{_builddir}/ceph-%{version}/src/liburing/COPYING %{buildroot}/usr/share/package-licenses/ceph/3704f4680301a60004b20f94e0b5b8c7ff1484a9 || :
+cp %{_builddir}/ceph-%{version}/src/liburing/COPYING.GPL %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c || :
+cp %{_builddir}/ceph-%{version}/src/liburing/LICENSE %{buildroot}/usr/share/package-licenses/ceph/36710809dd93101a87fab97bd7e5e34d7bd3615e || :
+cp %{_builddir}/ceph-%{version}/src/pmdk/LICENSE %{buildroot}/usr/share/package-licenses/ceph/b48875b7bd3b98eb2fa647f56236abfafd6505b7 || :
+cp %{_builddir}/ceph-%{version}/src/pmdk/src/windows/getopt/LICENSE.txt %{buildroot}/usr/share/package-licenses/ceph/b37189216d7244b1bfd4a8c1e73085469c2ba9a6 || :
+cp %{_builddir}/ceph-%{version}/src/pybind/mgr/rook/rook-client-python/LICENSE %{buildroot}/usr/share/package-licenses/ceph/75c22aba8ef866c2540d79c04236b052f9590f18 || :
+cp %{_builddir}/ceph-%{version}/src/rapidjson/bin/jsonschema/LICENSE %{buildroot}/usr/share/package-licenses/ceph/6808b97edf6d2c189571af702b95916168ff7db8 || :
+cp %{_builddir}/ceph-%{version}/src/rapidjson/license.txt %{buildroot}/usr/share/package-licenses/ceph/47ab05791f28173ad2b82f25c2b5c7fc06252b4d || :
+cp %{_builddir}/ceph-%{version}/src/rapidjson/thirdparty/gtest/googlemock/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/rapidjson/thirdparty/gtest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e || :
+cp %{_builddir}/ceph-%{version}/src/rapidjson/thirdparty/gtest/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/rocksdb/COPYING %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c || :
+cp %{_builddir}/ceph-%{version}/src/rocksdb/LICENSE.Apache %{buildroot}/usr/share/package-licenses/ceph/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
+cp %{_builddir}/ceph-%{version}/src/rocksdb/LICENSE.leveldb %{buildroot}/usr/share/package-licenses/ceph/59f297dcc2fbc8f9f3a966fd5290d72837fd6455 || :
+cp %{_builddir}/ceph-%{version}/src/rocksdb/docs/LICENSE-DOCUMENTATION %{buildroot}/usr/share/package-licenses/ceph/420cc096d9ce8dfabee4082196acb0383377f202 || :
+cp %{_builddir}/ceph-%{version}/src/seastar/LICENSE %{buildroot}/usr/share/package-licenses/ceph/598f87f072f66e2269dd6919292b2934dbb20492 || :
+cp %{_builddir}/ceph-%{version}/src/seastar/NOTICE %{buildroot}/usr/share/package-licenses/ceph/611bf4484a5c29cb62a9cae600bdbf9d15ed1cc9 || :
+cp %{_builddir}/ceph-%{version}/src/seastar/dpdk/license/bsd-3-clause.txt %{buildroot}/usr/share/package-licenses/ceph/7d9185af9b499d91e113fe752af7d9d53b9e5c6a || :
+cp %{_builddir}/ceph-%{version}/src/seastar/dpdk/license/gpl-2.0.txt %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c || :
+cp %{_builddir}/ceph-%{version}/src/seastar/dpdk/license/lgpl-2.1.txt %{buildroot}/usr/share/package-licenses/ceph/3704f4680301a60004b20f94e0b5b8c7ff1484a9 || :
+cp %{_builddir}/ceph-%{version}/src/spawn/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/ceph/3cba29011be2b9d59f6204d6fa0a386b1b2dbd90 || :
+cp %{_builddir}/ceph-%{version}/src/spawn/test/dependency/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/spawn/test/dependency/googletest/googlemock/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/spawn/test/dependency/googletest/googlemock/scripts/generator/LICENSE %{buildroot}/usr/share/package-licenses/ceph/1d4719e04eaa4909ab5a59ef5cb04d2a5517716e || :
+cp %{_builddir}/ceph-%{version}/src/spawn/test/dependency/googletest/googletest/LICENSE %{buildroot}/usr/share/package-licenses/ceph/5a2314153eadadc69258a9429104cd11804ea304 || :
+cp %{_builddir}/ceph-%{version}/src/spdk/LICENSE %{buildroot}/usr/share/package-licenses/ceph/e604286c4a9762865225521b509c6cbad3e6797f || :
+cp %{_builddir}/ceph-%{version}/src/spdk/dpdk/license/bsd-3-clause.txt %{buildroot}/usr/share/package-licenses/ceph/7d9185af9b499d91e113fe752af7d9d53b9e5c6a || :
+cp %{_builddir}/ceph-%{version}/src/spdk/dpdk/license/gpl-2.0.txt %{buildroot}/usr/share/package-licenses/ceph/4cc77b90af91e615a64ae04893fdffa7939db84c || :
+cp %{_builddir}/ceph-%{version}/src/spdk/dpdk/license/lgpl-2.1.txt %{buildroot}/usr/share/package-licenses/ceph/3704f4680301a60004b20f94e0b5b8c7ff1484a9 || :
+cp %{_builddir}/ceph-%{version}/src/spdk/intel-ipsec-mb/LICENSE %{buildroot}/usr/share/package-licenses/ceph/cd9af0d54701d3074f46ea541747e29338caa243 || :
+cp %{_builddir}/ceph-%{version}/src/spdk/isa-l/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c41999097043083c4213a15101a122f1401e41df || :
+cp %{_builddir}/ceph-%{version}/src/spdk/ocf/LICENSE %{buildroot}/usr/share/package-licenses/ceph/7eb960b032ff94747e1100a7411daeb85dcdc72e || :
+cp %{_builddir}/ceph-%{version}/src/utf8proc/LICENSE.md %{buildroot}/usr/share/package-licenses/ceph/14ba10d7397533d3c7369265e8ec5e446ffee488 || :
+cp %{_builddir}/ceph-%{version}/src/xxHash/LICENSE %{buildroot}/usr/share/package-licenses/ceph/390f8904578d05817ab7cafe1f470cd283bcfe93 || :
+cp %{_builddir}/ceph-%{version}/src/zstd/COPYING %{buildroot}/usr/share/package-licenses/ceph/1d8c93712cbc9117a9e55a7ff86cebd066c8bfd8 || :
+cp %{_builddir}/ceph-%{version}/src/zstd/LICENSE %{buildroot}/usr/share/package-licenses/ceph/c4130945ca3d1f8ea4a3e8af36d3c18b2232116c || :
+cp %{_builddir}/ceph-%{version}/src/zstd/contrib/linux-kernel/COPYING %{buildroot}/usr/share/package-licenses/ceph/1d8c93712cbc9117a9e55a7ff86cebd066c8bfd8 || :
+cp %{_builddir}/xsimd-aeec9c872c8b475dedd7781336710f2dd2666cb2/LICENSE %{buildroot}/usr/share/package-licenses/ceph/943c3add156aec3fbaea1e5f484f0959138a74fa || :
 pushd clr-build
 %make_install
 popd
@@ -1242,13 +1240,10 @@ rm -rf %{buildroot}/usr/lib/systemd/system/ceph-fuse*
 /usr/share/package-licenses/ceph/6808b97edf6d2c189571af702b95916168ff7db8
 /usr/share/package-licenses/ceph/6d6808aad49f3cee360717827a76f9896afb5f49
 /usr/share/package-licenses/ceph/75c22aba8ef866c2540d79c04236b052f9590f18
-/usr/share/package-licenses/ceph/77ea6a9f79fb4910cad49029aa6419d54bcd7237
 /usr/share/package-licenses/ceph/7d9185af9b499d91e113fe752af7d9d53b9e5c6a
 /usr/share/package-licenses/ceph/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
 /usr/share/package-licenses/ceph/7eb960b032ff94747e1100a7411daeb85dcdc72e
-/usr/share/package-licenses/ceph/8305ce97b1d1d40105e78bd9d820190b4a9cad9d
 /usr/share/package-licenses/ceph/835debc425f3db6a5922d7f1b7af45b6833e92f8
-/usr/share/package-licenses/ceph/84fc3cb42ef0fb414ff8daf2483b24b54c95d9a9
 /usr/share/package-licenses/ceph/8efce722739e8c4eb87bfc9df01718d9c6e8409c
 /usr/share/package-licenses/ceph/9107fddeefd2c1631a1b3535a9f934d5a09e44d7
 /usr/share/package-licenses/ceph/91367cdb429a2ecf03f07f332c27a3588aa8915e

@@ -39,7 +39,7 @@ libsqlite3.so.0
 libssl.so.3
 libstdc++.so.6
 libtcmalloc.so.4
-libthrift-0.16.0.so
+libthrift-0.17.0.so
 libtinfo.so.6
 libudev.so.1
 libz.so.1
